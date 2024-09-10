@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterLayout.html}">
+
+<body>
+<main th:fragment="content">
+
+
+    <section class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>List of Services</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="inner-page">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 text-center shadow-lg">
+                        <h3>Number of Services Notified:<br/> <b th:text="${scount}"></b> </h3>
+                    </div>
+                    <div class="col-md-3 text-center shadow-lg">
+                        <h3>Number of Sub Services: <br/><b th:text="${serviceslistsize + offlineserviceslistsize}"> </b></h3>
+                    </div>
+                    <div class="col-md-3 text-center shadow-lg">
+                        <h3>Number of Sub Services Online: <br/><b th:text="${serviceslistsize}"></b></h3>
+                    </div>
+                    <div class="col-md-3 text-center shadow-lg">
+                        <h3>Number of Sub Services Offline:<br/> <b th:text="${offlineserviceslistsize}"></b></h3>
+                    </div>
+                </div>
+            </div><br/>
+            <nav>
+                <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Online</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Offline</button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="scroller">
+                        <div class='table-responsive-sm'>
+                            <table id="servicestable" border="1" class="table datatable table-striped" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Services Name</th>
+                                    <th>Departments/Office Name</th>
+                                    <th>Enclosures</th>
+                                    <th>Apply</th>
+                                    <th>Track</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="d : ${serviceslist}">
+                                    <td th:text="${d.servicename}"></td>
+                                    <td th:text="${d.department}"></td>
+                                    <td th:utext="${d.enclosures}"></td>
+
+                                    <td th:if="${d.online == '1'}">
+                                        <a th:id="${d.slno}" class="btn btn-block btn-primary form-control btnmodal">Apply</a>
+                                        <div class="modal fade" th:id="'exampleModal' + ${d.slno}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-md-12 mb-0 mb-md-0">
+                                                                <div class="p-4 wow">
+                                                                    <div class="alert alert-success" role="alert">
+                                                                        <h3 style="text-align: center;">You will be redirected to an external website.<br/>
+                                                                            To Apply for the Service, you must Login if you already have created an account or else you must first register.
+                                                                        </h3>
+                                                                        <a class="btn btn-block btn-info form-control btnapply" rel="noopener noreferrer" target="_blank" th:href="${d.links}" th:id="'btn_' + ${d.slno}">Proceed</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td th:if="${d.online == '2'}">
+                                        <a th:th:id="${d.slno}" class="btnmodal btn btn-block btn-primary form-control">Apply</a>
+                                        <div class="modal fade" th:id="'exampleModal' + ${d.slno}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-md-12 mb-0 mb-md-0">
+                                                                <div class="p-4 wow">
+                                                                    <div class="alert alert-success" role="alert">
+                                                                        <h3 style="text-align: center;">You will be redirected to an external website with instructions on how to avail this service.</h3>
+                                                                        <a rel="noopener noreferrer" class="btn btn-block btn-info form-control btnapply" target="_blank" th:href="${d.links}" th:id="'btn_' + ${d.slno}">Proceed</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td th:if="${d.online == '0'}">
+                                        <a th:href="pdf/${d.links}" target="_blank" class="btn btn-block btn-primary form-control">Download Form</a>
+                                    </td>
+
+                                    <td th:if="${d.online != '1'}">
+                                        <a href="#" data-bs-toggle="modal" th:data-bs-target="'#trackmodalsp' + ${d.slno}" class="btn btn-block btn-success form-control">Track</a>
+                                        <div class="modal fade" th:id="'exampleModal' + ${d.slno}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-md-12 mb-0 mb-md-0">
+                                                                <div class="p-4 wow">
+                                                                    <div class="alert alert-success" role="alert">
+                                                                        <h3 style="text-align: center;" th:text="${d.links}"></h3>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td th:if="${d.online == '1'}">
+                                        <a href="#" data-bs-toggle="modal" th:data-bs-target="'#trackmodalsp' + ${d.slno}" class="btn btn-block btn-success form-control">Track</a>
+                                        <div class="modal fade" th:id="'trackmodalsp' + ${d.slno}" tabindex="-1" role="dialog" aria-labelledby="trackmodalsp" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-md-12 mb-0 mb-md-0">
+                                                                <div class="p-4 wow">
+                                                                    <input class="form-control" th:id="'track_' + ${d.slno}" placeholder="Enter your Reference Number"/>
+                                                                    <a th:id="'btntrack_' + ${d.slno}" class="btn btn-block btn-info form-control btntracksp">Track</a>
+                                                                    <div id="msg" style="text-align: center;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="scroller">
+                        <div class="table-responsive-sm">
+                            <table id="offlineservicestable" border="1" class="table table-striped datatable">
+                                <thead>
+                                <tr>
+                                    <th valign="top">Departments/Office Name</th>
+                                    <th valign="top">Services Name</th>
+                                    <th valign="top">Enclosures</th>
+                                    <th valign="top">Apply</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="d : ${offlineserviceslist}">
+                                    <td th:text="${d.department}"></td>
+                                    <td th:text="${d.servicename}"></td>
+                                    <td th:utext="${d.enclosures}"></td>
+                                    <td>
+                                        <div th:switch="${d.online}">
+                                            <div th:case="'1'">
+                                                <a th:id="${d.slno}" class="btn btn-block btn-primary form-control btnmodal">Apply</a>
+                                                <!-- Modal for case 1 -->
+                                                <div class="modal fade" th:id="'exampleModal' + ${d.slno}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 25px;"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row justify-content-center">
+                                                                    <div class="col-md-12 mb-0 mb-md-0">
+                                                                        <div class="p-4 wow">
+                                                                            <div class="alert alert-success" role="alert">
+                                                                                <h3 style="text-align: center;">You will be redirected to an external website. <br/> To Apply for the Service, you must Login if you already have created an account or else you must first register.</h3>
+                                                                                <a rel="noopener noreferrer" class="btn btn-block btn-info form-control" target="_blank" th:href="${d.links}">Proceed</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div th:case="'2'">
+                                                <a th:id="${d.slno}" class="btn btn-block btn-primary form-control btnmodal">Apply</a>
+                                                <!-- Modal for case 2 -->
+                                                <div class="modal fade" th:id="'exampleModal' + ${d.slno}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row justify-content-center">
+                                                                    <div class="col-md-12 mb-0 mb-md-0">
+                                                                        <div class="p-4 wow">
+                                                                            <div class="alert alert-success" role="alert">
+                                                                                <h3 style="text-align: center;">You will be redirected to an external website with instructions on how to avail this service</h3>
+                                                                                <a rel="noopener noreferrer" class="btn btn-block btn-info form-control" target="_blank" th:href="${d.links}">Proceed</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div th:case="'0'">
+                                                <a th:href="@{'/web/pdf/' + ${d.links}}" target="_blank" class="btn btn-block btn-primary form-control">Download Form</a>
+                                            </div>
+
+                                            <div th:case="*">
+                                                <a th:id="${d.slno}" class="btn btn-block btn-info form-control btnmodal">Show Details</a>
+                                                <!-- Modal for default case -->
+                                                <div class="modal fade" th:id="'exampleModal' + ${d.slno}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 25px;"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row justify-content-center">
+                                                                    <div class="col-md-12 mb-0 mb-md-0">
+                                                                        <div class="p-4 wow">
+                                                                            <div class="alert alert-success" role="alert">
+                                                                                <h3 style="text-align: center;" th:text="${d.links}"></h3>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <script th:src="@{/web/js/jsfiles/onlineservices.js}" type="text/javascript"></script>
+
+</main>
+</body>
+</html>

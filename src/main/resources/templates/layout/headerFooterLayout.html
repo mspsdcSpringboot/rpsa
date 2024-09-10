@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{imports/layoutImports :: headerImports}"></head>
+<head th:replace="~{imports/layoutImports :: footerImports}"></head>
+<body>
+
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Main content -->
+    <main>
+        <div th:replace="~{${view} :: content}"></div>
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+
+</html>

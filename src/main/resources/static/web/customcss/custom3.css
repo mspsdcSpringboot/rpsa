@@ -1,0 +1,17 @@
+body{
+    /*background-color: #e8ffea;*/
+    /*background-color: #edf4f5;*/
+    font-family: cursivel;
+}
+
+.card-header{
+    /*background-color:#002047;*/
+    background-color: #f8f8f8;
+    color:black;
+    text-align: left;
+    font-size: 15px;
+}
+.card-body{
+    /*background-color: #edf4f5;*/
+    font-size: 20px;
+}

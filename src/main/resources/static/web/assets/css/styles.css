@@ -1,0 +1,147 @@
+:root {
+    --first-color: #16f;
+    --second-color: #ff7;
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+}
+.login-form1{
+    background-color: white !important;
+}
+.main-content {
+    content: "";
+    padding: 10px;
+    inset: 0;
+    /* position: absolute; */
+    background-color: #ef885416;
+    z-index: -1;
+    /* opacity: 0.1; */
+    border-radius: 2px;
+}
+.breadcrumb {
+    margin-bottom: 4px;
+    height: 100%;
+}
+.breadcrumb a {
+    text-decoration: none;
+    color: rgb(142, 87, 46);
+}
+
+.main-section {
+    padding: 12px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 1px;
+}
+
+/*.logo {
+    max-width: 105px;
+    margin: 5px;
+}*/
+.navbar {
+    background-color: #5E807F;
+    border-radius: 2px;
+    margin-bottom: 1px;
+}
+
+.carousel-inner {
+    border-radius: 2px;
+}
+
+.card {
+    border-radius: 10px;
+}
+.card-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #5E807F;
+}
+
+.inner-title {
+    font-weight: bold;
+    color: #5E807F;
+    margin-bottom: 0px;
+}
+
+.card-text {
+    font-size: 1em;
+    text-align: justify;
+}
+
+.nav-item {
+    /* text-shadow: 0px 0.3px #000; */
+    /* font-size: 1.1em; */
+    font-weight: bold;
+}
+/* change nav item active */
+.navbar-nav > li > .active {
+    /* background-color: red; */
+    color: rgb(255, 255, 255) !important;
+}
+.main-section1 {
+    background: #e77e23;
+    height: 30px;
+    left: 50%;
+    padding: 8px;
+    position: absolute;
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+}
+
+.main-section1:focus {
+    transform: translateY(0%);
+}
+
+.footer {
+    box-shadow: 1rem 2rem 1rem rgba(0, 0, 0, 0.2);
+    border-radius: 2rem;
+    background: #fff;
+    max-width: 100rem;
+    /*height: 22rem;*/
+    margin: 0rem auto;
+    padding: 1rem;
+    margin-bottom: 0px;
+
+    background-color: white;
+    
+
+    /* display: grid; */
+    /* grid-template-rows: 4fr 1fr;
+    grid-row-gap: 3rem; */
+}
+.footerLinks ul {
+    display: inline-block;
+}
+
+.footerLinks ul li {
+    display: inline-block;
+    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.footerLinks a {
+    text-decoration: none !important;
+    color: #5E807F;
+}
+a:hover {
+    color: rgb(2, 84, 177);
+}
+
+.inner_list::before {
+    content: "•";
+    color: rgb(160, 64, 4);
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+.inner_ul {
+    list-style: none;
+    list-style-type: url("../bootstrap5/bootstrap_icons/apple.svg");
+}
+.nav-link{
+    color: #ffffff;
+}
+thead{
+    background-color: black;
+}

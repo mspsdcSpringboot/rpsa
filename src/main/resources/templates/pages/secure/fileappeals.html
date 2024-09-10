@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+
+    <form id="appealform" enctype="multipart/form-data" autocomplete="off">
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <div class="shadow-lg p-4">
+                        <div class="form-group mb-3">
+                            <h5 class="text-center"><strong>File Appeal</strong></h5>
+                            <hr/>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>Select the Service for which you want to file an appeal<span class="text-danger">*</span></label>
+<!--                            <select id="services" name="service" class="form-select" required>-->
+<!--                                <option value="">Select</option>-->
+<!--                                <th:block th:each="d : ${servicelist}">-->
+<!--                                    <option th:value="${d.servicecode}" th:text="${d.servicename}"></option>-->
+<!--                                </th:block>-->
+<!--                            </select>-->
+
+
+                            <select id="services" name="service" class="form-select" required>
+                                <option value="">Select</option>
+                                <th:block th:each="d : ${servicelist}">
+                                    <option th:value="${d.servicecode}" th:text="${d.servicename}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <input type="hidden" name="appelateid" id="appelateid" />
+                            <label>Select the Sub-Service for which you want to file an appeal<span class="text-danger">*</span></label>
+                            <select id="subservices" name="subservice" class="form-select" required>
+                                <option value="">Select</option>
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                            <br/>
+                            <span id="sla"></span>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
+                            <label for="designatedofficer">Select the office from whom the service had been applied from<span class="text-danger">*</span></label>
+                            <select id="designatedofficer" name="designatedofficer" class="form-select" required>
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
+                            <label>Application Reference No/Receipt:</label>
+                            <input type="text" name="applicationrefno" class="form-control" required />
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>Application Submission Date:</label>
+                            <input type="date" name="applicationdate" class="form-control" required />
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label>Select Grounds Of Appeal<span class="text-danger">*</span></label>
+                            <select id="groundcode" name="groundcode" class="form-select" required>
+                                <option value="">Select</option>
+                                <th:block th:each="d : ${appealGrounds}">
+                                    <option th:value="${d.groundcode}" th:text="${d.ground}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <br/>
+                        <div class="form-group" id="ordercopy">
+                            <label>Upload Copy of the Order from the Designated Office:<span class="text-danger">*</span></label><br>
+                            <span class="text-danger">Only jpeg, jpg, png, pdf file within 2MB are allowed</span><br/>
+                            <input type="file" name="ordercopy" class="form-control" id="file3"/>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label>Please type your Relief Sought:<span class="text-danger">*</span></label>
+                            <textarea name="relief1" class="form-control" required></textarea>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label>Any other information necessary for filling appeal:</label>
+                            <textarea name="otherinfo1" class="form-control autoresizing"></textarea>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>Choose your preferred hearing type<span class="text-danger">*</span> </label>
+                            <select name="hearingtype" class="form-select" required>
+                                <option value="">Select</option>
+                                <option value="1">Hearing to be conducted in Person</option>
+                                <option value="2">Hearing to be conducted through VC</option>
+                            </select>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label>Upload Identification Proof (Epic Card/Aadhar Card/PAN Card/Driving License):<span class="text-danger">*</span></label><br/>
+                            <span class="text-danger">Only jpeg, jpg, png, pdf file within 2MB are allowed</span><br/>
+                            <input type="file" name="idproof" class="form-control" id="file1"/>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="supportdoc">Upload all requisite enclosures/documents that were provided to the concerned office while applying for the service. [Service Specific Document]:<span class="text-danger">*</span> </label><br/>
+                            <span class="text-danger">Only jpeg, jpg, png, pdf file within 2MB are allowed</span><br/>
+                            <input type="file" name="supportdoc" class="form-control" id="supportdoc"/>
+                            <input type="file" name="supportdoc2" class="form-control" id="supportdoc2"/>
+                            <input type="file" name="supportdoc3" class="form-control" id="supportdoc3"/>
+                            <input type="file" name="supportdoc4" class="form-control" id="supportdoc4"/>
+                            <input type="file" name="supportdoc5" class="form-control" id="supportdoc5"/>
+                            <a class="btn btn-small btn-outline-info" id="addrow">Add File</a>
+                            <a type="button" class="btn btn-small btn-outline-danger" id="delrow">Remove File</a>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>Upload Form I Issued:<span class="text-danger">*</span></label><br>
+                            <span class="text-danger">Only jpeg, jpg, png, pdf file within 2MB are allowed</span><br/>
+                            <input type="file" name="form1doc" class="form-control" id="file9"/>
+                        </div>
+                        <br>
+
+                        <div class="alert alert-success" role="alert">
+                            <div class="form-group">
+                                <label><strong>Declaration</strong></label><br>
+                                <input type="checkbox" name="declaration" class="form-inline" id="declaration"/> I, <span th:text="${userData.fullname}"></span> declare that the particulars given above are true and correct to the best of my knowledge, information, and belief.
+                            </div>
+                        </div>
+                        <div class="container mt-2 text-center">
+                            <input type="submit" id="submitbtn" class="btn btn-default" value="Submit"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<!--    <script src="web/js/jsfiles/fileappeal.js" type="text/javascript"></script>-->
+
+    <script th:src="@{/web/js/jsfiles/fileappeal.js}" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+</main>
+</html>

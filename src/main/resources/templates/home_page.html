@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{imports/layoutImports :: headerImports}"></head>
+<body>
+
+    <div th:replace="~{fragments/header :: header}"></div>
+
+
+
+
+    <!-- ======= Hero Section ======= -->
+    <!--        <section id="hero" class="d-flex align-items-center">
+                <div class="container">
+                                    <h1 style="color: white">Meghalaya State Public Services Delivery Commission (MSPSDC)</h1>
+                                    <h2 style="color: white">Under The Meghalaya Right to Public Services Act, 2020</h2><br/>
+                                    <h5 style="color: #33ffff;"><i>A Comprehensive Citizen Platform</i></h5>
+                                    <h5 style="color: #33ffff"><i>"For timely delivery of notified services to the citizen of Meghalaya and remedy in case of service delayed/service denied"</i></h5>
+                    <a href="#about" class="btn-get-started scrollto">Get Started</a>
+
+                </div>
+            </section> -->
+
+    <!--End Hero -->
+
+    <!--</div>-->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" >
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img id="carou" src="web/tricel/images/fraction-slider/base.png" class="d-block w-100 carou" alt="...">
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <main id="main">
+
+        <!--
+                     <div class="container-fluid my-container" style="padding:10px;background-color: #e9c9ef; ">
+                         <img src="tricel/images/fraction-slider/base.png" class="img-fluid">
+                     </div>          -->
+
+        <!--======= Why Us Section =======-->
+        <section id="why-us" class="why-us">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-4 d-flex align-items-stretch">
+
+                        <div class="content" >
+                            <!--<h3>Why the Commission?</h3>-->
+
+                            <!--Dear Citizen,<br/>-->
+                            This is an integrated web portal at your service
+                            for delivery of notified services. Here you can: <br/>
+
+
+                            <ul>
+                                <li>Apply for the <span th:text="${totalServices}"></span> Notified Services.</li>
+                                <li>File an Appeal to the Appellate Authority in case your application is delayed or denied.</li>
+                                <li>File an Appeal to the Commission in case your first appeal is delayed or denied.</li>
+                                <li>Track the Status of Services and Appeals. </li>
+
+                                <li>Attend Hearing (if any) online through Video Conference.</li>
+                            </ul>
+
+
+
+                            <!--                                    Best Regards,<br/>
+                                                                Chief Commissioner<br/>
+                                                                Meghalaya State Public Services deliver Commission<br/>-->
+
+
+                            <!--                                <div class="text-center">
+                                                                <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+                                                            </div>-->
+                        </div>
+
+                    </div>
+                    <div class="col-lg-8 d-flex align-items-stretch">
+                        <div class="icon-boxes d-flex flex-column justify-content-center">
+                            <div class="row">
+                                <div class="col-xl-4 ">
+                                    <a href="/public/onlineservices">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <!--<i class="bi bi bi-gear"></i>-->
+                                            <i class="bi bi-list-columns-reverse"></i>
+
+                                            <!--<i class="fa-file-circle-plus"></i>-->
+                                            <h4>Apply For Services</h4>
+                                            <p>Click here to apply for any of the <span th:text="${totalServices}"></span> notified services<br/>
+
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-xl-4 ">
+                                    <a id="showfirstappealmodal">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <i class="bi bi-file-earmark-binary"></i>
+
+                                            <h4>File First Appeal</h4>
+                                            <p>Click here if your service application is delayed or  denied <br/></p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-xl-4 ">
+                                    <a  id="showsecondappealmodal1">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <i class="bi bi-file-earmark-plus"></i>
+                                            <h4>Appeal to Commission</h4>
+                                            <p>Click here to appeal if your first appeal has been denied or delayed<br/></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div><!-- End .content-->
+                    </div>
+
+                    <div class="col-lg-4 d-flex align-items-stretch">
+                        &nbsp;
+                    </div>
+                    <div class="col-lg-8 compre" >
+                        <!--<div class="content" >-->
+                        <h5 class="text-black" style="text-align: left">Meghalaya State Public Services Delivery Commission Web Portal:</h5>
+                        <h5 ><i>A Comprehensive Citizen Platform</i></h5>
+                        <h5 class="text-black"><i>"For timely delivery of notified services to the citizens of Meghalaya and remedy in case of service delayed/service denied"</i></h5>
+                        <!--</div>-->
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Why Us Section -->
+
+        <!-- ======= About Section ======= -->
+        <!--            <section id="about" class="about">
+                        <div class="container-fluid">
+
+                            <div class="row">
+                                <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch position-relative">
+                                    <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"></a>
+                                </div>
+
+                                <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
+                                    <h3>Enim quis est voluptatibus aliquid consequatur fugiat</h3>
+                                    <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
+
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="bx bx-fingerprint"></i></div>
+                                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+                                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                                    </div>
+
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="bx bx-gift"></i></div>
+                                        <h4 class="title"><a href="">Nemo Enim</a></h4>
+                                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+                                    </div>
+
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="bx bx-atom"></i></div>
+                                        <h4 class="title"><a href="">Dine Pad</a></h4>
+                                        <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>-->
+        <!-- End About Section -->
+
+        <!-- ======= Counts Section ======= -->
+        <!--            <section id="counts" class="counts">
+                        <div class="container">
+
+                            <div class="row">
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="count-box  shadow" style='color: white;'>
+                                        <div class="count-box  shadow" style="background-color: #97CAEF;">
+                                        <strong><i class="bi bi-file-earmark-text-fill shadow"  ></i></strong>
+
+                                        <span style='color: white;' data-purecounter-start="0" data-purecounter-end="${jdata[0]}" data-purecounter-duration="1" class="purecounter"></span>
+                                        <p> <strong>Appeals Submitted</strong></p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                                    <div class="count-box  shadow" style='color: white;'>
+                                        <div class="count-box  shadow" style="background-color: #8EE4AF;">
+                                        <i class="bi bi-file-earmark-check-fill shadow"></i>
+                                        <span style='color: white;' data-purecounter-start="0" data-purecounter-end="${jdata[1]}" data-purecounter-duration="1" class="purecounter"></span>
+                                        <p> <strong>Appeals Disposed</strong></p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                    <div class="count-box  shadow" style='color: white;' >
+                                        <div class="count-box  shadow" style="background-color: #FFCB9A;">
+                                        <i class="bi bi-file-earmark-excel-fill shadow"></i>
+                                        <span style='color: white;' data-purecounter-start="0" data-purecounter-end="${jdata[2]}" data-purecounter-duration="1" class="purecounter"></span>
+                                        <p> <strong>Appeals Rejected</strong></p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                    <div class="count-box  shadow" style='color: white;'>
+                                        <div class="count-box  shadow" style="background-color: #E7717D;">
+                                        <i class="bi bi-patch-exclamation-fill shadow"></i>
+                                        <span style='color: white;' data-purecounter-start="0" data-purecounter-end="${jdata[5]}" data-purecounter-duration="1" class="purecounter"></span>
+                                        <p> <strong>Penalties Imposed</strong></p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section> End Counts Section -->
+
+        <!-- ======= Departments Section ======= -->
+        <section id="departments" class="departments">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2><i class="bi bi-graph-up"></i> Dashboard</h2>
+                    <!--<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>-->
+                </div>
+
+                <div class="row gy-4">
+                    <div class="col-lg-3">
+                        <ul class="nav nav-tabs flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Service Requests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Appeals to Appellate Authority</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Appeals to Commission</a>
+                            </li>
+                            <!--                                <li class="nav-item">
+                                                                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Pediatrics</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Eye Care</a>
+                                                            </li>-->
+                        </ul>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="tab-content">
+                            <div class="tab-pane active show" id="tab-1">
+                                <div class="row gy-4">
+                                    <section  class="counts" >
+                                        <div class="col-lg-12 details order-2 order-lg-1">
+                                            <h4 class='h4counts'>Service Requests</h4>
+                                            <div class="row">
+
+                                                <div class="col-lg-3 col-md-6">
+                                                    <div class="count-box  shadow countbox1" >
+                                                        <strong><i class="bi bi-file-earmark-text-fill shadow"  ></i></strong>
+
+                                                        <!-- <span   data-purecounter-start="0" data-purecounter-end="${submissionDetails.totalSubmitted}" data-purecounter-duration="1" class="purecounter"></span>-->
+
+                                                            <span th:text="${submissionDetails.totalSubmitted}"></span>
+
+                                                        <p class="pcountbox" ><strong>Applications<br/> Submitted</strong></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                                                    <div class="count-box  shadow countbox2" >
+                                                        <i class="bi bi-file-earmark-check-fill shadow"></i>
+<!--                                                        <span   data-purecounter-start="0" data-purecounter-end="${submissionDetails.totalDelivered}" data-purecounter-duration="1" class="purecounter"></span>-->
+                                                        <span th:text="${submissionDetails.totalDelivered}"></span>
+                                                        <p class="pcountbox" ><strong>Applications<br/> Delivered</strong></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                                    <div class="count-box  shadow countbox3" >
+                                                        <i class="bi bi-file-earmark-excel-fill shadow"></i>
+<!--                                                        <span   data-purecounter-start="0" data-purecounter-end="${submissionDetails.totalRejected}" data-purecounter-duration="1" class="purecounter"></span>-->
+                                                        <span th:text="${submissionDetails.totalRejected}"></span>
+                                                        <p class="pcountbox" ><strong>Applications<br/> Rejected</strong></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                                    <div class="count-box  shadow countbox" >
+                                                        <i class="bi bi-patch-exclamation-fill shadow"></i>
+<!--                                                        <span   data-purecounter-start="0" data-purecounter-end="${submissionDetails.totalPending}" data-purecounter-duration="1" class="purecounter"></span>-->
+                                                        <span th:text="${submissionDetails.totalPending}"></span>
+                                                        <p class="pcountbox" ><strong>Applications<br/> Pending</strong></p>
+                                                    </div>
+                                                </div>
+                                                <!--                                                    <div class="col-md-12">
+                                                                                                        <span class="text-danger text-center"><br/>
+                                                                                                            <h5>
+                                                                                                                <B>DATA PROJECTED IN THE DASHBOARD IS FROM 1<sup>st</sup> AUGUST 2023</B>
+                                                                                                            </h5>
+                                                                                                            <marquee>We apologize for the inconvenience, but we're working on restoring data extraction from launch date - 15<sup>th</sup> July 2022. Coming back soon with full functionality</marquee>
+                                                                                                        </span>
+                                                                                                    </div>-->
+
+                                            </div>
+
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-2">
+                                <div class="row gy-4">
+                                    <section  class="counts" >
+                                        <div class="col-lg-12 details order-2 order-lg-1">
+                                            <h4 class='h4counts'>Appeals to Appelate Authority</h4>
+
+                                            <div class="row">
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="count-box  shadow countbox1">
+                                                        <strong><i class="bi bi-file-earmark-text-fill shadow"  ></i></strong>
+
+                                                        <span th:text="${appeallateAppeals.submitted}"></span>
+                                                        <p class="pcountbox" ><strong>Appeals Submitted</strong></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
+                                                    <div class="count-box  shadow countbox2">
+                                                        <i class="bi bi-file-earmark-check-fill shadow"></i>
+<!--                                                        <span   data-purecounter-start="0" data-purecounter-end="${jdata1[2] + jdata1[3]}" data-purecounter-duration="1" class="purecounter"></span>-->
+                                                        <span th:text="${appeallateAppeals.disposed}"></span>
+
+                                                        <p class="pcountbox" ><strong>Appeals Disposed</strong></p>
+                                                    </div>
+                                                </div>
+
+                                                <!--                                                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                                                                                        <div class="count-box  shadow countbox3">
+                                                                                                            <i class="bi bi-file-earmark-excel-fill shadow"></i>
+                                                                                                            <span   data-purecounter-start="0" data-purecounter-end="${jdata1[3]}" data-purecounter-duration="1" class="purecounter"></span>
+                                                                                                            <p class="pcountbox" ><strong>Appeals Rejected</strong></p>
+                                                                                                        </div>
+                                                                                                    </div>-->
+
+                                                <div class="col-lg-4 col-md-6 mt-5 mt-lg-0">
+                                                    <div class="count-box  shadow countbox4">
+                                                        <i class="bi bi-patch-exclamation-fill shadow"></i>
+                                                        <span th:text="${appeallateAppeals.pendingWithin} + ${appeallateAppeals.pendingBeyond}"></span>
+                                                        <p class="pcountbox" ><strong>Appeals Pending</strong></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <!--                                                        <p>Average Processing time: 0 Days </p>-->
+                                                    <c:set var = "now" value = "<%=new java.util.Date()%>" />
+                                                    <p>The Dashboard is updated daily. Last Updated on  <fmt:formatDate type = "date" value = "${now}" /> 12:00 AM</p>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-3">
+                                <div class="row gy-4">
+                                    <section  class="counts" >
+                                        <div class="col-lg-12 details order-2 order-lg-1">
+                                            <h4 class='h4counts'>Appeals to Commission</h4>
+                                            <div class="row">
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <div class="count-box  shadow countbox1">
+                                                        <strong><i class="bi bi-file-earmark-text-fill shadow"  ></i></strong>
+
+                                                        <span th:text="${commissionerAppeals.submitted}"></span>
+                                                        <p class="pcountbox" ><strong>Appeals Submitted</strong></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
+                                                    <div class="count-box  shadow countbox2">
+                                                        <i class="bi bi-file-earmark-check-fill shadow"></i>
+                                                        <span th:text="${commissionerAppeals.disposed}"></span>
+                                                        <p class="pcountbox" ><strong>Appeals Disposed</strong></p>
+                                                    </div>
+                                                </div>
+
+                                                <!--                                                    <div class="col-lg-4 col-md-6 mt-5 mt-lg-0">
+                                                                                                        <div class="count-box  shadow countbox3">
+                                                                                                            <i class="bi bi-file-earmark-excel-fill shadow"></i>
+                                                                                                            <span   data-purecounter-start="0" data-purecounter-end="${jdata2[3]}" data-purecounter-duration="1" class="purecounter"></span>
+                                                                                                            <p class="pcountbox" ><strong>Appeals Rejected</strong></p>
+                                                                                                        </div>
+                                                                                                    </div>-->
+
+                                                <div class="col-lg-4 col-md-6 mt-5 mt-lg-0">
+                                                    <div class="count-box  shadow countbox4">
+                                                        <i class="bi bi-patch-exclamation-fill shadow"></i>
+                                                        <span th:text="${appeallateAppeals.penalty}"></span>
+                                                        <p class="pcountbox" ><strong>Penalties Imposed</strong></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <!--<p>Average Processing time: 0 Days </p>-->
+                                                    <c:set var = "now" value = "<%=new java.util.Date()%>" />
+                                                    <p>The Dashboard is updated daily. Last Updated on  <fmt:formatDate type = "date" value = "${now}" /> 12:00 AM</p>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-4">
+                                <div class="row gy-4">
+                                    <div class="col-lg-8 details order-2 order-lg-1">
+                                        <h3>hello dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
+                                        <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
+                                        <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
+                                    </div>
+                                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                                        <img src="assets/img/departments-4.jpg" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-5">
+                                <div class="row gy-4">
+                                    <div class="col-lg-8 details order-2 order-lg-1">
+                                        <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
+                                        <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
+                                        <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
+                                    </div>
+                                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                                        <img src="assets/img/departments-5.jpg" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Departments Section -->
+
+        <!-- ======= Services Section ======= -->
+        <!--            <section id="services" class="services">
+                        <div class="container">
+
+                            <div class="section-title">
+                                <h2>Services</h2>
+                                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                                        <h4><a href="">Lorem Ipsum</a></h4>
+                                        <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="fas fa-pills"></i></div>
+                                        <h4><a href="">Sed ut perspiciatis</a></h4>
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="fas fa-hospital-user"></i></div>
+                                        <h4><a href="">Magni Dolores</a></h4>
+                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="fas fa-dna"></i></div>
+                                        <h4><a href="">Nemo Enim</a></h4>
+                                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="fas fa-wheelchair"></i></div>
+                                        <h4><a href="">Dele cardo</a></h4>
+                                        <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+                                    <div class="icon-box">
+                                        <div class="icon"><i class="fas fa-notes-medical"></i></div>
+                                        <h4><a href="">Divera don</a></h4>
+                                        <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section> End Services Section
+
+                     ======= Appointment Section =======
+                    <section id="appointment" class="appointment section-bg">
+                        <div class="container">
+
+                            <div class="section-title">
+                                <h2>Make an Appointment</h2>
+                                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                            </div>
+
+                            <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+                                <div class="row">
+                                    <div class="col-md-4 form-group">
+                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div class="col-md-4 form-group mt-3 mt-md-0">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div class="col-md-4 form-group mt-3 mt-md-0">
+                                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                        <div class="validate"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 form-group mt-3">
+                                        <input type="datetime" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div class="col-md-4 form-group mt-3">
+                                        <select name="department" id="department" class="form-select">
+                                            <option value="">Select Department</option>
+                                            <option value="Department 1">Department 1</option>
+                                            <option value="Department 2">Department 2</option>
+                                            <option value="Department 3">Department 3</option>
+                                        </select>
+                                        <div class="validate"></div>
+                                    </div>
+                                    <div class="col-md-4 form-group mt-3">
+                                        <select name="doctor" id="doctor" class="form-select">
+                                            <option value="">Select Doctor</option>
+                                            <option value="Doctor 1">Doctor 1</option>
+                                            <option value="Doctor 2">Doctor 2</option>
+                                            <option value="Doctor 3">Doctor 3</option>
+                                        </select>
+                                        <div class="validate"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
+                                    <div class="validate"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="loading">Loading</div>
+                                    <div class="error-message"></div>
+                                    <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+                                </div>
+                                <div class="text-center"><button type="submit">Make an Appointment</button></div>
+                            </form>
+
+                        </div>
+                    </section> End Appointment Section -->
+
+        <!-- ======= Gallery Section ======= -->
+        <section id="gallery" class="gallery">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2><i class="bi bi-card-image"></i> <a href="albums.htm">Gallery</a> </h2>
+                    <!--<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>-->
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row g-0">
+<!--                    <c:forEach var="d" items="${photoslist}">-->
+                        <div class="col-lg-3 col-md-4" th:each="photo : ${homePageGallery}">
+                            <div class="gallery-item">
+                                <a href="'data:image/jpeg;base64,' + ${photo.base64Image}" class="galelry-lightbox">
+                                    <img th:src="'data:image/jpeg;base64,' + ${photo.base64Image}" alt="" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+<!--                    </c:forEach>-->
+
+
+                    <!--                        <div class="col-lg-3 col-md-4">
+                                                <div class="gallery-item">
+                                                    <a href="assets2/assets/images/2.jpg" class="galelry-lightbox">
+                                                        <img src="assets2/assets/images/2.jpg" alt="" class="img-fluid">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-md-4">
+                                                <div class="gallery-item">
+                                                    <a href="assets2/assets/images/3.jpg" class="galelry-lightbox">
+                                                        <img src="assets2/assets/images/3.jpg" alt="" class="img-fluid">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-md-4">
+                                                <div class="gallery-item">
+                                                    <a href="assets2/assets/images/4.jpg" class="galelry-lightbox">
+                                                        <img src="assets2/assets/images/4.jpg" alt="" class="img-fluid">
+                                                    </a>
+                                                </div>
+                                            </div>-->
+
+
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ======= Testimonials Section ======= -->
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2><i class="bi bi-newspaper"></i> What's New</h2>
+                    <!--<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>-->
+                </div>
+                <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
+
+                            <div class="swiper-slide" th:each="nb : ${noticeboard}">
+                                <div class="testimonial-wrap" style="height: 400px">
+                                    <div class="testimonial-item">
+                                        <!--<img src="medilab/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">-->
+                                        <h3 th:text="${nb.heading}"></h3>
+                                        <h4>Date: <span th:text="${nb.whatsnewdate}"></span></h4>
+                                        <p th:text="${nb.newbody}">
+                                            <!--<i class="bx bxs-quote-alt-left quote-icon-left"></i>-->
+
+                                            <br/><br/>
+                                            <!--<i class="bx bxs-quote-alt-right quote-icon-right"></i>-->
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+        </section><!-- End Testimonials Section -->
+
+
+
+        <!-- ======= Doctors Section ======= -->
+        <!--            <section id="doctors" class="doctors">
+                        <div class="container">
+
+                            <div class="section-title">
+                                <h2>Doctors</h2>
+                                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <div class="member d-flex align-items-start">
+                                        <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
+                                        <div class="member-info">
+                                            <h4>Walter White</h4>
+                                            <span>Chief Medical Officer</span>
+                                            <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
+                                            <div class="social">
+                                                <a href=""><i class="ri-twitter-fill"></i></a>
+                                                <a href=""><i class="ri-facebook-fill"></i></a>
+                                                <a href=""><i class="ri-instagram-fill"></i></a>
+                                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mt-4 mt-lg-0">
+                                    <div class="member d-flex align-items-start">
+                                        <div class="pic"><img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt=""></div>
+                                        <div class="member-info">
+                                            <h4>Sarah Jhonson</h4>
+                                            <span>Anesthesiologist</span>
+                                            <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
+                                            <div class="social">
+                                                <a href=""><i class="ri-twitter-fill"></i></a>
+                                                <a href=""><i class="ri-facebook-fill"></i></a>
+                                                <a href=""><i class="ri-instagram-fill"></i></a>
+                                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mt-4">
+                                    <div class="member d-flex align-items-start">
+                                        <div class="pic"><img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt=""></div>
+                                        <div class="member-info">
+                                            <h4>William Anderson</h4>
+                                            <span>Cardiology</span>
+                                            <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
+                                            <div class="social">
+                                                <a href=""><i class="ri-twitter-fill"></i></a>
+                                                <a href=""><i class="ri-facebook-fill"></i></a>
+                                                <a href=""><i class="ri-instagram-fill"></i></a>
+                                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mt-4">
+                                    <div class="member d-flex align-items-start">
+                                        <div class="pic"><img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
+                                        <div class="member-info">
+                                            <h4>Amanda Jepson</h4>
+                                            <span>Neurosurgeon</span>
+                                            <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
+                                            <div class="social">
+                                                <a href=""><i class="ri-twitter-fill"></i></a>
+                                                <a href=""><i class="ri-facebook-fill"></i></a>
+                                                <a href=""><i class="ri-instagram-fill"></i></a>
+                                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section> End Doctors Section -->
+
+        <!-- ======= Frequently Asked Questions Section ======= -->
+        <section id="faq" class="faq section-bg">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2><i class="bi bi-patch-question-fill"></i> Frequently Asked Questions</h2>
+                    <!--<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>-->
+                </div>
+
+                <div class="faq-list">
+                    <ul>
+                        <li data-aos="fade-up">
+                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">What are notified Services? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                            <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                                <p>
+                                    Presently,<span th:text="${totalServices}"></span> services of various Government Departments have been notified under this Act. Citizens who apply for any of these services are entitled to receive these services within the stipulated timeframe and can approach the Commission as the second Appellate Authority in case the services have been denied or delayed wrongfully.
+                                </p>
+                                <p><a href="docu/notification_14Jan21.pdf" target="_blank">Click here to see the list of Notified Services</a></p>
+                                <p><a href="docu/Notification_29July.pdf" target="_blank">Click here to see the amendment to the list of Notified Services</a></p>
+                                <p><a href="docu/Notification_6May.pdf" target="_blank">Click here to see the list of additional Notified Services</a></p>
+                            </div>
+                        </li>
+
+                        <li data-aos="fade-up" data-aos-delay="100">
+                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">What is First Appeal? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                            <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
+                                <p>
+                                    In case service has not been provided to you within the specific time as defined under this Act or rejected, you can Appeal to the Appellate Authority within 30 days so that he / she can examine your application and pass necessary orders.
+                                </p>
+                            </div>
+                        </li>
+
+                        <li data-aos="fade-up" data-aos-delay="200">
+                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">Who is an Appellate Authority? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                            <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
+                                <p>
+                                    The Appellate Authority is an officer above the Designated Officer with the powers to hear appeals against the orders passed by a Designated Officer. He is bound to dispose off appeals within 30 days from the date of receipt of the Appeal.
+                                </p>
+
+                            </div>
+                        </li>
+                        <li data-aos="fade-up" data-aos-delay="200">
+                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" class="collapsed">How do I file  my First Appeal? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                            <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
+                                <p>
+                                    To file an Appeal against a Service which is delayed or denied, you must first register or login in our website https://mspsdc.meghalaya.gov.in. Once you register or log in you will be able to file an Appeal to the concerned Appellate Authority.
+                                </p>
+                                <p>Steps to Register / Login:</p>
+                                <ol>
+                                    <li>Click on Login.</li>
+                                    <li>Enter your Mobile Number used while registering against Username.</li>
+                                    <li>Enter your Password created while registering against your Username</li>
+                                    <li>If this is the first time, you are visiting this website, kindly click on "Create Account" to create an account in this website</li>
+                                </ol>
+
+
+                                <p>Steps to File an Appeal: </p>
+                                <ol>
+                                    <li class="lifaq">
+                                        Click on File First Appeal
+                                    </li>
+                                    <li class="lifaq">
+                                        Fill the online Form
+
+                                        <ol type="a">
+                                            <li class="lifaq">
+                                                Select the Service for which you want to file an appeal from the drop down menu
+                                            </li>
+                                            <li class="lifaq">
+                                                Select the office from whom the service had been applied from the drop down menu
+                                            </li>
+                                            <li class="lifaq">
+                                                Type your Relief Sought. For example, to reconsider application, to provide the service as all criterion have been met, etc.
+                                            </li>
+                                            <li class="lifaq">
+                                                Provide any other information necessary for filling appeal. Report Complaints, Additional information, etc
+                                            </li>
+                                            <li class="lifaq">
+                                                Choose your preferred hearing type i.e., In person or through VC
+                                            </li>
+                                            <li class="lifaq">
+                                                Upload Identification Proof (Epic Card/Aadhar Card/PAN Card/Driving License)
+                                            </li>
+                                            <li class="lifaq">
+                                                Upload List of Supporting document to avail the service. (Note: More than one document can be uploaded by choosing the Add button )
+                                            </li>
+                                        </ol>
+                                    </li>
+                                </ol>
+
+
+                            </div>
+                        </li>
+
+
+                        <li data-aos="fade-up" data-aos-delay="200">
+                            <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">How do I file an Appeal to the Commission? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                            <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
+                                <p>
+                                    You can file Appeal to the Commission only if your First Appeal to the Appellate Authority is not processed within 30 days or you are aggrieved by the decision of the Appellate Authority using the first appeal reference number.  You can also approach the Commission if the Designated Officer has not complied with the order of the Appellate Authority.
+                                </p>
+                                <p>Steps:</p>
+                                <ol>
+                                    <li class="lifaq">
+                                        Login using your registered mobile number and password (The same as the first appeal)
+                                    </li>
+                                    <li class="lifaq">
+                                        Enter the First Appeal Reference Number
+                                    </li>
+                                    <li class="lifaq">
+                                        Fill the online form and submit
+                                    </li>
+                                    <li class="lifaq">
+                                        Once successfully submitted, you will get confirmation page with a Reference Number.
+                                    </li>
+                                    <li class="lifaq">
+                                        Please Save this Reference Number for future references
+                                    </li>
+                                    <li class="lifaq">
+                                        To Track your Appeal status, please Login using your Mobile Number and Password and Go to Inbox to Track the Status of your Appeal.
+                                    </li>
+                                    <li class="lifaq">
+                                        Link to the VC or Notification on the date of Hearing in Person fixed will be sent to your inbox and mobile number.
+                                    </li>
+
+
+                                </ol>
+
+
+                            </div>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+
+            </div>
+        </section><!-- End Frequently Asked Questions Section -->
+
+
+
+
+
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+            <div class="container">
+
+                <div class="section-title " >
+                    <h2><i class="bi bi-journals"></i> Contact</h2>
+                    <!--<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>-->
+                </div>
+
+                <section id="doctors" class="doctors">
+                    <div class="container">
+
+                        <!--                            <div class="section-title">
+                                                        <h2>Doctors</h2>
+                                                        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                                                    </div>-->
+
+                        <div class="row">
+
+                                <div class="col-lg-6" th:each="contact : ${contacts}">
+                                    <div class="member d-flex align-items-start">
+                                        <!--<div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>-->
+                                        <div class="member-info">
+<!--                                            <h4>${contact.contactname}</h4>-->
+                                            <h4 th:text="${contact.contactname}"></h4>
+                                            <span th:text="${contact.designation}"></span>
+                                            <p><i class="bi bi-telephone-fill"></i>  <a href="tel:${contact.phone}" th:text="${contact.phone}"></a></p>
+                                            <p><i class="bi bi-envelope-plus-fill"></i>  <a href="mailto:${contact.email}" th:text="${contact.emailtxt}"></a></p>
+                                            <!--                                            <div class="social">
+                                                                                            <a href=""><i class="ri-twitter-fill"></i></a>
+                                                                                            <a href=""><i class="ri-facebook-fill"></i></a>
+                                                                                            <a href=""><i class="ri-instagram-fill"></i></a>
+                                                                                            <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                                                                        </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+<!--                            <c:forEach var="d" items="${contacts}">-->
+<!--                                <div class="col-lg-6">-->
+<!--                                    <div class="member d-flex align-items-start">-->
+<!--                                        &lt;!&ndash;<div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>&ndash;&gt;-->
+<!--                                        <div class="member-info">-->
+<!--                                            <h4>${contacts.contactname}</h4>-->
+<!--                                            <span>${d.designation}</span>-->
+<!--                                            <p><i class="bi bi-telephone-fill"></i>  <a href="tel:${d.phone}">${d.phone}</a></p>-->
+<!--                                            <p><i class="bi bi-envelope-plus-fill"></i>  <a href="mailto:${d.email}">${d.emailtxt}</a></p>-->
+<!--                                            &lt;!&ndash;                                            <div class="social">-->
+<!--                                                                                            <a href=""><i class="ri-twitter-fill"></i></a>-->
+<!--                                                                                            <a href=""><i class="ri-facebook-fill"></i></a>-->
+<!--                                                                                            <a href=""><i class="ri-instagram-fill"></i></a>-->
+<!--                                                                                            <a href=""> <i class="ri-linkedin-box-fill"></i> </a>-->
+<!--                                                                                        </div>&ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </c:forEach>-->
+                            <!--                                <div class="col-lg-6">
+                                                                <div class="member d-flex align-items-start">
+                                                                    <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
+                                                                    <div class="member-info">
+                                                                        <h4>Shri. P. M. Sangma, MCS</h4>
+                                                                        <span>Secretary</span>
+                                                                        <p><i class="bi bi-telephone-fill"></i>  <a href="tel:+919774101161">9774101161</a></p>
+                                                                        <p><i class="bi bi-envelope-plus-fill"></i>  <a href="mailto:proley.sangma@meghalaya.gov.in">proley[dot]sangma[at]meghalaya[dot]gov[dot]in</a></p>
+                                                                                                                    <div class="social">
+                                                                                                                        <a href=""><i class="ri-twitter-fill"></i></a>
+                                                                                                                        <a href=""><i class="ri-facebook-fill"></i></a>
+                                                                                                                        <a href=""><i class="ri-instagram-fill"></i></a>
+                                                                                                                        <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="member d-flex align-items-start">
+                                                                    <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
+                                                                    <div class="member-info">
+                                                                        <h4>Smt. Mary V Ranee</h4>
+                                                                        <span>Under Secretary</span>
+                                                                        <p><i class="bi bi-telephone-fill"></i>  <a href="tel:+919863315636">9863315636</a></p>
+                                                                        <p><i class="bi bi-envelope-plus-fill"></i>  <a href="mailto:us.mspsdc@gmail.com">us[dot]mspsdc[at]gmail[dot]com</a></p>
+                                                                                                                    <div class="social">
+                                                                                                                        <a href=""><i class="ri-twitter-fill"></i></a>
+                                                                                                                        <a href=""><i class="ri-facebook-fill"></i></a>
+                                                                                                                        <a href=""><i class="ri-instagram-fill"></i></a>
+                                                                                                                        <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                <div class="member d-flex align-items-start">
+                                                                    <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
+                                                                    <div class="member-info">
+                                                                        <h4>Smti B.Pyngrope</h4>
+                                                                        <span>Private    Secretary</span>
+                                                                        <p><i class="bi bi-telephone-fill"></i>  <a href="tel:+919436732908">9436732908</a></p>
+                                                                        <p><i class="bi bi-envelope-plus-fill"></i>  <a href="mailto:ps-mspsds@meghalaya.gov.in">ps-mspsds[at]meghalaya[dot]gov[dot]in</a></p>
+                                                                                                                    <div class="social">
+                                                                                                                        <a href=""><i class="ri-twitter-fill"></i></a>
+                                                                                                                        <a href=""><i class="ri-facebook-fill"></i></a>
+                                                                                                                        <a href=""><i class="ri-instagram-fill"></i></a>
+                                                                                                                        <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                                                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>-->
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+
+            <div>
+                <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d899.7744210574489!2d91.88458384998044!3d25.568416656088747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37507e90ac3739f1%3A0x66d1c9651a81ed18!2sMeghalaya%20Public%20Service%20Commission!5e0!3m2!1sen!2sin!4v1656576253907!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
+                <iframe class="iframemap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d449.88702485601954!2d91.88497069978503!3d25.568466080015178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37507f549080285f%3A0x77135d3518017f3f!2sMeghalaya%20State%20Public%20Services%20Delivery%20Commission!5e0!3m2!1sen!2sin!4v1663571980980!5m2!1sen!2sin" frameborder="0" allowfullscreen></iframe>
+                <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d449.88702485601954!2d91.88497069978503!3d25.568466080015178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37507f549080285f%3A0x77135d3518017f3f!2sMeghalaya%20State%20Public%20Services%20Delivery%20Commission!5e0!3m2!1sen!2sin!4v1663571980980!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
+            </div>
+
+            <!--                <div class="container">
+                                <div class="row mt-5">
+
+                                    <div class="col-lg-12">
+                                        <div class="info">
+                                            <div class="row">
+
+                                                <div class="col-md-4">
+                                                    <div class="address">
+                                                        <i class="bi bi-geo-alt"></i>
+                                                        <h4>Location:</h4>
+                                                        <p>A108 Adam Street</p>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                    <div class="email">
+                                                        <i class="bi bi-envelope"></i>
+                                                        <h4>Email:</h4>
+                                                        <p>info@example.com</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="phone">
+                                                        <i class="bi bi-phone"></i>
+                                                        <h4>Call:</h4>
+                                                        <p>+1 5589 55488 55s</p>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                                            <div class="col-lg-8 mt-5 mt-lg-0">
+
+                                                                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 form-group">
+                                                                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                                                        </div>
+                                                                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                                                                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group mt-3">
+                                                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                                                    </div>
+                                                                    <div class="form-group mt-3">
+                                                                        <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                                                    </div>
+                                                                    <div class="my-3">
+                                                                        <div class="loading">Loading</div>
+                                                                        <div class="error-message"></div>
+                                                                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                                                                    </div>
+                                                                    <div class="text-center"><button type="submit">Send Message</button></div>
+                                                                </form>
+
+                                                            </div>
+
+                                </div>
+
+                            </div>-->
+        </section><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+        <div class="footer-top">
+            <!--                <div class="container">
+                                <div class="row">
+
+                                    <div class="col-lg-3 col-md-6 footer-contact">
+                                        <h3>Medilab</h3>
+                                        <p>
+                                            A108 Adam Street <br>
+                                            New York, NY 535022<br>
+                                            United States <br><br>
+                                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                                            <strong>Email:</strong> info@example.com<br>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-6 footer-links">
+                                        <h4>Useful Links</h4>
+                                        <ul>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6 footer-links">
+                                        <h4>Our Services</h4>
+                                        <ul>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                                        <h4>Join Our Newsletter</h4>
+                                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                                        <form action="" method="post">
+                                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>-->
+        </div>
+
+        <div class="container d-md-flex py-4">
+
+            <div class="me-md-auto text-center text-md-start">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>MSPSDC</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/ -->
+                    Designed and Maintained by <a href="https://bootstrapmade.com/">NIC Meghalaya State Centre</a>
+                </div>
+            </div>
+            <!--                <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                            </div>-->
+            <a class="btn btn-info btn-lg rounded-3" >Visitors: <span th:text="${visitorsCount}"></span></a>
+        </div>
+    </footer><!-- End Footer -->
+
+    <!-- End Footer -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">File Appeal To Commission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 mb-5 mb-md-0 modaldiv">
+                            <!--<div class="block">-->
+                            <div class=" shadow-lg p-4 ">
+                                <sec:csrfInput />
+
+                                <div class="form-group">
+                                    <label for="refno">Enter Registered Mobile Number:</label>
+                                    <input type="text" class="form-control" id="username"  placeholder="Same as First Appeal">
+                                    <input type="hidden" name="randomKey" id="randomKey" value="${randomKey}"/>
+
+
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="refno">Enter Password:</label>
+                                    <input type="password" class="form-control" id="password"  placeholder="">
+
+
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="refno">Please Enter First Appeal Filed Reference Number:</label>
+                                    <input type="text" class="form-control" id="appealcode"  placeholder="">
+
+
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-success" id="submitbtn">Submit</a>
+                    <a class="btn btn-danger" id="hidemodal">Close</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="firstappealmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <!--<div class="row justify-content-center">-->
+                        <div class="col-md-12 mb-0 mb-md-0 modaldiv ">
+                            <!--<div class="block">-->
+                            <div class="alert alert-warning" role="alert">
+                                <h5>
+                                    To file an Appeal against a Service which is delayed or denied, you must first register in this website. Once registered you will be able to file a Appeal to the concerned Appelate Authority
+
+                                </h5>
+
+                            </div>
+                            <div class=" p-4">
+                                <h5 class="text-center">Are you a registered user in this website?</h5>
+
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="text-center">If Yes, <a class="btn btn-primary form-control" href="login.htm">Click Here to Login</a></p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-center">If No, <a class="btn btn-success form-control"  href="registration.htm">Click Here to Register</a></p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<a class="btn btn-primary" id="submitbtn">Submit</a>-->
+                    <a class="btn btn-danger" id="hidefirstappealmodal">Close</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="secondappealmodal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <!--<div class="row justify-content-center">-->
+                        <div class="col-md-12 mb-0 mb-md-0 modaldiv">
+                            <!--<div class="block">-->
+                            <div class="alert alert-warning" role="alert">
+                                <h5>
+                                    Please note that you can file Appeal to The Commission only if your First Appeal to the Appelate Authority is disposed or is not processed within stipulated time.
+                                </h5>
+
+                            </div>
+                            <div class=" p-4">
+                                <h5 class="text-center">Have you filed your First Appeal?</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a class="btn btn-block btn-primary form-control" id="showyes1appeal">Yes</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="btn btn-block btn-dark form-control" id="showno1appeal">No</a>
+                                    </div>
+                                    <div class="col-12" hidden="true" id="yes1appeal">
+
+                                        <br/>
+                                        <div class="alert alert-success" role="alert">
+                                            Please Login using your registered mobile number and password (The same as the first appeal) and Enter the First Appeal Reference Number.
+                                            <br/>
+                                            <div class="text-center">
+                                                <a class="btn btn-block btn-info " href="login.htm">Proceed</a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-12" hidden="true" id="no1appeal">
+                                        <br/>
+                                        <div class="alert alert-danger" role="alert">
+                                            To File Appeal to Commission, you must first file your First Appeal.
+                                            <br/>
+                                            <!--                                                <div class="text-center">
+                                                                                                <a class="btn btn-block btn-info " id="showfirstappealmodal">Proceed</a>
+                                                                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<a class="btn btn-primary" id="submitbtn">Submit</a>-->
+                    <a class="btn btn-danger" id="hidesecondappealmodal1">Close</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="firstappealmodal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 mb-0 mb-md-0 modaldiv">
+                                <!--<div class="block">-->
+                                <div class=" p-4 ">
+                                    <h3 class="text-center">Have you filed your First Appeal?</h3>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a class="btn btn-block btn-primary form-control" id="showyes1appeal">Yes</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a class="btn btn-block btn-dark form-control" id="showno1appeal">No</a>
+                                        </div>
+                                        <div class="col-12" hidden="true" id="yes1appeal">
+
+                                            <br/>
+                                            <div class="alert alert-success" role="alert">
+                                                Please Login using your registered mobile number and password(The same as the first appeal)
+
+                                                <a class="btn btn-block btn-info form-control" id="showmodal">Proceed</a>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-12" hidden="true" id="no1appeal">
+                                            <br/>
+                                            <div class="alert alert-danger" role="alert">
+                                                To File Appeal to Commission, you must first file your First Appeal.
+
+                                                <a class="btn btn-block btn-info form-control" id="showfirstappealmodal">Proceed</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<a class="btn btn-primary" id="submitbtn">Submit</a>-->
+                    <a class="btn btn-danger" id="hidesecondappealmodal1">Close</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade " id="reviewmeetingsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Review Meetings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 mb-0 mb-md-0 modaldiv">
+                                <!--<div class="block">-->
+                                <div class=" p-4 ">
+                                    <ul>
+                                        <li></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<a class="btn btn-primary" id="submitbtn">Submit</a>-->
+                    <a class="btn btn-danger reviewmeetings" id="hidereviewmeetingsmodal">Close</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade " id="presentationsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Presentations</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 mb-0 mb-md-0 modaldiv">
+                                <!--<div class="block">-->
+                                <div class=" p-4 ">
+                                    <ul>
+
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<a class="btn btn-primary" id="submitbtn">Submit</a>-->
+                    <a class="btn btn-danger presentations" id="hidereviewmeetingsmodal">Close</a>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="medilab/assets/vendor/purecounter/purecounter.js"></script>
+    <script src="medilab/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="medilab/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="medilab/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="medilab/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="medilab/assets/js/main.js"></script>
+
+</body>
+</html>

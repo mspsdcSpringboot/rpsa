@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<head>
+    <title>Secure Home</title>
+</head>
+<main th:fragment = "content">
+
+    <div class="container">
+        <br/>
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Meghalaya Right To Public Service Act</h4>
+            <p>
+                The government of Meghalaya had notified the <b>“Meghalaya Right to Public Services Delivery Act 2020” </b>
+                to provide for the delivery of notified public services to the citizens in the State of Meghalaya within
+                the stipulated time limit including liabilities of the government servants,
+                in case of default and for matters connected therewith or incidental thereto. The Act allows Citizens to
+                appeal against any defaults in service,
+                by the designated officer, to the Appellate authority and then to the Commission.
+            </p>
+
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <a href="/secure/fileappeals" class="text-info">
+                        <div class="card zoom10">
+
+                            <div class="card-body">
+                                <i class="bi bi-file-earmark-plus biuserhome" ></i>
+                                <br/>
+                                <span class="spanuser">File First Appeal</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="col-md-4 text-center" >
+                    <a  id="showmodal" class="text-success">
+                        <div class="card zoom10">
+                            <div class="card-body">
+                                <i class="bi bi-list-check biuserhome" ></i>
+                                <br/>
+                                <span class="spanuser">Track Appeal Status</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="col-md-4 text-center" >
+                    <a href="/secure/uinbox" class="text-warning">
+                        <div class="card zoom10">
+                            <div class="card-body">
+                                <i class="bi bi-envelope biuserhome" ></i>
+                                <br/>
+                                <span class="spanuser">Inbox</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Track Appeal</h5>
+                    <button type="button" class="close" onclick="hidemodal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 mb-5 mb-md-0">
+<!--                            <div class="block">-->
+<!--                            <div class=" shadow-lg p-4 wow">-->
+<!--                                <sec:csrfInput />-->
+
+<!--                                <div class="form-group">-->
+<!--                                    <label for="refno">Enter Reference Number:</label>-->
+<!--                                    <input type="text" class="form-control" id="appealcode"  placeholder="">-->
+
+<!--                                </div>-->
+<!--                                <br>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" id="hidemodal">Close</a>
+                    <a class="btn btn-primary" id="getappealstatus">Submit</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <style>
+        .row{
+            padding-bottom: 1.5rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .biuserhome {
+            font-size: 6rem;
+        }
+        .spanuser {
+            font-size: 2rem;
+        }
+    </style>
+</main>
+</html>

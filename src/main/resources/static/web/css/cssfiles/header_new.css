@@ -1,0 +1,60 @@
+.navbar{
+   background-color: #d1fff0;
+}
+#notetousers{
+   background-color: #d1fff0;
+}
+
+.hr{
+     margin: 0;
+}
+.counts{
+    background: #f1f7fd;
+}
+.h4counts{
+    margin-top: -50px;
+    margin-bottom: 50px; 
+    text-align: center
+}
+
+.countbox1{
+    background-color: #97CAEF;
+}
+.countbox2{
+    background-color: #8EE4AF;
+}
+.countbox3{
+    background-color: #FFCB9A;
+}
+.countbox4{
+    background-color: #E7717D;
+}
+.purecounter{
+    font-size: 36px;
+}
+
+.pcountbox{
+    font-size: 14px;
+}
+
+.lifaq{
+    margin: 0; padding:0;
+}
+
+.section-title{
+    margin-bottom: -50px;
+}
+
+.iframemap{
+    border:0; width: 100%; height: 350px;
+}
+
+.changeCaptcha1{
+     cursor:pointer;height:auto;width:50%;
+}
+.changeCaptcha2{
+     cursor:pointer;height:30px;width:auto
+}
+#headercaption{
+    color: #029db1;
+}

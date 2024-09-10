@@ -1,0 +1,61 @@
+
+.panel-default > .panel-heading-custom3{
+    background-image: none;
+    /*background-color: #f07c4a;*/
+    background-color: #f49f7a;
+    font-size: 20px;
+    font-family: serif;
+    color: #ffffff;
+}
+.panel-subheading{
+    background-image: none;
+    background-color: #778899;
+
+    font-size: 20px;
+    font-family: sans-serif;
+    color: #ffffff;
+}
+.panel-heading-custom1{
+    background-image: none;
+    /*background-color: #10828C;*/
+    background-color: #3e8e8e;
+    font-size: 25px;
+    font-family: serif;
+    color: #ffffff;
+}
+.btn-secondary {
+    color: #212529;
+    background-color: #9cdada;
+    border-color: #2e7c7c
+}
+
+.error, .mandate{
+    color: #ff3333;
+    font-size: 1em;
+}
+.success{
+    color: #0000cc;
+    font-size: 1em;
+}
+.strong{
+    font-weight: bold;
+}
+.area{
+    height: 9em;
+}
+.textsize{
+    font-size: 1em;
+}
+
+.pointerclass{
+    cursor: pointer;
+
+}
+.pointerclass:hover{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+
+

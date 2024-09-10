@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+
+
+
+<main th:fragment = "content">
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <strong> Appeals </strong>
+            </div>
+            <div class="card-body">
+                <table id="uappealtable2" class="table datatable">
+                    <thead>
+                    <tr>
+                        <th>Reference Number</th>
+                        <th>Service Name</th>
+                        <th>Designated Officer</th>
+                        <th>Appeal Filed On</th>
+                        <th>Status</th>
+                        <th>Days Left</th>
+                        <th>Last Update</th>
+                        <th>Payment Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d : ${appeal}">
+
+                        <td th:text="${d.refno}"></td>
+                        <td th:text="${d.subservicecode.subservicename}"></td>
+                        <td th:text="${d.officeid.officename}"></td>
+                        <td th:text="${#dates.format(d.firstappealdate, 'yyyy-MM-dd')}"></td>
+                        <td>
+                            <span th:if="${d.statusid == null}">
+                                Filed First Appeal
+                            </span>
+                                <span th:if="${d.statusid != null}" th:text="${d.statusid.statusname}"></span>
+                                <span th:if="${d.statusid != null and d.statusid.statusid == '1'}">
+                                to <span th:text="${d.forwardusercode.fullname}"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <span th:text="${d.daysleft}"></span>
+                        </td>
+                        <td th:text="${#dates.format(d.lastactiondate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${d.paymentflag == 'Y'} ? 'Paid' : 'Not Paid'"
+                            th:class="${d.paymentflag == 'Y'} ? 'table-success' : 'table-danger'">
+                        </td>
+                        <td>
+                            <a class="btn btn-success form-control"
+                               th:href="@{'/secure/appealstatus/' + ${d.appealcode}}">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+</html>

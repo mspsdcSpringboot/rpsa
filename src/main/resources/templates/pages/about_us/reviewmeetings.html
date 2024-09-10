@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <main th:fragment="content">
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Review Meetings</h2>
+                    <!--                        <ol>
+                                                <li><a href="index.html">Home</a></li>
+                                                <li>Inner Page</li>
+                                            </ol>-->
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs Section -->
+        <section class="inner-page">
+            <div class="container common-container four_content ">
+                <div class="scroller">
+                    <table class="table table-striped " >
+                        <tr>
+
+                            <th align="left" valign="middle">Review Meetings</th>
+                            <th align="left" valign="middle">Date</th>
+                        </tr>
+
+                            <tr th:each="meeting : ${meetings}">
+
+                                <td><a th:href="@{/public/viewmeetingdoc/{meetingid}(meetingid=${meeting.meetingid})}" target="_blank">
+                                <span th:text="${meeting.details}"></span></a>
+                                </td>
+                                <td><span th:text="${#dates.format(meeting.meetingdate, 'MMM d, yyyy')}"></span></td>
+
+
+                            </tr>
+
+
+
+
+                    </table>
+                </div>
+                <hr /> </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

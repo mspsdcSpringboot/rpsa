@@ -1,0 +1,54 @@
+input.txt {
+	color: #00008B;
+	border: 1px inset #00008B;
+	width: 90%;
+	height: 25px !important;
+	font-size: 14px !important;
+}
+.sel {
+	color: #00008B;
+	border: 1px inset #00008B;
+	width: 50%;
+	height: 25px !important;
+	font-size: 14px !important;
+}
+input.btn {
+ 
+   background: #ccc;
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 20%;
+}
+
+.divReg {
+	clear: left;
+	margin: 0;
+	padding: 0;
+        padding-top: 5px;
+        width: 100%;
+      
+}
+
+form div label {
+	float: left;
+	width: 10%;
+	font: 0.9em Arial, Helvetica, sans-serif;
+}
+table
+{
+	font: 1em Arial, Helvetica, sans-serif;
+}
+
+fieldset {
+	border: 1px dotted #61B5CF;
+	margin-top: 1.4em;
+	padding: 0.6em;
+	width: 80%;
+}
+
+legend {
+	font: bold 0.8em Arial, Helvetica, sans-serif;
+	color: #00008B;
+	background-color: #FFFFFF;
+}

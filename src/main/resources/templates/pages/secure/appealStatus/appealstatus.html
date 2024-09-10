@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+
+<main th:fragment="content">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="text-center" ><strong>Appeal Details</strong></h5>
+                </div>
+                <div class="card-body">
+                    <div class="container" id="firstappeal">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 mb-5 mb-md-0">
+                                <div class="shadow-lg p-4 wow">
+                                    <div class="form-group mb-3">
+                                        <h5 class="text-center" ><strong>First Appeal</strong></h5>
+                                        <input type="hidden" id="roleid" th:value="${userData.userrole.roleid}"/>
+                                        <hr/>
+                                    </div>
+                                    <br>
+                                    <div class="form-group mb-3">
+                                        <label class="text-center"><strong>Appeal Reference Number:</strong> <span th:text="${appeals.refno}"></span></label>
+                                        <hr/>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="ordercopy"><strong>Appeal filed to the office of <span th:text="${appeals.appelateid.officename}"></span></strong></label>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label><strong>Service Name: </strong></label>
+                                        <span th:text="${appeals.subservicecode.subservicename}"></span>
+                                        <input type="hidden" id="appealcode" th:value="${appeals.appealcode}"/>
+                                    </div>
+                                    <br/>
+                                    <div class="form-group">
+                                        <label><strong>Application Reference No: </strong></label>
+                                        <span th:text="${appeals.applicationrefno}"></span>
+                                    </div>
+                                    <br/>
+                                    <div class="form-group">
+                                        <label><strong>Submission Date: </strong></label>
+                                        <span th:text="${#dates.format(appeals.applicationdate, 'yyyy-MM-dd')}"></span>
+                                    </div>
+                                    <br/>
+                                    <div th:if="${userData.userrole.roleid != '0'}">
+                                        <div class="form-group">
+                                            <label for="fullname"><strong>View Application Details: </strong></label>
+                                            <a th:href="@{'/viewapplicationdetails.htm'(referenceNo=${appeals.applicationrefno}, submissionDate=${#dates.format(appeals.applicationdate, 'dd/MM/yyyy')})}" target="_blank">View</a>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><strong>Select Designated Officer: </strong></label>
+                                        <span th:text="${appeals.officeid.officename}"></span>
+                                    </div>
+                                    <br/>
+                                    <div class="form-group">
+                                        <label for="fullname"><strong>Relief Sought: </strong></label>
+                                        <span th:text="${appeals.relief1}"></span>
+                                        <input type="hidden" th:value="${appeals.appeallevel}" id="appeallevel"/>
+                                        <input type="hidden" th:value="${appeals.appealcode}" id="appealcode"/>
+                                        <input type="hidden" th:value="${appeals.daysleft}" id="daysleft"/>
+                                        <input type="hidden" th:value="${appeals.statusid.statusid}" id="statusid"/>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="fullname"><strong>Appeal Ground: </strong></label>
+                                        <span th:text="${appeals.groundcode1.ground}"></span>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="fullname"><strong>Other information necessary for filling appeal: </strong></label>
+                                        <span th:text="${appeals.otherinfo1}"></span>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="idproof"><strong>Identification Proof: </strong></label>
+                                        <a th:href="@{'/viewidproofs.htm'(appealcode=${appeals.appealcode})}" target="_blank">View</a>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="supportdoc"><strong>List of Supporting document to avail the service: </strong></label><br/>
+                                        <a th:href="@{'/viewsupportdocs.htm'(appealcode=${appeals.appealcode})}" target="_blank">View Document</a>
+                                        <div th:if="${appeals.supportdoc2 != null}">
+                                            <br/>
+                                            <a th:href="@{'/viewsupportdocs2.htm'(appealcode=${appeals.appealcode})}" target="_blank">View Document</a>
+                                        </div>
+                                        <div th:if="${appeals.supportdoc3 != null}">
+                                            <br/>
+                                            <a th:href="@{'/viewsupportdocs3.htm'(appealcode=${appeals.appealcode})}" target="_blank">View Document</a>
+                                        </div>
+                                        <div th:if="${appeals.supportdoc4 != null}">
+                                            <br/>
+                                            <a th:href="@{'/viewsupportdocs4.htm'(appealcode=${appeals.appealcode})}" target="_blank">View Document</a>
+                                        </div>
+                                        <div th:if="${appeals.supportdoc5 != null}">
+                                            <br/>
+                                            <a th:href="@{'/viewsupportdocs5.htm'(appealcode=${appeals.appealcode})}" target="_blank">View Document</a>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div th:if="${appeals.ordercopy != null}">
+                                        <div class="form-group">
+                                            <label for="ordercopy"><strong>Copy of the Order: </strong></label>
+                                            <a th:href="@{'/viewordercopys.htm'(appealcode=${appeals.appealcode})}" target="_blank">View</a>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ordercopy"><strong>FORM I: </strong></label>
+                                        <div th:if="${appeals.form1doc != null}">
+                                            <a th:href="@{'/viewform1doc.htm'(appealcode=${appeals.appealcode})}" target="_blank">View</a>
+                                        </div>
+                                        <div th:if="${appeals.form1doc == null}">
+                                            Not Uploaded
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <a class="btn btn-success form-control" id="recall">Recall</a>
+                                    <a class="btn btn-success form-control" th:href="@{'/fileappeals2.htm'(appealcode=${appeals.appealcode})}" id="fileappeal2">File Appeal To Commission</a>
+                                    <div th:if="${userData.userrole.roleid == '5' && appeals.dosubordinate == null}">
+                                        <a class="btn btn-success form-control" id="forwarddo">Forward</a>
+                                    </div>
+                                    <div th:if="${userData.userrole.roleid == '5' && appeals.dosubordinate != null}">
+                                        <a class="btn btn-success form-control disabled" id="forwarddo">Forwarded to <span th:text="${appeals.dosubordinate.fullname}"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="container mt-5" id="secondappeal">-->
+<!--                        <div class="row justify-content-center">-->
+<!--                            <div class="col-md-12 mb-5 mb-md-0">-->
+<!--                                <div class="shadow-lg p-4 wow">-->
+<!--                                    <div class="form-group mb-3">-->
+<!--                                        <h5 class="text-center"><strong>Second Appeal</strong></h5>-->
+<!--                                        <hr/>-->
+<!--                                    </div>-->
+<!--                                    <br>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label for="fullname"><strong>Relief Sought-II: </strong></label>-->
+<!--                                        <span th:text="${appeals.relief2}"></span>-->
+<!--                                    </div>-->
+<!--                                    <br>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label for="fullname"><strong>Other information necessary for filling appeal-II: </strong></label>-->
+<!--                                        <span th:text="${appeals.otherinfo2}"></span>-->
+<!--                                    </div>-->
+<!--                                    <br>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label><strong>Appeal Ground-II: </strong></label>-->
+<!--                                        <span th:text="${appeals.groundcode2.ground}"></span>-->
+<!--                                    </div>-->
+<!--                                    <br>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label><strong>Additional Document: </strong></label>-->
+<!--                                        <div th:if="${appeals.additionaldoc != null}">-->
+<!--                                            <br/>-->
+<!--                                            <a th:href="@{'/viewadddoc.htm'(appealcode=${appeals.appealcode})}" target="_blank">View Document</a>-->
+<!--                                        </div>-->
+<!--                                        <div th:if="${appeals.additionaldoc == null}">-->
+<!--                                            <br/>-->
+<!--                                            <span>No Document Uploaded</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <br>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label for="ordercopy"><strong>FORM II: </strong></label>-->
+<!--                                        <div th:if="${appeals.form2doc != null}">-->
+<!--                                            <a th:href="@{'/viewform2doc.htm'(appealcode=${appeals.appealcode})}" target="_blank">View</a>-->
+<!--                                        </div>-->
+<!--                                        <div th:if="${appeals.form2doc == null}">-->
+<!--                                            Not Uploaded-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <br>-->
+<!--                                    <a class="btn btn-success form-control" th:href="@{'/fileappeals2.htm'(appealcode=${appeals.appealcode})}" id="fileappeal2">File Appeal To Commission</a>-->
+<!--                                    <div th:if="${userData.userrole.roleid == '5' && appeals.dosubordinate == null}">-->
+<!--                                        <a class="btn btn-success form-control" id="forwarddo">Forward</a>-->
+<!--                                    </div>-->
+<!--                                    <div th:if="${userData.userrole.roleid == '5' && appeals.dosubordinate != null}">-->
+<!--                                        <a class="btn btn-success form-control disabled" id="forwarddo">Forwarded to <span th:text="${appeals.dosubordinate.fullname}"></span></a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="text-center" ><strong>Appeal Status</strong></h5>
+                </div>
+                <div class="card-body">
+                    <div class="order-track">
+                        <!-- Iterate through the transaction list -->
+                        <div th:each="d : ${transactionlist}" class="order-track-step">
+                            <div class="order-track-status">
+                                <span class="order-track-status-dot-done"></span>
+                                <span class="order-track-status-line"></span>
+                            </div>
+                            <div class="order-track-text">
+                                <strong><p class="order-track-text-stat" th:text="${d.transactiondetails}"></p></strong>
+                                <span class="order-track-text-sub">By <span th:text="${d.usercode.fullname}"></span></span>
+                                <span class="order-track-text-sub">On <span th:text="${#dates.format(d.transactiondate, 'yyyy-MM-dd')}"></span></span>
+                                <span class="order-track-text-sub">
+                            <!-- Conditional rendering based on action code -->
+                            <div th:switch="${d.actioncode.actioncode}">
+                                <!-- When action code is '1' -->
+                                <div th:case="'1'" class="alert alert-success" role="alert">
+                                    Hearing Date: <span th:text="${#dates.format(d.hearingdate, 'yyyy-MM-dd')}"></span><br/>
+                                    Hearing Start Time: <span th:text="${d.hearingtime}"></span>
+
+                                    <!-- Conditional rendering based on hearing type -->
+                                    <div th:if="${appeals.hearingtype == '2'}">
+                                        <br/>
+                                        Hearing End Time: <span th:text="${d.hearingendtime}"></span>
+                                        <br/>
+                                        Password: <span th:text="${d.hearingpw}"></span>
+                                        <br/>
+                                        <a href="vcalert.htm?transactionscode=${d.transactionscode}" class="btn btn-success">Join VC</a>
+                                    </div>
+                                    <div th:if="${appeals.hearingtype == '1'}">
+                                        <br/>
+                                        Venue: <span th:text="${d.venue}"></span>
+                                    </div>
+                                </div>
+
+                                <!-- When action code is '2', '3', or '9' -->
+                                <div th:case="'2,3,9'">
+                                    <br/>
+                                    <span class="text-danger" th:text="${d.remarks}"></span><br/>
+                                    <div th:if="${#lists.size(d.orderdoc) > 0}">
+                                        <a href="vieworderdoc.htm?tcode=${d.transactionscode}" target="_blank" class="btn btn-small btn-info">View Order Document</a>
+                                        <br/>
+                                    </div>
+                                </div>
+
+                                <!-- Default case -->
+                                <div th:case="*">
+                                    <br/>
+                                    <span class="text-danger" th:text="${d.remarks}"></span><br/>
+                                </div>
+                            </div>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link th:href="@{/web/css/cssfiles/appealstatus.css}" rel="stylesheet">
+    <script th:src="@{/web/js/jsfiles/appealstatus.js}" type="text/javascript"></script>
+
+
+
+</main>
+</html>

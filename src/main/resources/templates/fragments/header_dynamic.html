@@ -1,0 +1,230 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="header_dynamic">
+
+    <nav class="navbar sticky-top navbar-expand-lg ">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <img class="img-fluid" th:src="@{/web/tricel/images/fraction-slider/banner.png}" >
+                </div>
+                <div class="col-12 justify-content-end">
+                    <hr >
+                    <nav id="navbar" class="navbar justify-content-end">
+                        <ul>
+<!--                            <c:forEach items="${processes}"  var="x" varStatus="rowCounter">-->
+<!--                                <li  >-->
+<!--                                    <a class="nav-link scrollto active"  aria-current="page" href="${x[2]}">${x[1]}</a>-->
+<!--                                </li>-->
+<!--                                &lt;!&ndash;<li class="nav-item"><a  href="" >${x[1]}</a></li>&ndash;&gt;-->
+<!--                            </c:forEach>-->
+
+
+
+<!--                            <li th:if="${userData.userrole.roleid=='0'}" class="nav-item"><a href="#"><span>Services Dashboard</span> <i class="bi bi-chevron-down"></i></a>-->
+                                <li th:if="${userData.userrole.roleid=='0'}" class="nav-item">
+
+                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/home"  >Home</a></li>
+                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/uinbox"  >Inbox</a></li>
+                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/fileappeals"  >File Appeal</a></li>
+                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/changepassword"  >Change Password</a></li>
+                                    <li class="nav-item"><a class="nav-link scrollto active" href="transportdashboard.htm"  >Payment History</a></li>
+
+
+
+                                </li>
+<!--                            </li>-->
+
+
+
+
+
+
+
+                                <li th:if="${userData.userrole.roleid=='2'}" class="dropdown"><a href="#"><span>Services Dashboard</span> <i class="bi bi-chevron-down"></i></a>
+
+
+
+                                    <ul>
+                                        <!--<li><a href="departmentservices.htm"  >Services Breakup</a></li>-->
+                                        <li><a href="aaservicesdashboard.htm"  >ServicePlus Applications</a></li>
+                                        <li><a href="userhomepagenonsp.htm"  >Non-ServicePlus Applications</a></li>
+                                        <li><a href="transportdashboard.htm"  >Transport Services</a></li>
+
+
+                                    </ul>
+                                </li>
+
+
+
+
+
+
+
+                                <li th:if="${userData.userrole.roleid=='5'}" class="dropdown"><a href="#"><span>Services Dashboard</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <!--<li><a href="departmentservices.htm"  >Services Breakup</a></li>-->
+                                        <li><a href="doservicedashboard.htm"  >ServicePlus Applications</a></li>
+                                        <li><a href="userhomepagenonsp.htm"  >Non-ServicePlus Applications</a></li>
+                                        <li><a href="transportdashboard.htm"  >Transport Services</a></li>
+
+
+                                    </ul>
+                                </li>
+
+
+
+
+
+
+
+                                <li th:if="${userData.userrole.roleid=='7'}" class="dropdown"><a href="#"><span>Services Dashboard</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="departmentservices.htm"  >Services Breakup</a></li>
+                                        <li><a href="userhomepage.htm"  >ServicePlus Applications</a></li>
+                                        <li><a href="userhomepagenonsp.htm"  >Non-ServicePlus Applications</a></li>
+                                        <li><a href="transportdashboard.htm"  >Transport Services</a></li>
+
+
+                                    </ul>
+                                </li>
+
+
+
+
+
+
+                                <li th:if="${userData.userrole.roleid=='1'}" class="dropdown"><a href="#"><span>Manage</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="addappelate.htm">Appelate Authority</a></li>
+                                        <li><a href="adddos.htm">Designated Offices</a></li>
+                                        <li><a href="addservices.htm">Services</a></li>
+                                        <li><a href="mapappelate.htm">Map Serives</a></li>
+
+                                        <li><hr class="dropdown-divider"></li>
+
+                                        <li><a href="addcontacts.htm">Contacts</a></li>
+                                        <li><a href="addwhatsnew.htm">Whats New</a></li>
+                                        <li><a href="uploadnotification.htm">Notifications</a></li>
+                                        <li><a href="addpresentation.htm">Presentations</a></li>
+                                        <li><a href="addmeeting.htm">Review Meetings</a></li>
+
+                                        <li><hr class="dropdown-divider"></li>
+
+                                        <li><a href="mapprocess.htm">Map Processes</a></li>
+                                        <li><a href="manageips.htm">IP Addresses</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a href="notifiedservicescount.htm">Noyified Services Count</a></li>
+                                        <li><a href="manageonlineservices.htm">Online Services</a></li>
+                                        <li><a href="addnewservice.htm"  >Add New Service</a></li>
+
+                                        <li><hr class="dropdown-divider"></li>
+
+                                        <li><a href="managehomepagephotos.htm">Home Page Photos</a></li>
+                                        <li><a href="managealbums.htm">Albums</a></li>
+
+
+
+                                    </ul>
+                                </li>
+
+
+
+
+
+
+                            <li th:if="${userData.userrole.roleid=='3'}">
+                                <li th:if="${userData.userrole.roleid=='3'}" class="dropdown"><a href="#"><span>Services Dashboard</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="departmentservices.htm"  >Services Breakup</a></li>
+                                        <li><a href="userhomepage.htm"  >ServicePlus Applications</a></li>
+                                        <li><a href="userhomepagenonsp.htm"  >Non-ServicePlus Applications</a></li>
+                                        <li><a href="transportdashboard.htm"  >Transport Services</a></li>
+                                        <li><a href="addnewservice.htm"  >Add New Service</a></li>
+
+
+                                    </ul>
+                                </li>
+                                <li th:if="${userData.userrole.roleid=='9'}" class="dropdown"><a href="#"><span>Track Applications</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="#"  id="trackspapplications">ServicePlus Applications</a></li>
+
+
+                                    </ul>
+                                </li>
+                                <li th:if="${userData.userrole.roleid=='9'}" class="dropdown"><a href="#"><span>Manage</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+
+
+                                        <li><a href="addcontacts.htm">Contacts</a></li>
+                                        <li><a href="addwhatsnew.htm">Whats New</a></li>
+                                        <li><a href="uploadnotification.htm">Notifications</a></li>
+                                        <li><a href="addpresentation.htm">Presentations</a></li>
+                                        <li><a href="addmeeting.htm">Review Meetings</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a href="notifiedservicescount.htm">Noyified Services Count</a></li>
+                                        <li><a href="manageonlineservices.htm">Online Services</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+
+                                        <li><a href="managehomepagephotos.htm">Home Page Photos</a></li>
+                                        <li><a href="managealbums.htm">Albums</a></li>
+
+
+
+                                    </ul>
+                                </li>
+                            </li>
+
+
+
+
+
+                            <ul th:if="${userData.userrole.roleid=='8'}">
+
+                                <li><a class="nav-link scrollto active" href="khadcdashboard.htm">Main Dashboard</a></li>
+                                <!--<li><a class="nav-link scrollto" href="khadcpaymentdashboard.htm">Payments Dashboard</a></li>-->
+                                <li><a class="nav-link scrollto" href="khadcestablishmentdashboard.htm">Payments Dashboard</a></li>
+                            </ul>
+
+
+
+
+
+<!--                            <%&#45;&#45;<c:if test="${LOGIN.userrole.roleid=='2'}">&#45;&#45;%>-->
+<!--                            &lt;!&ndash;<li>&ndash;&gt;-->
+<!--                            &lt;!&ndash;<a class="nav-link scrollto"  aria-current="page" href="labourdashboard.htm">Services Dashboard</a>&ndash;&gt;-->
+<!--                            &lt;!&ndash;</li>&ndash;&gt;-->
+<!--                            <%&#45;&#45;</c:if>&#45;&#45;%>-->
+
+
+
+<!--                            <li>-->
+<!--                                <a class="nav-link scrollto active" href="logout.htm" >Logout</a>-->
+<!--                            </li>-->
+
+                            <li>
+                                <a class="nav-link scrollto active" href="#" th:onclick="|logoutUser()|" >Logout</a>
+                            </li>
+
+<!--                            <li>-->
+<!--                                <form th:action="@{/secure/userlogout}" method="post" style="display: inline;">-->
+<!--                                    <a class="nav-link scrollto active">-->
+<!--                                        <input type="submit" value="Logout">-->
+<!--                                    </a>-->
+<!--                                </form>-->
+<!--                            </li>-->
+
+
+                        </ul>
+                        <i class="bi bi-list mobile-nav-toggle"></i>
+                    </nav><!-- .navbar -->
+                </div>
+            </div>
+
+
+        </div>
+    </nav>
+    <div class="container text-muted text-monospace">
+        <marquee id="userdetails" style="font-size: small;font-weight: 900; padding: 5px;">
+            Welcome: <span th:text="${userData.fullname}"></span>, Designation: <span th:text="${userData.designation}"></span>, Role: <span th:text="${userData.userrole.rolename}"></span>
+        </marquee>
+    </div>
+</div>

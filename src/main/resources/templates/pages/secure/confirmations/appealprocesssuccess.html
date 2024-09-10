@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+
+<main th:fragment="content">
+
+    <div th:if="${appealActionSuccess.processType == 'hearingSuccess'}">
+        <div class="container">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Successfully Saved!</h4>
+                <p>You have successfully scheduled an online hearing with Reference Number <b th:text="${appealid}"></b></p>
+                <p>The Hearing Details are as follows:</p>
+                <p>Title: <b th:text="${appealActionSuccess.title}"></b></p>
+                <p>Description: <b th:text="${appealActionSuccess.description}"></b></p>
+                <p>Date: <b th:text="${appealActionSuccess.hearingDate}"></b></p>
+                <p>Start Time: <b th:text="${appealActionSuccess.startTime}"></b></p>
+                <p>End Time: <b th:text="${appealActionSuccess.endTime}"></b></p>
+                <p>Link: <b th:text="${appealActionSuccess.vcLink}"></b></p>
+                <p>Password: <b th:text="${appealActionSuccess.password}"></b></p>
+
+                <hr>
+
+                <!-- Conditional Statements for Different User Roles -->
+                <div th:if="${userData.userrole.roleid == '2'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+                <div th:if="${userData.userrole.roleid == '3'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+                <div th:if="${userData.userrole.roleid == '6'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:if="${appealActionSuccess.processType == 'successPhysical'}">
+        <div class="container">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Successfully Saved!</h4>
+                <p>You have successfully called for hearing for the Appeal with Reference Number <b th:text="${appealActionSuccess.appealRefNo}"></b></p>
+
+                <hr>
+
+                <!-- Conditional Statements for Different User Roles -->
+                <div th:if="${userData.userrole.roleid == '2'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+                <div th:if="${userData.userrole.roleid == '3'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+                <div th:if="${userData.userrole.roleid == '6'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div th:if="${appealActionSuccess.processType == 'successDispose'}">
+        <div class="container">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Successfully Saved!</h4>
+                <p>You have successfully disposed of the Appeal with Reference Number <b th:text="${appealActionSuccess.appealRefNo}"></b></p>
+
+                <hr>
+
+                <!-- Conditional Statements for Different User Roles -->
+                <div th:if="${userData.userrole.roleid == '2'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+                <div th:if="${userData.userrole.roleid == '3'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+                <div th:if="${userData.userrole.roleid == '6'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div th:if="${appealActionSuccess.processType == 'successReject'}">
+        <div class="container">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Successfully Saved!</h4>
+                <p>You have successfully rejected the Appeal with Reference Number <b th:text="${appealActionSuccess.appealRefNo}"></b></p>
+
+                <hr>
+
+                <!-- Conditional Statements for Different User Roles -->
+                <div th:if="${userData.userrole.roleid == '2'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+                <div th:if="${userData.userrole.roleid == '3'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+                <div th:if="${userData.userrole.roleid == '6'}">
+                    <p class="mb-0"><a class="btn btn-outline-success" href="/secure/aainbox">Go to Inbox</a></p>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+</main>
+</html>

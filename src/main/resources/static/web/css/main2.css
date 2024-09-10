@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+/*------------Blinking effect border-----------*/
+
+.blink_me {
+    /*padding: 2px;*/
+    
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: steps(1, start);
+    -webkit-animation-iteration-count: infinite;
+    
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: steps(1, start);
+    -moz-animation-iteration-count: infinite;
+    
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: steps(1, start);
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {  
+    0% { background-color: none; }
+    50% { background-color: yellow }
+    100% { background-color: none; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { background-color: none; }
+    50% { background-color: yellow }
+    100% { background-color: none; }
+}
+
+@keyframes blinker {  
+    0% { background-color: none; }
+    50% { background-color: yellow }
+    100% { background-color: none; }
+}
+
+/*-------------------------------*/
+
+
+/*html,h1,h2,h3,h4,h5,h6,a{
+ font-family: "Raleway";
+}*/
+
+body{
+	
+ background: #e3e3e3;	
+}
+
+/*.welcome{
+ background:#009688;
+}
+.welcome h3
+{
+ color: #FFFFFF;
+ font-size: 18px;
+ font-weight: bold;
+}*/
+
+
+/*.navbar{
+ background:#009688;
+}
+.nav-link , .navbar-brand{
+ color: #FFFFFF;
+ cursor: pointer;
+ font-weight: bold;
+}
+.nav-link{
+ margin-right: 1em;
+ margin-bottom: -10em;
+}
+.nav-link:hover{
+ background: #f4f4f4;
+ color: #009688;
+ color: #ffffff; 
+}
+
+.navbar-brand:hover{
+ background: #f4f4f4;
+ color: #009688;
+ color: #ffffff; 
+ font-weight: bold;
+}
+.navbar-collapse{
+ justify-content: flex-end;
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+header style
+.header{
+  background-image: url('../images/headerback.jpg'); org
+ background-color: 	#00FFFF;
+ background-attachment: fixed;
+ background-size: cover;
+ background-position: center;
+}*/
+
+/*.overlay{
+ position: absolute;
+ min-height: 100%;
+ min-width: 100%;
+ left: 0;
+ top: 0;
+ background: rgba(244, 244, 244, 0.79);
+}
+
+.description{
+    position: absolute;
+    top: 30%;
+    margin: auto;
+    padding: 2em;
+}
+.description h3{
+ color:#009688 ;
+}
+.description p{
+ color:#666;
+ font-size: 18px;
+ width: 50%;
+ line-height: 1.5;
+}
+.description button{
+ border:1px  solid #009688;
+ background:#009688;
+ color:#fff;
+}*/
+
+
+
+
+
+/*CONTACT*/
+
+/*.contact-form2{
+ position: relative;  
+}
+
+.contact-form{
+ margin: 1em 0;
+ margin: 0 0;
+ position: relative;  
+}*/
+/*.contact-form h1{
+ padding:2em 1px;
+ color: #009688; 
+}
+.contact-form .right{
+ max-width: 600px;
+}
+.contact-form .right .btn-secondary{
+ background:  #009688;
+ color: #fff;
+ padding:1em 1px;
+ border:0;
+}
+.contact-form .right .form-control::placeholder{
+ color: #888;
+ font-size: 16px;
+}*/
+
+
+/*.dropdown-submenu{
+    position: relative;
+}
+.dropdown-submenu a::after{
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 3px;
+    top: 40%;
+}
+.dropdown-submenu:hover .dropdown-menu, .dropdown-submenu:focus .dropdown-menu{
+    display: flex;
+    flex-direction: column;
+    position: absolute !important;
+    margin-top: -30px;
+    left: 100%;
+}
+.dropdown-item{
+    font-size: 14px;
+}*/
+
+/*.home{
+ margin: 8em 0;
+ padding: 1em;
+ position: relative;
+}
+.home h1{
+ color:#009688;
+ margin: 2em;
+}
+.home img{
+ height: 50%;
+ width: 80%;
+ border-radius: 50%
+}
+.home span{
+ display: block;
+ color: #888;
+ position: absolute;
+ left: 105px;
+}
+.home .desc{
+ padding: 2em;
+ border-left:4px solid #10828C;
+ border-left:4px solid #009688;
+ 
+}
+.home .desc h3{
+ color: #10828C;
+}
+.home .desc p{
+ line-height:2;
+ color:#888;
+}*/
+
+
+

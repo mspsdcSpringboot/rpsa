@@ -1,0 +1,109 @@
+
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+
+    <!--        Div for header-->
+    <div class="header">
+        <nav class="navbar sticky-top navbar-expand-lg " >
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <img class="img-fluid" th:src="@{/web/tricel/images/fraction-slider/banner.png}" >
+                    </div>
+                    <div class="col-12 justify-content-end">
+                        <hr class="m-10">
+                        <nav id="navbar" class="navbar justify-content-end">
+                            <ul>
+                                <li><a class="nav-link scrollto active" href="/"><i class="fa fa-home"></i> &nbsp; Home</a></li>
+                                <!--<li><a class="nav-link scrollto" href="ab">About</a></li>-->
+                                <!--<li><a class="nav-link scrollto" href="#services">Services</a></li>-->
+                                <!--<li><a class="nav-link scrollto" href="#departments">Departments</a></li>-->
+                                <!--<li><a class="nav-link scrollto" href="#doctors">Doctors</a></li>-->
+                                <li class="dropdown"><a href="#"><span>About Us</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="/public/about_us">The Commission</a></li>
+                                        <!--                                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                                                            <ul>
+                                                                                <li><a href="#">Deep Drop Down 1</a></li>
+                                                                                <li><a href="#">Deep Drop Down 2</a></li>
+                                                                                <li><a href="#">Deep Drop Down 3</a></li>
+                                                                                <li><a href="#">Deep Drop Down 4</a></li>
+                                                                                <li><a href="#">Deep Drop Down 5</a></li>
+                                                                            </ul>
+                                                                        </li>-->
+                                        <li><a href="/public/functions">Functions &amp; Duties</a></li>
+                                        <li><a href="/public/reviewmeetings">Review Meetings</a></li>
+                                        <li><a href="/public/presentations">Presentations</a></li>
+                                        <li><a href="/public/albums">Gallery</a></li>
+                                        <!--<li><a href="#">Organogram</a></li>-->
+                                        <!--<li><a href="#">Drop Down 4</a></li>-->
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#"><span>Acts &amp; Rules</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="web/docu/MeghalayaRighttoPublicServicesAct2020.pdf" target='_blank'>Act</a></li>
+                                        <!--                                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                                                            <ul>
+                                                                                <li><a href="#">Deep Drop Down 1</a></li>
+                                                                                <li><a href="#">Deep Drop Down 2</a></li>
+                                                                                <li><a href="#">Deep Drop Down 3</a></li>
+                                                                                <li><a href="#">Deep Drop Down 4</a></li>
+                                                                                <li><a href="#">Deep Drop Down 5</a></li>
+                                                                            </ul>
+                                                                        </li>-->
+                                        <li><a href="web/docu/MeghalayaRighttoPublicServicesRules2021.pdf" target='_blank'>Rules</a></li>
+                                        <li><a href="/public/notification">Notifications</a></li>
+
+                                        <!--<li><a href="#">Drop Down 4</a></li>-->
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="services_list.htm">Services by Department</a></li>
+                                        <!--                                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                                                            <ul>
+                                                                                <li><a href="#">Deep Drop Down 1</a></li>
+                                                                                <li><a href="#">Deep Drop Down 2</a></li>
+                                                                                <li><a href="#">Deep Drop Down 3</a></li>
+                                                                                <li><a href="#">Deep Drop Down 4</a></li>
+                                                                                <li><a href="#">Deep Drop Down 5</a></li>
+                                                                            </ul>
+                                                                        </li>-->
+                                        <!--<li><a href="services_count.htm">Number of Services</a></li>-->
+                                        <li><a href="/public/onlineservices">Apply for Services</a></li>
+                                        <!--<li><a href="#">Drop Down 4</a></li>-->
+                                    </ul>
+                                </li>
+
+                                <li><a class="nav-link scrollto" href="/public/contact_us">Contact</a></li>
+                                <li><a class="nav-link scrollto" href="login">Login</a></li>
+                                <li class="dropdown"><a href="#"><span>Dashboards</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href="login2.htm">Chief Minister's Dashboard</a></li>
+                                        <li><a href="login2.htm">Chief Secretary's Dashboard</a></li>
+
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                            <i class="bi bi-list mobile-nav-toggle"></i>
+                        </nav><!-- .navbar -->
+
+                    </div>
+                    <div class="col-12 justify-content-end">
+                        <div class="row   text-danger text-monospace">
+
+                            <marquee id="notetousers" style="font-size: small;font-weight: 900; padding: 5px;">
+                                Citizens are encouraged to apply for the online notified services through this portal. You can easily track your application status at your convenience and officials can monitor your application. Other portals may not have these features.
+                            </marquee>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </nav>
+    </div>
+
+
+</div>

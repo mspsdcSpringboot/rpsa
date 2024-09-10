@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main th:fragment="content">
+
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2></h2>
+                <!--                        <ol>
+                                            <li><a href="index.html">Home</a></li>
+                                            <li>Inner Page</li>
+                                        </ol>-->
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs Section -->
+    <section class="inner-page">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-md-8 mb-5 mb-md-0 alert-info">
+                    <div class="alert alert-block pt-3" role="alert" >
+
+                        <h3>Instructions for citizens for filing Appeals:</h3>
+                        <p>
+                        <ol>
+                            <li>This Login is meant only for filing Appeals. To avail services please go to <a href="onlineservices.htm">Apply for Services</a>.</li>
+                            <li>Enter your Mobile Number used while registering against Username.</li>
+                            <li>Enter your Password created while registering against your Username </li>
+                            <li>If this is the first time, you are visiting this website, kindly click on "Create Account" to create an account in this website</li>
+                        </ol>
+                        </p>
+                        <hr/>
+                        <h3>Instructions for Appellate Authority & Designated Officers:</h3>
+                        <p>
+                        <ol>
+                            <li>Login with Username and Password shared with you.</li>
+                            <li>If it is the first time you are logging in, update your details such as your Designation, Mobile Number, Email-Address etc and change your Login Password </li>
+                            <li>User Manual: <a class="" target="_blank" href="pdf/manuals/appellate.pdf">Download</a>
+                        </ol>
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 mb-5 mb-md-0">
+                    <!--<div class="block">-->
+                    <div class=" shadow-lg   p-4">
+                        <form method="POST" modelAttribute="login" autocomplete="off">
+                            <!--                        <sec:csrfInput />-->
+                            <div class="form-group mb-3">
+                                <h3 class="text-center" id="headercaption"><strong>LOGIN</strong></h3>
+                                <hr/>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input path="username" id="username" name="username" placeholder="Enter Your Username" autocomplete="off" class="form-control input zoom1" required="true"/>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <input path="userpassword" type="password"  class="form-control input zoom1"  placeholder="Enter Your Password" id="userpassword" name="userpassword" autocomplete="off" required="true"/>
+                                <input type="checkbox" id="showpass">Show Password
+                            </div>
+
+                            <!--                                                            <div class="form-group mb-3 center text-center justify-content-center">
+                                                                                            <img src="./simpleImg" name="refresh" style="width:250px ;height:120px; margin-right: 20px !important; " class="zoom3 img-responsive img img-thumbnail"/>
+                                                                                            <img src="images/retry.png" style="margin-left: 20px !important; width: 24px; height: 24px;background-color: white" onclick="Start()" class="zoom2"/>
+                                                                                        </div>
+
+                                                                                        <div class="form-group mb-3">
+                                                                                            <input  type="text" name="captcha" id="userCaptcha" maxlength="5" placeholder="Enter the Capcha"  class="form-control input zoom1"  autocomplete="off" required="true"/>
+                                                                                            <span style="color: #ff0000;"> ${capchaerror}</span>
+                                                                                        </div>-->
+                            <div class="form-group mb-3 center text-center justify-content-center">
+                                <div class="row py-2 gap-3 ms-3">
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <img alt="Captcha" id="realCaptcha" src="" />
+                                        </div>
+                                    </div>
+                                    <div class="col py-2">
+                                        <a href="#" class="reloadCaptchaBtn text-decoration-none">
+                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row py-2">
+                                    <div class="col mb-4">
+                                        <label class="mb-2" for="captcha">Enter Captcha</label>
+                                        <input id="hiddenCaptcha" type="hidden" />
+                                        <input class="form-control" id="captcha" placeholder="Enter Captcha" required type="text" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="submit" class="mb-3">
+                                <input type="hidden" name="randomKey" id="randomKey" value="${randomKey}"/>
+                                <input type="submit"  value="Log in"  name="login" id="btnclick" class="btn btn-primary   form-control"/>
+                            </div>
+
+                            <div class="form-group mb-3 text-center" >
+
+                                <span class="text-center"> <a href="registration">Create Account</a></span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="text-center text-danger"> <a  class="text-danger" id="forgotpassword">Forgot Password</a></span>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!--</div>-->
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <script th:src="@{/web/js/jsfiles/login.js}" type="text/javascript"></script>
+
+
+</main>
+
+
+
+</body>
+</html>

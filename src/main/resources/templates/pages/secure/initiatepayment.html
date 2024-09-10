@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Payment Required</h4>
+            <p>Your Appeal with Reference Number <b><span th:text="${appealsData.refno}"></span></b> has been successfully saved </p>
+            <p>Please Complete the payment of amount 10 to proceed</p>
+            <input hidden="true" id="appealcode" th:value="${appealsData.refno}"/>
+            <hr>
+            <p class="mb-0"><a class="btn btn-outline-success" id="pay">Pay</a></p>
+        </div>
+    </div>
+
+
+    <script th:src="@{/web/js/jsfiles/initiatepayment.js}" type="text/javascript"></script>
+
+</main>
+</html>

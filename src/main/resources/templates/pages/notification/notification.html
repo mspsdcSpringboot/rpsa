@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <main th:fragment="content">
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Notifications</h2>
+                    <!--                        <ol>
+                                                <li><a href="index.html">Home</a></li>
+                                                <li>Inner Page</li>
+                                            </ol>-->
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs Section -->
+        <section class="inner-page">
+            <div class="container common-container four_content ">
+                <div class="scroller">
+                    <table id="notificationstable" border="1" class="table datatable table-striped" style="width:100%" >
+                        <thead>
+                        <tr>
+
+                            <th align="left" valign="middle">Notification No.</th>
+                            <th align="left" valign="middle">Department/Office</th>
+                            <th align="left" valign="middle">Date</th>
+                        </tr>
+                        </thead><!-- comment -->
+                        <tbody>
+
+                            <tr th:each="notification : ${notifications}">
+
+                                <td>
+                                    <a th:href="@{/public/viewnotificationdoc/{notificationid}(notificationid=${notification.notificationid})}" target="_blank">
+                                        <span th:text="${notification.notificationname}"></span>
+                                    </a>
+                                </td>
+                                <td width="50%"><span th:text="${notification.title}"></span></td>
+                                <td>
+                                    <span th:text="${#dates.format(notification.notificationdate, 'MMM d, yyyy')}"></span>
+                                </td>
+
+
+                            </tr>
+
+
+                        </tbody>
+
+
+
+                    </table>
+                </div>
+                <hr /> </div>
+        </section>
+    </main>
+
+</body>
+</html>

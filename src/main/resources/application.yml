@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: rpsa_springboot
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rpsa?currentSchema=rpsa
+    username: postgres
+    password: Nilam@2000
+    driver-class-name: org.postgresql.Driver
+  security:
+    user:
+      name: rpsa
+      password: password
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+      max-request-size: 2MB
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#server:
+#  error:
+#    whitelabel:
+#      enabled=false
