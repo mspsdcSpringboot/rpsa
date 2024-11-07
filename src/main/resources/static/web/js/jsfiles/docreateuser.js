@@ -1,53 +1,42 @@
 $(document).ready(function () {
+
+//    alert("Loading...");
     $('#userstable').DataTable();
 
     $('#savebtn').click(function () {
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
 
-        var pass, get, slt;
-        var pwd = "";
-        pass = makeid(8);
-        if ((pass.toString()).length == 0) {
-            pwd = "";
-        } else {
-            slt = $('#randomKey').val();
-            get = sha256_digest(pass);
-            pwd = get;
-        }
-        $("#randomKey").attr("disabled", "disabled");
 
         var userdetails;
+        var generatedPassword = generateRandomString(8);
 
         userdetails = {
             fullname: $('#fullname').val(),
             contact: $('#contact').val(),
             username: $('#email').val(),
-            password: pwd,
-            pw: pass,
+            password: generatedPassword,
+            pw: encryptPassword(generatedPassword),
             role: "10",
             email: $('#email').val(),
             designation: $('#designation').val()
         };
 
-        var userdetailsjson = encodeURIComponent(JSON.stringify(userdetails));
-                        alert(JSON.stringify(userdetails));
+        var userdetailsjson = JSON.stringify(userdetails);
+//        alert(userdetailsjson);
+
         $.ajax({
             type: "POST",
-            url: "./savedosubordinate.htm",
-            data: "appjson=" + userdetailsjson,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/createdosubordinate",
+            data: userdetailsjson,
+            contentType: "application/json",
             success: function (data) {
-
-                if (data != '-1') {
-                    alert("Data has been saved successfully");
-                    location.reload();
-                } else {
-                    alert("Username Already Exists");
-                }
+                alert(data);
+                location.reload();
+//                if (data != '-1') {
+//                    alert("Data has been saved successfully");
+//                    location.reload();
+//                } else {
+//                    alert("Username Already Exists");
+//                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
@@ -58,27 +47,28 @@ $(document).ready(function () {
     });
 
     $('.deactivateuser').click(function () {
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
         var usercode = this.id;
 
 //        alert(usercode)
         $.ajax({
             type: "POST",
-            url: "./deactivateuser.htm",
-            data: "usercode=" + usercode,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/deactivedosubordinate",
+            data: {"id" : usercode},
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
-
-                if (data == '1') {
-                    alert("Data has been saved successfully");
-                    location.reload();
-                } else {
-                    alert("Error");
-                }
+                alert(data);
+                location.reload();
+//                if (data == '1') {
+//                    alert("Data has been saved successfully");
+//                    location.reload();
+//                } else {
+//                    alert("Error");
+//                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
@@ -88,26 +78,27 @@ $(document).ready(function () {
     })
 
     $('.activateuser').click(function () {
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
          var usercode = this.id;
 //         alert(usercode)
         $.ajax({
             type: "POST",
-            url: "./activateuser.htm",
-            data: "usercode=" + usercode,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/activedosubordinate",
+            data: {"id" : usercode},
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
-
-                if (data == '1') {
-                    alert("Data has been saved successfully");
-                    location.reload();
-                } else {
-                    alert("Error");
-                }
+                alert(data);
+                location.reload();
+//                if (data == '1') {
+//                    alert("Data has been saved successfully");
+//                    location.reload();
+//                } else {
+//                    alert("Error");
+//                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
@@ -133,4 +124,42 @@ function makeid(length) {
     return result;
 }
 
+    function encryptPassword(pass) {
+       if (pass.length === 0) {
+           return "";
+       } else {
+           var hashedPassword = CryptoJS.SHA256(pass).toString();
+           return hashedPassword;
+       }
+   }
+
+   function generateRandomString(length) {
+       const specialChars = "!@#$%^&*()_+{}:<>?|[];,./-=~";
+       const upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+       const lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+       const numbers = "0123456789";
+
+       // Helper function to get a random character from a string
+       const getRandomChar = (str) => str[Math.floor(Math.random() * str.length)];
+
+       // Ensure at least one of each required character
+       let randomString = [
+           getRandomChar(specialChars),         // At least one special character
+           getRandomChar(upperCaseLetters),     // At least one uppercase letter
+           getRandomChar(lowerCaseLetters),     // At least one lowercase letter
+           getRandomChar(numbers)               // At least one number
+       ];
+
+       // Fill the remaining characters with random choices from all categories
+       const allChars = specialChars + upperCaseLetters + lowerCaseLetters + numbers;
+       for (let i = randomString.length; i < length; i++) {
+           randomString.push(getRandomChar(allChars));
+       }
+
+       // Shuffle the array to ensure randomness of character placement
+       randomString = randomString.sort(() => Math.random() - 0.5);
+
+       // Convert array to string and return
+       return randomString.join('');
+   }
 

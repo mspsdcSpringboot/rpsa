@@ -1,0 +1,242 @@
+
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+
+    <main th:fragment="content">
+        <div class="container">
+            <div class="row main-content justify-content-center">
+                <div class="col-md-12 mb-10 mb-md-0">
+                    <div class="shadow-lg p-5 wow login-form1">
+                        <div class="text-center">
+                            <h5 class="text-uppercase fw-bolder">Status Of Appeals with the Sub-Ordinate</h5>
+                            <hr/>
+                        </div>
+                        <div class="row cf">
+
+                            <!-- Appeal Count Cards -->
+                            <div class="col-md-4 no-gutters m-0 p-1">
+                                <div class="zoom">
+                                    <div class="card text-dark shadow-lg cardcount border-dark mb-3">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-4 bg-dark colcount">
+                                                    <p class="card-text text-white" th:text="${appeallistcount}">0</p>
+                                                </div>
+                                                <div class="col-8 text-center">
+                                                    <p class="card-title text-dark">Total Appeals</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 no-gutters m-0 p-1">
+                                <div class="zoom">
+                                    <div class="card text-dark shadow-lg cardcount border-primary mb-3">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-4 bg-primary colcount">
+                                                    <p class="card-text text-white" th:text="${newappeals}">0</p>
+                                                </div>
+                                                <div class="col-8 text-center">
+                                                    <p class="card-title text-dark">New Appeals</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 no-gutters m-0 p-1">
+                                <div class="zoom">
+                                    <div class="card text-dark shadow-lg cardcount border-warning mb-3">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-4 bg-warning colcount">
+                                                    <p class="card-text text-white" th:text="${processedappeallistcount}">0</p>
+                                                </div>
+                                                <div class="col-8 text-center">
+                                                    <p class="card-title text-dark">Appeals in Process</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 no-gutters m-0 p-1">
+                                <div class="zoom">
+                                    <div class="card text-dark shadow-lg cardcount border-success mb-3">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-4 bg-success colcount">
+                                                    <p class="card-text text-white" th:text="${disposedappeals}">0</p>
+                                                </div>
+                                                <div class="col-8 text-center">
+                                                    <p class="card-title text-dark">Disposed Appeals</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+<!--             Tab Content-->
+            <div class="container-fluid">
+                <ul class="nav nav-tabs justify-content-center shadow-lg mt-1 pt-2" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">New Appeals</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="process-tab" data-bs-toggle="tab" data-bs-target="#process" type="button" role="tab" aria-controls="process" aria-selected="true">Appeals in Process</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Disposed Appeals</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Directions From Commission</button>
+                    </li>
+                </ul>
+
+                <!-- Tab Panels -->
+                <div class="tab-content" id="myTabContent">
+
+                    <!-- New Appeals Tab -->
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong> Appeals </strong>
+                            </div>
+                            <div class="card-body">
+                                <table id="appealtable" class="table datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>Reference Number</th>
+                                        <th>Service Name</th>
+                                        <th>Designated Officer</th>
+                                        <th>Appeal Filed On</th>
+                                        <th>Appeal Filed By</th>
+                                        <th>Days Left</th>
+                                        <th>Payment Status</th>
+                                        <th>Instruction</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="d : ${appeallist}">
+
+                                        <td th:text="${d.refno}">REF123</td>
+                                        <td th:text="${d.subservicecode.subservicename}">Service Name</td>
+                                        <td th:text="${d.officeid.officename}">Officer Name</td>
+                                        <td>
+                                            <time th:text="${#dates.format(d.firstappealdate, 'dd/MM/yyyy')}">01/01/2024</time>
+                                        </td>
+                                        <td th:text="${d.usercode.fullname}">User Name</td>
+                                        <td th:text="${d.daysleft}">10</td>
+                                        <td th:text="${d.paymentflag == 'Y' ? 'Paid' : 'Not Paid'}"></td>
+                                        <td th:text="${d.forwardremarks}">Remarks</td>
+                                        <td>
+                                            <a class="btn btn-success" th:href="@{'/secure/aasoview/' + ${d.appealcode}}">View</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <!-- Appeals Disposed Tab -->
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Appeals Disposed</strong>
+                            </div>
+                            <div class="card-body">
+                                <table id="uappealtable" class="table table-striped datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>Reference No.</th>
+                                        <th>Service Name</th>
+                                        <th>Designated Officer</th>
+                                        <th>Appeal Filed On</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="d : ${disposedappeallist}">
+                                        <td th:text="${d.refno}">REF123</td>
+                                        <td th:text="${d.subservicecode.subservicename}">Service Name</td>
+                                        <td th:text="${d.officeid.officename}">Officer Name</td>
+                                        <td th:text="${d.firstappealdate}">01/01/2024</td>
+                                        <td th:text="${d.statusid.statusname}">Status</td>
+                                        <td>
+                                            <a class="btn btn-success form-control" th:href="@{'/secure/appealstatus/' + ${d.appealcode}}">View</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <!-- Appeals in Process Tab -->
+                    <div class="tab-pane fade" id="process" role="tabpanel" aria-labelledby="process-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Appeals in Process</strong>
+                            </div>
+                            <div class="card-body">
+                                <table id="processappealtable" class="table datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>Reference Number</th>
+                                        <th>Service Name</th>
+                                        <th>Designated Officer</th>
+                                        <th>Appeal Filed On</th>
+                                        <th>Appeal Filed By</th>
+                                        <th>Days Left</th>
+                                        <th>Payment Status</th>
+                                        <th>Instruction</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="d : ${pendingappeals}">
+                                        <td th:text="${d.refno}">REF123</td>
+                                        <td th:text="${d.subservicecode.subservicename}">Service Name</td>
+                                        <td th:text="${d.officeid.officename}">Officer Name</td>
+                                        <td>
+                                            <time th:text="${#dates.format(d.firstappealdate, 'dd/MM/yyyy')}">01/01/2024</time>
+                                        </td>
+                                        <td th:text="${d.usercode.fullname}">User Name</td>
+                                        <td th:text="${d.daysleft}">10</td>
+                                        <td th:text="${d.paymentflag == 'Y' ? 'Paid' : 'Not Paid'}"></td>
+                                        <td th:text="${d.forwardremarks}">Remarks</td>
+                                        <td>
+                                            <a class="btn btn-success form-control" th:href="@{'/secure/aasoview/' + ${d.appealcode}}">View</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    </html>
+

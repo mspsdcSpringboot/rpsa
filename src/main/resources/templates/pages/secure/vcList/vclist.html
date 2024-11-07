@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+
+<main th:fragment="content">
+    <div class="container-fluid">
+        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Appellate VCs</button>
+            </li>
+            <li class="nav-item" role="presentation" th:if="${userData.userrole.roleid == '3'}">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Commission VCs</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <!-- Appellate VCs Tab -->
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Upcoming Appellate VCs</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="uappealtable" class="table table-striped datatable">
+                            <thead>
+                            <tr>
+                                <th>Reference No.</th>
+                                <th>Service Name</th>
+                                <th>Appeal Filed On</th>
+                                <th>Appeal Level</th>
+                                <th>Called By</th>
+                                <th>Hearing Date</th>
+                                <th>Hearing Time</th>
+                                <th>VC Password</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="d : ${appeallist}">
+                                <td th:text="${d.appealcode.appealcode}"></td>
+                                <td th:text="${d.appealcode.subservicecode.subservicename}"></td>
+                                <td th:text="${#dates.format(d.appealcode.firstappealdate, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${d.appeallevel}"></td>
+                                <td th:text="${d.usercode.fullname} + ' ' + ${d.usercode.mname} + ' ' + ${d.usercode.lname}"></td>
+                                <td th:text="${#dates.format(d.hearingdate, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${d.hearingtime}"></td>
+                                <td th:text="${d.hearingpw}"></td>
+                                <td>
+                                    <a class="btn btn-success form-control" target="_blank" th:href="${d.vclink}">Join VC</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br/>
+            </div>
+
+            <!-- Commission VCs Tab (conditionally rendered based on user role) -->
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab" th:if="${userData.userrole.roleid == '3'}">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Upcoming Commission VCs</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="comtable" class="table table-striped datatable">
+                            <thead>
+                            <tr>
+                                <th>Reference No.</th>
+                                <th>Service Name</th>
+                                <th>Appeal Filed On</th>
+                                <th>Appeal Level</th>
+                                <th>Called By</th>
+                                <th>Hearing Date</th>
+                                <th>Hearing Time</th>
+                                <th>VC Password</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="d : ${comappeallist}">
+                                <td th:text="${d.appealcode.appealcode}"></td>
+                                <td th:text="${d.appealcode.subservicecode.subservicename}"></td>
+                                <td th:text="${#dates.format(d.appealcode.firstappealdate, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${d.appeallevel}"></td>
+                                <td th:text="${d.usercode.fullname} + ' ' + ${d.usercode.mname} + ' ' + ${d.usercode.lname}"></td>
+                                <td th:text="${#dates.format(d.hearingdate, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${d.hearingtime}"></td>
+                                <td th:text="${d.hearingpw}"></td>
+                                <td>
+                                    <a class="btn btn-success form-control" target="_blank" th:href="${d.vclink}">Join VC</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+
+</main>
+</html>

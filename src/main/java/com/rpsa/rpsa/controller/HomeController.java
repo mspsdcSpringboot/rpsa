@@ -96,9 +96,16 @@ public class HomeController {
             String username1 = authentication.getName();
             T_userlogin user = userService.findByUsername(username);
 
-
             if(Objects.equals(user.getUserrole().getRoleid(), "2")){
                 return "redirect:/secure/aainbox";
+            }
+            if(Objects.equals(user.getUserrole().getRoleid(), "1")){
+                return "redirect:/secure/mapprocess";
+            }
+            if(Objects.equals(user.getUserrole().getRoleid(), "8")){
+                return "redirect:/secure/khadcdashboard";
+            }if(Objects.equals(user.getUserrole().getRoleid(), "6")){
+                return "redirect:/secure/aasoinbox";
             }
 
             return "redirect:/secure/home";

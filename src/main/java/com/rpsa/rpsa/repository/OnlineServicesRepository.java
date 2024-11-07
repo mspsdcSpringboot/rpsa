@@ -13,6 +13,9 @@ import java.util.List;
 @Repository
 public interface OnlineServicesRepository extends JpaRepository<OnlineServices, String> {
 
+    @Query("SELECT CAST(MAX(CAST(m.slno AS int)) AS int) FROM OnlineServices m")
+    Integer findMaxId();
+
     List<OnlineServices> findByOnlineIn(List<String> onlineValues);
 
     @Modifying

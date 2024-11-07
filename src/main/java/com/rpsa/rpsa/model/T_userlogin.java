@@ -27,6 +27,10 @@ public class T_userlogin {
     private String designation;
     private String active;
     private String email;
+
+    private Integer activeDays;
+
+
     @Transient
     private String captcha;
 
@@ -57,4 +61,8 @@ public class T_userlogin {
     @ManyToOne
     @JoinColumn(name = "appelateid")
     private M_Appelate appelateid;
+
+    @ManyToOne
+    @JoinColumn(name = "userActiveDuration")
+    private UserActiveDuration userActiveDuration;
 }

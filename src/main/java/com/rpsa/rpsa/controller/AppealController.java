@@ -8,10 +8,12 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.rpsa.rpsa.dto.AppealDTO;
 import com.rpsa.rpsa.dto.AppealProcessDTO;
 import com.rpsa.rpsa.dto.AppealProcessResponseDTO;
+import com.rpsa.rpsa.dto.DoAlertDTO;
 import com.rpsa.rpsa.model.*;
 import com.rpsa.rpsa.repository.*;
 import com.rpsa.rpsa.service.*;
 import com.rpsa.rpsa.utils.BharatVC;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.tomcat.util.json.JSONParser;
@@ -30,10 +32,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -94,8 +94,12 @@ public class AppealController {
     @Autowired
     private Audit_TrailRepository auditRepo;
 
-
-
+    @Autowired
+    private ProcessService processService;
+    @Autowired
+    private M_SubservicesRepository m_SubservicesRepository;
+    @Autowired
+    private T_DOAlertsRepository t_DOAlertsRepository;
 
 
     @GetMapping("/fileappeals")
@@ -112,6 +116,10 @@ public class AppealController {
                 .collect(Collectors.toList());
 
         List<M_AppealGround> appealGrounds = appealGroundRepository.findAll();
+
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+        model.addAttribute("processes", process);
 
 
         model.addAttribute("userData", user);
@@ -235,6 +243,9 @@ public class AppealController {
         model.addAttribute("userData", user);
         T_Appeals appealsData = appealsRepository.findById(pathVar).orElse(null);
         model.addAttribute("appealsData", appealsData);
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+        model.addAttribute("processes", process);
 
         return "/pages/secure/initiatepayment";
     }
@@ -292,6 +303,9 @@ public class AppealController {
         T_userlogin user = userService.findByUsername(username);
 
         List<T_Appeals> appeals = appealsRepository.findAllByUsercode(user);
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+        model.addAttribute("processes", process);
 
         model.addAttribute("userData", user);
         model.addAttribute("appeal", appeals);
@@ -305,12 +319,17 @@ public class AppealController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         T_userlogin user = userService.findByUsername(username);
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
 
+        model.addAttribute("processes", process);
         T_Appeals appeals = appealsRepository.findById(appealcode).orElse(null);
         List<T_Transactionss> allTransaction = transactionRepo.findByAppealCodeOrderedByTransactionCodeDesc(appealcode);
+        List<T_userlogin> doSubOrdinates = usersRepo.findAllByOfficeidAndUserrole_roleid(user.getOfficeid(), "10");
+        System.out.println("doSubOrdinates  - " + doSubOrdinates);
         model.addAttribute("userData", user);
         model.addAttribute("appeals", appeals);
         model.addAttribute("transactionlist", allTransaction);
+        model.addAttribute("dosublist", doSubOrdinates);
 
         return "/pages/secure/appealStatus/appealstatus";
     }
@@ -326,14 +345,6 @@ public class AppealController {
         String appelateid = user.getAppelateid().getAppelateid();
 
 
-//        List<T_Appeals> newAppeals = appealsRepository.findByAppelateIdAndStatusAndAppealLevel(user.getAppelateid().getAppelateid());
-//        List<T_Appeals> processedAppeals = appealsRepository.findValidAppealsByAppelateId(user.getAppelateid().getAppelateid());
-//        List<T_Appeals> forwardedAppeals = appealsRepository.findAppealsByAppelateIdAndActionCode(user.getAppelateid().getAppelateid());
-//        List<T_Appeals> appelateDirections = appealsRepository.findByAppelateIdAndSpecificConditions(user.getAppelateid().getAppelateid());
-//        List<T_Appeals> pendingAppeals = appealsRepository.findByAppelateIdAndActionCodeNotThree(user.getAppelateid().getAppelateid());
-//        List<T_Appeals> disposedAppeals = appealsRepository.findByAppelateIdAndStatusAndAppealLevelForDisposed(user.getAppelateid().getAppelateid());
-
-
         List<T_Appeals> getAppelateAppeals = appealsRepository.getAppelateAppeals(appelateid);
 
         List<T_Appeals> getProcessedAppelateAppeals = appealsRepository.getProcessedAppelateAppeals(appelateid);
@@ -347,6 +358,23 @@ public class AppealController {
         List<T_Appeals> getAppelatePending = appealsRepository.getAppelatePending(appelateid);
 
         List<T_Appeals> getAppelateDisposed = appealsRepository.getAppelateDisposed(appelateid);
+
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+        List<String> servicesList = appelateRepository.findServicesListByAppelateid(appelateid);
+
+        List<String> uniqueServices = servicesList.stream()
+                .map(serviceId -> m_SubservicesRepository.findById(serviceId)
+                        .orElseThrow(() -> new EntityNotFoundException("Not found !")))
+                .filter(service -> service.getServicecode() != null)
+                .map(service -> service.getServicecode().getServicename())
+                .collect(Collectors.toSet()) // Collect unique service names in a Set
+                .stream()
+                .collect(Collectors.toList());
+
+
+
+        model.addAttribute("processes", process);
 
 
 
@@ -367,9 +395,55 @@ public class AppealController {
         model.addAttribute("appelateDirectionsList", getAppelateDirections);
 //        model.addAttribute("pendingAppealsList", getAppelatePending);
         model.addAttribute("disposedAppealsList", getAppelateDisposed);
+        model.addAttribute("subServiceList", uniqueServices);
 
 
         return "/pages/secure/inbox/aainbox";
+    }
+
+    @GetMapping("/aaservicesdashboard")
+    public String aaServicesDashboard(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        T_userlogin user = userService.findByUsername(username);
+
+        String appelateid = user.getAppelateid().getAppelateid();
+
+
+
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+        List<String> servicesList = appelateRepository.findServicesListByAppelateid(appelateid);
+
+        List<String> uniqueServices = servicesList.stream()
+                .map(serviceId -> m_SubservicesRepository.findById(serviceId)
+                        .orElseThrow(() -> new EntityNotFoundException("Not found !")))
+                .filter(service -> service.getServicecode() != null)
+                .map(service -> service.getServicecode().getServicename())
+                .collect(Collectors.toSet()) // Collect unique service names in a Set
+                .stream()
+                .collect(Collectors.toList());
+
+//        for (String services : servicesList){
+//            M_Subservices service = m_SubservicesRepository.findById(services).orElseThrow(() -> new EntityNotFoundException("Not found !"));
+//            if(service != null){
+//                String serviceName = service.getServicecode().getServicename();
+//                sub.add(serviceName);
+//            }
+//        }
+
+//        System.out.println(sub);
+
+
+        model.addAttribute("processes", process);
+
+
+
+        model.addAttribute("userData", user);
+        model.addAttribute("subServiceList", uniqueServices);
+
+
+        return "/pages/secure/dashboards/aaServicesDashboard";
     }
 
 
@@ -392,6 +466,10 @@ public class AppealController {
         List<T_userlogin> activeUser = usersRepo.findActiveUsersByAppelateId(user.getAppelateid().getAppelateid());
 
 
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+        model.addAttribute("processes", process);
+
         System.out.println("ACTIONS ARE -" + action);
 
 
@@ -410,9 +488,9 @@ public class AppealController {
     }
 
 
-    @PostMapping("/saveforwardedusers")
+    @PostMapping("/saveforwardedusers/{appealcode}")
     @ResponseBody
-    public String saveforwardedusers(String appjson, String appealcode) throws ParseException, IOException {
+    public String saveforwardedusers(String appjson, @PathVariable String appealcode) throws ParseException, IOException {
 
         String res = "-1";
 
@@ -544,7 +622,6 @@ public class AppealController {
         //Received data format - AppealProcessDTO(appelateactioncode=3, remarks=1, remarkstxt=Service provided during pendency of Appeal. Hence treated as disposed, firsthearingdate=, hearingtype=1, hearingtime1=, hearingendtime1=, venue1=)
 
         System.out.println("appealProcessDTO" + appealProcessDTO);
-        ModelAndView model = new ModelAndView();
 
         String res = "-1";
 
@@ -587,7 +664,7 @@ public class AppealController {
                         responseDto.setHearingDate(hearingdate1);
                         responseDto.setUserData(user);
 
-                        appeal.setHearingpw1(appdata2.get("meetingPassword").toString());
+                        appeal.setHearingpw1(appdata2.get("meetingPassword").asText().replaceAll("\"", ""));
                         appeal.setLink1("https://bharatvc.nic.in/join/" + appdata2.get("meetingID").asText().replaceAll("\"", ""));
 
                     }
@@ -807,13 +884,97 @@ public class AppealController {
     }
 
 
+    @PostMapping("/sendAlertToDo")
+    @ResponseBody
+    public String sendAlertToDo(@RequestBody DoAlertDTO doAlert){
+        String res = "intiated";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        T_userlogin user = userService.findByUsername(username);
+
+
+        T_DOAlerts alert = new T_DOAlerts();
+        Integer alertMaxId = t_DOAlertsRepository.findMaxId();
+
+        if (alertMaxId == null) {
+            alertMaxId = 0; // Starting id if no records exist
+        }
+
+        int newAlertMaxId = alertMaxId + 1;
+        String stringMaxId = String.valueOf(newAlertMaxId);
+        alert.setAlertid(stringMaxId);
+        alert.setAlertcontent(doAlert.getContent());
+        alert.setAlertdate(new Date());
+        T_Appeals appeal = appealsRepository.findById(doAlert.getAppealcode()).orElseThrow(() -> new EntityNotFoundException("Appeal not found !"));
+        alert.setAppealcode(appeal);
+        alert.setUsercode(user);
+        M_Designatedoffices doData = doRepo.findById(doAlert.getOfficeid()).orElseThrow(() -> new EntityNotFoundException("DO Not Found!"));
+        alert.setOfficeid(doData);
+        t_DOAlertsRepository.save(alert);
+        boolean check = t_DOAlertsRepository.existsById(alert.getAlertid());
+        if (check) {
+            //TODO - Need to send an email to the concern Designated-officer that there is an appeal against him
+            res = "Alert sent successfully";
+        } else {
+            res = "Failed to send alert";
+        }
+
+        return res;
+
+    }
+
+
     @GetMapping("/appealProcessSuccess")
     public String appealActionSuccess(HttpSession session, Model model) {
         AppealProcessResponseDTO responseDTO = (AppealProcessResponseDTO) session.getAttribute("appealProcessData");
         System.out.println("Session data Return - " + responseDTO);
         model.addAttribute("appealActionSuccess", responseDTO);
-        model.addAttribute("userData", responseDTO.getUserData());
+        T_userlogin user = responseDTO.getUserData();
+        model.addAttribute("userData", user);
+
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+        model.addAttribute("processes", process);
         return "/pages/secure/confirmations/appealprocesssuccess";
     }
+
+    @GetMapping("/vclist")
+    public String getVcList(Model model) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        T_userlogin user = userService.findByUsername(username);
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+//        List<T_Transactionss> ser = null;
+        List<T_Transactionss> ser2 = null;
+
+        Date today = new Date(); // Current date
+        String actionCode = "1";
+
+        List<T_Transactionss> ser = transactionRepo.findByUsercodeAndActioncode_ActioncodeAndVclinkIsNotNullAndHearingdateAfter(user, actionCode, today);
+
+//        if (user.getUserrole().getRoleid().equals("3")) {
+////            ser = transactionRepo.getupcomingvcs(d);
+//            ser = transactionRepo.findByUsercodeAndActioncode_ActioncodeAndVclinkIsNotNullAndHearingdateAfter(
+//                    user, actionCode, today);
+////            ser2 = transactionRepo.getcommissionupcomingvcs(d);
+//        } else {
+////            ser = transactionRepo.getupcomingvcs(user.getUsercode());
+//        }
+
+
+        model.addAttribute("processes", process);
+
+        model.addAttribute("userData", user);
+        model.addAttribute("appeallist", ser);
+        model.addAttribute("comappeallist", ser2);
+
+        return "/pages/secure/vcList/vclist";
+    }
+
+
+
+
+
 
 }

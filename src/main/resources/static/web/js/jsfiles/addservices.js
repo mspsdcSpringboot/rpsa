@@ -2,7 +2,8 @@ $(document).ready(function () {
 
 
 
-    $('#submitbtn').click(function () {
+    $('#submitbtn').click(function (e) {
+        e.preventDefault();
         var params = [];
         $('#subservicesgrid > tr').each(function (index, tr) {
 
@@ -21,24 +22,26 @@ $(document).ready(function () {
         });
         var jsonString = JSON.stringify(params);
 
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+        alert(jsonString);
 
-//        alert(jsonString);
+
         $.ajax({
             type: "POST",
-            url: "./saveservice.htm",
-            data: "sl_no" + sl_no,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/saveservices",
+            data: jsonString,
+            contentType: "application/json",
             success: function (data) {
-                if (data == '1') {
+                if (data == 'added') {
+
                     alert("Saved")
                     location.reload()
-                } else {
+                }
+                else if (data == 'updated') {
+                    alert("Updated")
+                    location.reload()
+                }else{
                     alert("Error")
+                    location.reload()
                 }
 
 
@@ -49,38 +52,51 @@ $(document).ready(function () {
             }
         });
     })
-    $('#addcontactbtn').click(function () {
-        var row = "";
-        row = "<tr><td><input name='subservicecode' hidden='true' class='form-control'/><input name='subservicename' class='form-control'/></td><td><input name='stipulatedtime' class='form-control'/></td></tr>";
-        $("#subservicesgrid").append(row);
 
-    });
+
+
+
+
+    $('#addcontactbtn').click(function () {
+            var row = ""
+            row = "<tr><td><input name='subservicecode' hidden='true' class='form-control'/><input name='subservicename' class='form-control'/></td><td><input name='stipulatedtime' class='form-control'/></td><td><a class='btn btn-danger remove'>Remove</a></td></tr>";
+            $("#subservicesgrid").append(row);
+        });
     $('#delcontactbtn').click(function () {
         $("#subservicesgrid tr:last").remove();
 
     });
-    $('.remove').click(function () {
-        $(this).parent().parent().remove();
+    $(document).on('click', '.remove', function () {
+            $(this).closest('tr').remove();  // Remove the closest row (tr)
+        });
 
-    });
+
+
+
+
 
     $("#service").change(function () {
 
- $("#subservicesgrid").html("");
+    $("#subservicesgrid").html("");
 
         $.ajax({
             type: "GET",
-            url: "./getsubservices.htm",
-            data: "servicecode=" + $('#service').val(),
+            url: "/secure/getsubservices/" + $('#service').val(),
             success: function (data) {
                 var row = "";
                 $("#servicecode").val($('#service').val())
                 $("#servicename").val($('#service :selected').text())
                
-                for (var n = 0; n < data.length; n++) {
-                    row = row + "<tr><td><input hidden='true' name='subservicecode' value='"+data[n].subservicecode+"' class='form-control'/><input name='subservicename' value='"+data[n].subservicename+"' class='form-control'/></td><td><input name='stipulatedtime' value='"+data[n].stipulatedtime+"' class='form-control'/></td></tr>";
-
+                if (Array.isArray(data)) {
+                    for (var n = 0; n < data.length; n++) {
+                        row += buildTableRow(data[n]);
+                    }
+                } else {
+                    // If the response is a single object, handle it directly
+                    row += buildTableRow(data);
                 }
+
+                // Append the new rows to the table body
                 $("#subservicesgrid").append(row);
 
 
@@ -93,6 +109,25 @@ $(document).ready(function () {
 
 
     })
+
+
+
+    function buildTableRow(subservice) {
+        var row = "<tr>";
+        row += "<td><input type='hidden' name='subservicecode' value='" + subservice.subservicecode + "' class='form-control' />";
+        row += "<input name='subservicename' value='" + subservice.subservicename + "' class='form-control' /></td>";
+        row += "<td><input name='stipulatedtime' value='" + subservice.stipulatedtime + "' class='form-control' /></td>";
+        row += "<td><a class='btn btn-danger remove'>Remove</a></td>";
+        row += "</tr>";
+        return row;
+    }
+    function removeSubservice(subserviceCode) {
+            // Implement your removal logic here
+            const row = document.querySelector(`input[value="${subserviceCode}"]`).closest('tr');
+            if (row) {
+                row.remove(); // Remove the row from the table
+            }
+        }
 
 
 });

@@ -16,23 +16,29 @@ $(document).ready(function () {
 
         var userdetailsjson = JSON.stringify(userdetails);
 //        alert(userdetailsjson);
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
         $.ajax({
             type: "POST",
-            url: "./saveprofile.htm",
-            data: "appjson=" + userdetailsjson,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/updateprofile",
+            data: userdetailsjson,
+            contentType: "application/json",
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
 
-                if (data != '-1') {
-                    alert("Profile Updated successfully");
+//                alert(data);
+                if (data == 'username') {
+                    alert("Username Changed, Please Login Using the new username");
+                    location.href='/login';
+                }else if (data == 'updated') {
+                    alert(data);
                     location.reload();
-                } else {
-                    alert("Error");
+                }else if (data == 'failed'){
+                    alert(data);
+                    location.reload();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

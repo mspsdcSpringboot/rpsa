@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+
+
+<!--    <div class="modal fade" id="addNewAppelateModal" tabindex="-1" aria-labelledby="addNewAppelateModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog modal-dialog-centered modal-lg">-->
+<!--            <div class="modal-content shadow-lg rounded-3">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="addNewAppelateModalLabel">Add New Appellate</h5>-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body p-4">-->
+<!--                    <form method="POST" autocomplete="off" id="appelate" enctype="multipart/form-data">-->
+<!--                        <div class="row mb-3">-->
+<!--                            <div class="col-12">-->
+<!--                                <input id="appelateid" type="hidden" class="form-control" />-->
+<!--                                <div class="form-group">-->
+<!--                                    <label>Appellate Name:</label>-->
+<!--                                    <input id="officename" class="form-control" placeholder="" required="true" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row mb-3">-->
+<!--                            <div class="col-12">-->
+<!--                                <label>Level:</label>-->
+<!--                                <div class="d-flex gap-3">-->
+<!--                                    <div class="form-check">-->
+<!--                                        <input type="radio" name="officelevel" value="0" required /> State-->
+<!--                                    </div>-->
+<!--                                    <div class="form-check">-->
+<!--                                        <input type="radio" name="officelevel" value="1" /> District-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row mb-4">-->
+<!--                            <div class="col-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label>Select Department:</label>-->
+<!--                                    <select id="departmentcode" class="form-select">-->
+<!--                                        <option value="">Select</option>-->
+<!--                                        <option th:each="d : ${departmentlist}" th:value="${d.departmentcode}" th:text="${d.departmentname}"></option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="container mt-2 text-center">-->
+<!--                            <input type="submit" class="btn btn-primary addAppellate" value="Add Appellate Authority" />-->
+<!--                            <input type="hidden" id="res" th:value="${res}" />-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="addNewAppelateOffcanvas" aria-labelledby="addNewAppelateOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="addNewAppelateOffcanvasLabel">Add New Appellate</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form method="POST" autocomplete="off" id="appelate" enctype="multipart/form-data">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <input id="appelateid" type="hidden" class="form-control" />
+                        <div class="form-group">
+                            <label>Appellate Name:</label>
+                            <input id="officename" class="form-control" placeholder="" required="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label>Level:</label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input type="radio" name="officelevel" value="0" required /> State
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="officelevel" value="1" /> District
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Select Department:</label>
+                            <select id="departmentcode" class="form-select">
+                                <option value="">Select</option>
+                                <option th:each="d : ${departmentlist}" th:value="${d.departmentcode}" th:text="${d.departmentname}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-2 text-center">
+                    <input type="submit" class="btn btn-primary addAppellate" value="Add Appellate Authority" />
+                    <input type="hidden" id="res" th:value="${res}" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="editAppelateModal" tabindex="-1" aria-labelledby="editAppelateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Centered and larger modal -->
+            <div class="modal-content shadow-lg rounded-3"> <!-- Adding shadow and rounded corners for modern look -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editAppelateModalLabel">Edit Appellate</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4"> <!-- Add padding for better spacing -->
+                    <form id="editAppelateForm">
+                        <!-- Hidden Appellate ID -->
+                        <input id="modalAppelateId" type="hidden" class="form-control" />
+
+                        <!-- Grid Layout for form fields -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <!-- Office Name -->
+                                <div class="form-group">
+                                    <label for="modalOfficeName" class="form-label">Appellate Name:</label>
+                                    <input id="modalOfficeName" class="form-control" placeholder="Enter Office Name" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <!-- Office Level (radio buttons) -->
+                                <label class="form-label">Level:</label>
+                                <div class="d-flex gap-3"> <!-- Align radio buttons in a row with space -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="officelevel" value="0" id="stateLevel" />
+                                        <label class="form-check-label" for="stateLevel">State</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="officelevel" value="1" id="districtLevel" />
+                                        <label class="form-check-label" for="districtLevel">District</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <!-- Department Dropdown -->
+                                <div class="form-group">
+                                    <label for="modalDepartmentCode" class="form-label">Select Department:</label>
+                                    <select id="modalDepartmentCode" class="form-select">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="row">
+                            <div class="col-12 text-center my-8">
+                                <button type="submit" class="btn btn-primary px-5" id="updateAppellateAuthority">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <br />
+    <br />
+
+    <!-- Appellate List Table -->
+    <div class="container w-100">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <strong>Appellate List</strong>
+<!--                <a class="btn btn-primary px-3" data-bs-toggle="modal" data-bs-target="#addNewAppelateModal">Add New Appellate Authority</a>-->
+                <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#addNewAppelateOffcanvas" aria-controls="addNewAppelateOffcanvas">
+                    Add New Appellate
+                </button>
+
+            </div>
+
+            <div class="card-body">
+                <table id="audittrailtable" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Level</th>
+                        <th>Department</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d : ${appelatelist}">
+                        <td th:text="${d.officename}"></td>
+<!--                        <td th:text="${d.officelevel}"></td>-->
+                        <td th:text="${d.officelevel == '0' ? 'State' : 'District'}"></td>
+<!--                        <td th:text="${d.departmentcode.departmentname}"></td>-->
+                        <td>
+                            <span th:if="${d.departmentcode != null}" th:text="${d.departmentcode.departmentname}"></span>
+                            <span th:if="${d.departmentcode == null}">N/A</span>
+                        </td>
+                        <td>
+                            <div class="d-flex" style="gap: 10px;">
+                                <a th:id="${d.appelateid}" class="btn btn-info appelateedit" data-bs-toggle="modal" data-bs-target="#editAppelateModal">Edit</a>
+                                <a th:id="${d.appelateid}" class="btn btn-danger delete">Delete</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+<!--    <link th:href="@{/web/css/bootstrap.min.css}" rel="stylesheet">-->
+    <link th:href="@{/web/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
+    <script th:src="@{/web/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
+    <script th:src="@{/web/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+    <script th:src="@{/web/js/dataTables.bootstrap5.min.js}" type="text/javascript"></script>
+    <script th:src="@{/web/js/jsfiles/viewAuditTrails.js}" type="text/javascript"></script>
+    <script th:src="@{/web/js/jsfiles/addappelate.js}" type="text/javascript"></script>
+
+    <style>
+        .offcanvas-end {
+           width: 800px;
+        }
+    </style>
+
+</main>
+</html>

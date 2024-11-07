@@ -1,10 +1,15 @@
 package com.rpsa.rpsa.service;
 
+import com.rpsa.rpsa.dto.DoSubOrdinateDTO;
 import com.rpsa.rpsa.dto.LoginUserDto;
 import com.rpsa.rpsa.model.*;
 import com.rpsa.rpsa.repository.T_userloginRepository;
+import com.rpsa.rpsa.repository.UserActiveDurationRepository;
 import com.rpsa.rpsa.repository.UserRoleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +24,12 @@ public class AuthService {
 
     @Autowired
     private UserRoleRepository userRoleRepository;
+
+    @Autowired
+    private UserActiveDurationRepository uActiveRepo;
+
+    @Autowired
+    private T_UserService userService;
 
 
     public String registerUser(T_userlogin user) {
@@ -45,6 +56,7 @@ public class AuthService {
         M_department userDepartment = new M_department();
         M_Designatedoffices userDesignatedoffices = new M_Designatedoffices();
         M_Appelate userAppelate = new M_Appelate();
+
 
 
         if(user.getUserrole() == null){
@@ -125,6 +137,8 @@ public class AuthService {
             userAppelate = null;
         }
 
+        UserActiveDuration activeDur = uActiveRepo.findById(1L).orElseThrow(() -> new EntityNotFoundException("Not found"));
+
 
 
 
@@ -142,6 +156,9 @@ public class AuthService {
         registerUser.setDistrictcode(userDistrict);
         registerUser.setDepartmentcode(userDepartment);
         registerUser.setOfficeid(userDesignatedoffices);
+        registerUser.setActiveDays(0);
+        registerUser.setUserActiveDuration(activeDur);
+        registerUser.setAddress(user.getAddress());
 
         T_userlogin checkContact = t_userloginRepository.findUserByContact(user.getContact());
         System.out.println("##############Contact Check#############" + checkContact);
@@ -165,6 +182,98 @@ public class AuthService {
 
     public String loginUser(LoginUserDto loginUserDto) {
         String res = "1";
+        return res;
+    }
+
+    public String createDoSub(DoSubOrdinateDTO doSubDto) {
+
+        String res = "initiated";
+        Integer userMaxId = t_userloginRepository.findMaxId();
+        if (userMaxId == null) {
+            userMaxId = 0; // Starting id if no records exist
+        }
+
+        int newUserId = userMaxId + 1;
+
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        T_userlogin user = userService.findByUsername(username);
+        T_userlogin userSo = new T_userlogin();
+        userSo.setUsercode(String.valueOf(newUserId));
+        userSo.setFullname(doSubDto.getFullname());
+        userSo.setEmail(doSubDto.getEmail());
+        userSo.setDesignation(doSubDto.getDesignation());
+        userSo.setUsername(doSubDto.getEmail());
+        userSo.setUserpassword(doSubDto.getPw());
+        userSo.setActive("Y");
+        M_Designatedoffices d = new M_Designatedoffices();
+        d.setOfficeid(user.getOfficeid().getOfficeid());
+        userSo.setOfficeid(d);
+        userSo.setContact(doSubDto.getContact());
+        UserRole role = new UserRole();
+        role.setRoleid("10");
+        userSo.setUserrole(role);
+        UserActiveDuration activeDur = uActiveRepo.findById(1L).orElseThrow(() -> new EntityNotFoundException("Not found"));
+        userSo.setActiveDays(0);
+        userSo.setUserActiveDuration(activeDur);
+        System.out.println("...............DO SUB ORDINATE PASSWORD....................  " + doSubDto.getPassword());
+        t_userloginRepository.save(userSo);
+
+        boolean check = t_userloginRepository.existsById(userSo.getUsercode());
+
+        if(check){
+            res = "created";
+        }else{
+            res = "failed";
+        }
+        return res;
+    }
+
+    public String createAaSub(DoSubOrdinateDTO doSubDto) {
+
+        String res = "initiated";
+        Integer userMaxId = t_userloginRepository.findMaxId();
+        if (userMaxId == null) {
+            userMaxId = 0; // Starting id if no records exist
+        }
+
+        int newUserId = userMaxId + 1;
+
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        T_userlogin user = userService.findByUsername(username);
+        T_userlogin userSo = new T_userlogin();
+        userSo.setUsercode(String.valueOf(newUserId));
+        userSo.setFullname(doSubDto.getFullname());
+        userSo.setEmail(doSubDto.getEmail());
+        userSo.setDesignation(doSubDto.getDesignation());
+        userSo.setUsername(doSubDto.getEmail());
+        userSo.setUserpassword(doSubDto.getPw());
+        userSo.setActive("Y");
+        M_Appelate a = new M_Appelate();
+        a.setAppelateid(user.getAppelateid().getAppelateid());
+        userSo.setAppelateid(a);
+        userSo.setContact(doSubDto.getContact());
+        UserRole role = new UserRole();
+        role.setRoleid("6");
+        userSo.setUserrole(role);
+        UserActiveDuration activeDur = uActiveRepo.findById(1L).orElseThrow(() -> new EntityNotFoundException("Not found"));
+        userSo.setActiveDays(0);
+        userSo.setUserActiveDuration(activeDur);
+        t_userloginRepository.save(userSo);
+        System.out.println("..........Password........ - " + doSubDto.getPassword());
+
+        boolean check = t_userloginRepository.existsById(userSo.getUsercode());
+
+        if(check){
+            res = "created";
+        }else{
+            res = "failed";
+        }
         return res;
     }
 }

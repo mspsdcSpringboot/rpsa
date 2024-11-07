@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+
+<main th:fragment="content">
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <div class="shadow-lg p-4">
+                    <!-- CSRF Token for Thymeleaf -->
+<!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+
+                    <div class="form-group mb-3">
+                        <h5 class="text-center"><strong>CHANGE PROFILE</strong></h5>
+                        <hr/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input th:value="${userData.fullname}" type="text" class="form-control" id="fullname" placeholder="Enter Full Name">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="designation">Designation</label>
+                        <input th:value="${userData.designation}" type="text" class="form-control" id="designation" placeholder="Enter Designation">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="email">Email ID</label>
+                        <input th:value="${userData.email}" type="email" class="form-control" id="email" placeholder="Enter Email">
+                    </div>
+                    <br>
+
+                    <!-- Conditionally render contact input based on user role -->
+                    <div th:if="${userData.userrole.roleid == '0'}">
+                        <div class="form-group">
+                            <label for="contact">Contact (To be used when logging in)</label>
+                            <input th:value="${userData.contact}" type="text" class="form-control" id="contact" placeholder="Enter contact">
+                        </div>
+                    </div>
+                    <div th:unless="${userData.userrole.roleid == '0'}">
+                        <div class="form-group">
+                            <label for="contact">Contact</label>
+                            <input th:value="${userData.contact}" type="text" class="form-control" id="contact" placeholder="Enter contact">
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- Conditionally render username input based on user role -->
+                    <div th:if="${userData.userrole.roleid == '0'}">
+                        <div class="form-group">
+                            <label hidden="true" for="username">Enter Username: (To be used when logging in)</label>
+                            <input th:value="${userData.username}" hidden="true" readonly="true" type="text" class="form-control" id="username" placeholder="Enter username for Login">
+                        </div>
+                    </div>
+                    <div th:if="${userData.userrole.roleid == '5'}">
+                        <div class="form-group">
+                            <label for="username">Enter Username: (To be used when logging in)</label>
+                            <input th:value="${userData.username}" readonly="true" type="text" class="form-control" id="username" placeholder="Enter username for Login">
+                        </div>
+                    </div>
+                    <div th:unless="${userData.userrole.roleid == '0' || userData.userrole.roleid == '5'}">
+                        <div class="form-group">
+                            <label for="username">Enter Username: (To be used when logging in)</label>
+                            <input th:value="${userData.username}" type="text" class="form-control" id="username" placeholder="Enter username for Login">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="container mt-2 text-center">
+                        <input type="hidden" th:name="randomKey" th:id="randomKey" th:value="${randomKey}"/>
+                        <button id="savebtn" type="submit" class="btn btn-primary">SUBMIT</button>
+                    </div>
+                    <div class="container mt-2 text-center">
+                        <a th:href="@{/secure/changepassword}">Change Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+
+    <script th:src="@{/web/js/jsfiles/changeprofile.js}" type="text/javascript"></script>
+
+</main>
+</html>

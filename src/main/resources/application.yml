@@ -2,9 +2,10 @@ spring:
   application:
     name: rpsa_springboot
   datasource:
+#    url: jdbc:postgresql://localhost:5433/mspsdc_ux4g?currentSchema=rpsa
     url: jdbc:postgresql://localhost:5432/rpsa?currentSchema=rpsa
-    username: postgres
-    password: Nilam@2000
+    username: rpsa
+    password: rpsa
     driver-class-name: org.postgresql.Driver
   security:
     user:

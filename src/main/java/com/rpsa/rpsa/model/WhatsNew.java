@@ -18,6 +18,8 @@ public class WhatsNew {
     private String whatsnewid;
 
     private String heading;
+//    @Lob
+//    @Column(columnDefinition = "TEXT")
     private String newbody;
     @Temporal(TemporalType.DATE)
     @Column(name = "whatsnewdate")

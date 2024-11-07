@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+
+    <form autocomplete="off" id="photos" enctype="multipart/form-data">
+<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <div class="shadow-lg p-4 wow">
+                        <div class="form-group mb-3">
+                            <h5 class="text-center"><strong>Manage Photos</strong></h5>
+                            <div class="text-success" th:text="${savesuccess}"></div>
+                            <div class="text-danger" th:text="${saveerror}"></div>
+                            <hr/>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Upload Photos:</label><br/>
+                                <span class="text-danger">Only jpeg, jpg, png files within 2MB are allowed</span><br/>
+                                <!-- Set the input to allow multiple file selection -->
+                                <input type="file" class="form-control" name="photodoc" id="photodoc" multiple/>
+                            </div>
+                            <br>
+
+                            <div class="container mt-2 text-center">
+                                <!-- Hidden input fields for albumid -->
+                                <input type="hidden" class="form-control" name="albumid" th:value="${album}"/>
+                                <input type="submit" class="btn btn-primary uploadAlbumPhoto" value="Submit"/>
+                                <input type="reset" onclick="location.reload()" class="btn btn-default" value="Reset"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br/>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <strong>Photos List</strong>
+            </div>
+            <div class="card-body">
+                <!-- Check if photoslist is empty -->
+                <div th:if="${#lists.isEmpty(photoslist)}" class="alert alert-warning text-center">
+                    No photos added in this album till now.
+                </div>
+
+                <!-- Show photo grid if photoslist is not empty -->
+                <div th:unless="${#lists.isEmpty(photoslist)}" class="photo-grid">
+                    <div class="photo-item" th:each="photo : ${photoslist}">
+                        <img th:src="@{/public/photos/{photoid}(photoid=${photo.photoid})}" alt="Photo" class="photo-thumbnail"/>
+                        <div class="photo-overlay">
+                            <a class="btn btn-danger deletephoto" th:id="${photo.photoid}" href="javascript:void(0)">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <style>
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-thumbnail {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .deletephoto {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #dc3545;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .deletephoto:hover {
+            background-color: #c82333;
+        }
+    </style>
+
+    <script th:src="@{/web/js/jsfiles/managephotos.js}" type="text/javascript"></script>
+
+
+</main>
+</html>

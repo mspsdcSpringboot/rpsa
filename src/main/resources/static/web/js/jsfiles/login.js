@@ -1,4 +1,18 @@
 $(document).ready(function() {
+
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('userpassword');
+        const toggleIcon = document.getElementById('togglePassword');
+
+        // Toggle the type attribute
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+
+        // Toggle the icon
+        toggleIcon.classList.toggle('bi-eye');
+        toggleIcon.classList.toggle('bi-eye-slash');
+    });
+
     // Function to reload captcha
     const reloadCaptcha = () => {
         $.ajax({
@@ -80,8 +94,23 @@ $(document).ready(function() {
                     if(data.userrole.roleid == "3"){
                         requestUrl = "/secure/uinbox";
                     }
-                    if(data.userrole.roleid == "2"){
+                    else if(data.userrole.roleid == "1"){
+                        requestUrl = "/secure/mapprocess";
+                    }
+                    else if(data.userrole.roleid == "2"){
                         requestUrl = "/secure/aainbox";
+                    }
+                    else if(data.userrole.roleid == "0"){
+                        requestUrl = "/secure/home";
+                    }
+                    else if(data.userrole.roleid == "8"){
+                        requestUrl = "/secure/khadcdashboard";
+                    }
+                    else if(data.userrole.roleid == "5"){
+                        requestUrl = "/secure/doinbox";
+                    }
+                    else if(data.userrole.roleid == "6"){
+                        requestUrl = "/secure/aasoinbox";
                     }
 
                     window.location.href = requestUrl;
@@ -94,7 +123,25 @@ $(document).ready(function() {
 //                            content: jqXHR.responseText,
                             type: 'red'
                         });
-                    } else {
+                    }
+                    else if (jqXHR.status === 409) {
+                        $.alert({
+                            title: 'Password Expired!',
+                            content: "Your password is expired. Please reset the password.",
+                        //  content: jqXHR.responseText,
+                            type: 'orange', // Warning style
+                            buttons: {
+                                ok: {
+                                    text: 'Reset Password',
+                                    action: function () {
+                                        // Redirect to a new page after OK is clicked
+                                        window.location.href = "/public/resetexpiredpassword"; // Change to your desired URL
+                                    }
+                                }
+                            }
+                        });
+                    }
+                     else {
                         $.alert({
                             title: 'Error!',
                             content: 'An error occurred: ' + textStatus,

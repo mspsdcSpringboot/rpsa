@@ -12,6 +12,8 @@ import java.util.Map;
 @Repository
 public interface M_DesignatedOfficesRepository extends JpaRepository<M_Designatedoffices, String> {
 
+    @Query("SELECT CAST(MAX(CAST(d.officeid AS int)) AS int) FROM M_Designatedoffices d")
+    Integer findMaxId();
 
 //    @Query(value = "SELECT \n" +
 //            "    subservices.subservicename,\n" +

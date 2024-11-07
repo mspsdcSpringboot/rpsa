@@ -1,19 +1,19 @@
 $(document).ready(function () {
 
-    if ($("#res").val() == "1") {
-        alert("Successful")
-        location.href = "manageonlineservices.htm"
-    } else if ($("#res").val() == "2") {
-        alert("Error")
-        location.href = "manageonlineservices.htm"
-    }
+//    if ($("#res").val() == "1") {
+//        alert("Successful")
+//        location.href = "manageonlineservices.htm"
+//    } else if ($("#res").val() == "2") {
+//        alert("Error")
+//        location.href = "manageonlineservices.htm"
+//    }
     $("#linksform").hide();
     $("#links").hide();
     $(".uploadform").hide();
-    
-    $("#departmentcode").change(function () {
-       $("#department").val($("#departmentcode option:selected").text());
-    })
+//
+//    $("#departmentcode").change(function () {
+//       $("#department").val($("#departmentcode option:selected").text());
+//    })
 
 
     $("#formdoc").change(function () {
@@ -27,13 +27,13 @@ $(document).ready(function () {
             $(this).val('');
         }
     });
-    $('#servicestable').DataTable({
-        "bJQueryUI": true,
-        order: [[0, 'asc']],
-
-        paging: false
-
-    });
+//    $('#servicestable').DataTable({
+//        "bJQueryUI": true,
+//        order: [[0, 'asc']],
+//
+//        paging: false
+//
+//    });
 
     $("#online").change(function () {
         $("#linksform").show();
@@ -54,19 +54,20 @@ $(document).ready(function () {
     
     
     $('.edit').click(function () {
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
         var slno = this.id;
-//         alert(slno)
+//        alert(slno)
         $.ajax({
             type: "GET",
-            url: "./getonlineservice.htm",
-            data: "slno=" + slno,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/getonlineservice",
+            data: {"Id" : slno},
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
+//                alert(JSON.stringify(data));
                
                 $("#slno").val(data.slno);
                 $("#servicename").val(data.servicename);
@@ -77,11 +78,13 @@ $(document).ready(function () {
                 $("#online").trigger('change');
                 $("#links").val(data.links);
                 $("#department").val(data.department);
-                
+
                 $("#enclosures").val(data.enclosures);
                 $("#departmentcode").val(data.departmentcode.departmentcode);
                
-               
+               $('html, body').animate({
+                   scrollTop: $("#onlineservices").offset().top  // Change "#appelate" to your form ID
+               }, 50);
                 
                 
                
@@ -92,25 +95,28 @@ $(document).ready(function () {
             }
         });
     })
+
+
     $('.delete').click(function () {
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
         var slno = this.id;
-         alert(slno)
+        alert(slno)
         $.ajax({
-            type: "GET",
-            url: "./deleteonlineservice.htm",
-            data: "slno=" + slno,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            type: "DELETE",
+            url: "/secure/deleteonlineservice/" + slno,
+//            data: "slno=" + slno,
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
-                if(data=='1'){
-                    alert("Deleted Successfully")
-                }else{
-                    alert("Error")
-                }
+                alert(data)
+//                if(data=='1'){
+//                    alert("Deleted Successfully")
+//                }else{
+//                    alert("Error")
+//                }
                 location.reload()
                 
                 
@@ -121,6 +127,42 @@ $(document).ready(function () {
             }
         });
     })
+
+    $('.submitOnlineServices').click(function (e) {
+            e.preventDefault();
+            const form = document.getElementById('onlineservices');
+
+            // Create a FormData object from the form
+            const formData = new FormData(form);
+
+            // Collect the data from FormData into a plain object (optional)
+            const dataObject = {};
+            formData.forEach((value, key) => {
+                dataObject[key] = value;
+            });
+
+            console.log("Appeal Form Data Object - ", form);
+            console.log("Appeal Form - ", dataObject);
+            alert(JSON.stringify(dataObject));
+            console.log(dataObject);
+
+
+            $.ajax({
+                type: "POST",
+                url: "/secure/addonlineservices",
+                data: formData,
+                processData: false, // Important for FormData
+                contentType: false, // Important for FormData
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                    alert("error:" + textStatus + " - exception:" + errorThrown);
+                }
+            });
+        })
 
 
 

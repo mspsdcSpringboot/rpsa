@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="container-fluid" id="main1">
+                <div class="row main-content justify-content-center">
+                    <div class="col-md-12 mb-10 mb-md-0">
+                        <div class="shadow-lg p-5 wow login-form1">
+                            <div class="row cf">
+                                <div class="slide-in col-12">
+                                    <div class="text-center">
+                                        <h5 class="text-uppercase fw-bolder">Status Of Appeals with the Appelate Authority</h5>
+                                        <hr/>
+                                    </div>
+                                </div>
+                                <div class="slide-in col">
+                                    <div class="zoom">
+                                        <div class="card text-dark border-primary mb-3">
+                                            <div class="card-header bg-primary text-light" style="text-align: center; font-weight: 900">Appeals Received</div>
+                                            <div class="card-body">
+                                                <h2 class="card-text text-primary" style="text-align: center;" th:text="${jdata[0]}"><br/></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slide-in col">
+                                    <div class="zoom">
+                                        <div class="card text-dark border-success mb-3">
+                                            <div class="card-header bg-success text-light" style="text-align: center; font-weight: 900">Appeals Disposed</div>
+                                            <div class="card-body">
+                                                <h2 class="card-text text-success" style="text-align: center;" th:text="${jdata[1] + jdata[5] + jdata[2]}">
+                                                    <br/>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slide-in col">
+                                    <div class="zoom">
+                                        <div class="card text-light border-dark mb-3">
+                                            <div class="card-header bg-dark text-light" style="text-align: center; font-weight: 900">Appeals Pending</div>
+                                            <div class="card-body">
+                                                <h2 class="card-text text-dark" style="text-align: center;">
+                                                    Within SLA: <span th:text="${jdata[3]}"></span>
+                                                    <br/>
+                                                    Beyond SLA: <span th:text="${jdata[4]}"></span>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card" id="list">
+                                <div class="card-header">
+                                    <strong> Department/Office Wise Appeals List </strong>
+                                </div>
+                                <div class="card-body">
+                                    <table id="reportstable" class="table table-striped datatable" style="width:100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Department/Office</th>
+                                            <th>Applied</th>
+                                            <th>Disposed</th>
+                                            <th>Pending Within SLA</th>
+                                            <th>Pending Beyond SLA</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="d : ${reportlist}">
+                                            <tr>
+                                                <td>
+                                                    <a th:href="@{/appelateservicewiselist(appelateid=${d[1]}, appelatename=${d[0]})}" th:text="${d[0]}"></a>
+                                                </td>
+                                                <td th:text="${d[2]}"></td>
+                                                <td th:text="${d[5] + d[6]}"></td>
+                                                <td th:text="${d[3]}"></td>
+                                                <td th:text="${d[4]}"></td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <!-- Profile content goes here -->
+        </div>
+    </div>
+
+</main>
+</html>

@@ -19,21 +19,23 @@ $(document).ready(function () {
 
         });
         var jsonString = JSON.stringify(params);
+        alert(jsonString)
 
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
 
 //        alert(jsonString);
         $.ajax({
             type: "POST",
-            url: "./savecontacts.htm",
-            data: "jsonString=" + jsonString,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/savecontacts",
+            data: jsonString,
+            contentType: 'application/json',
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
-                if (data == '1') {
+                if (data == 'updated') {
                     alert("Saved")
                     location.reload()
                 } else {

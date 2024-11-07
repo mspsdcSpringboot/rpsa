@@ -1,20 +1,58 @@
 $(document).ready(function () {
-    if($("#res").val()=="1"){
-        alert("Successful")
-        location.href="addmeeting.htm"
-    }else if($("#res").val()=="2"){
-        alert("Error")
-        location.href="addmeeting.htm"
-    }
- $('#meetinglisttable').DataTable({
-        "bJQueryUI": true,
-        order: [[1, 'desc']]
-//                    "sPaginationType": "full_numbers",
-        
+//    if($("#res").val()=="1"){
+//        alert("Successful")
+//        location.href="addmeeting.htm"
+//    }else if($("#res").val()=="2"){
+//        alert("Error")
+//        location.href="addmeeting.htm"
+//    }
+// $('#meetinglisttable').DataTable({
+//        "bJQueryUI": true,
+//        order: [[1, 'desc']]
+////                    "sPaginationType": "full_numbers",
+//
+//
+//
+//
+//    });
 
 
+    $('.submitMeeting').click(function (e) {
+            e.preventDefault();
+            const form = document.getElementById('meeting');
 
-    });
+            // Create a FormData object from the form
+            const formData = new FormData(form);
+
+            // Collect the data from FormData into a plain object (optional)
+            const dataObject = {};
+            formData.forEach((value, key) => {
+                dataObject[key] = value;
+            });
+
+            console.log("Appeal Form Data Object - ", form);
+            console.log("Appeal Form - ", dataObject);
+            alert(JSON.stringify(dataObject));
+
+
+            $.ajax({
+                type: "POST",
+                url: "/secure/addmeeting",
+                data: formData,
+                processData: false, // Important for FormData
+                contentType: false, // Important for FormData
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                    alert("error:" + textStatus + " - exception:" + errorThrown);
+                }
+            });
+        })
+
+
     $("#doc").change(function () {
         var fileExtension = ['jpeg', 'jpg', 'png', 'pdf'];
         if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
@@ -28,26 +66,26 @@ $(document).ready(function () {
     });
 
     $('.meeting').click(function () {
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
         var meetingid = this.id;
-        
+        alert(meetingid);
         $.ajax({
             type: "GET",
-            url: "./getmeeting.htm",
-            data: "meetingid=" + meetingid,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/getmeeting",
+            data: {"meetingId": meetingid},
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
                 $("#meetingid").val(data.meetingid)
                 $("#details").val(data.details)
                 $("#meetingdate").val(data.meetingdate)
-                $("#viewdoc").html('<a href="viewmeeting.htm?meetingid='+data.meetingid+'" target="_blank">View meeting</a>')
-                
-                
-                
+                $("#viewdoc").html('<a class="btn btn-primary mt-3" href="/public/viewmeetingdoc/' + data.meetingid + '" target="_blank">View Meeting</a>');
+
+
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
@@ -56,27 +94,24 @@ $(document).ready(function () {
         });
     })
     $('.delete').click(function () {
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
         var meetingid = this.id;
-//         alert(notificationid)
+         alert(meetingid);
+        alert("Are Sure that you want to delete the meeting review ?");
         $.ajax({
-            type: "GET",
-            url: "./deletemeeting.htm",
-            data: "meetingid=" + meetingid,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            type: "DELETE",
+            url: "/secure/deletemeeeting",
+            data: { "meetingId": meetingid },
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
-                if(data=='1'){
-                    alert("Deleted Successfully")
-                }else{
-                    alert("Error")
-                }
+                alert(data)
                 location.reload()
-                
-                
+
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
 

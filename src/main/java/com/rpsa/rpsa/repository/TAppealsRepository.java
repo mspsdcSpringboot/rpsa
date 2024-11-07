@@ -1,5 +1,6 @@
 package com.rpsa.rpsa.repository;
 
+import com.rpsa.rpsa.model.M_Designatedoffices;
 import com.rpsa.rpsa.model.T_Appeals;
 import com.rpsa.rpsa.model.T_userlogin;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -53,4 +54,73 @@ public interface TAppealsRepository extends JpaRepository<T_Appeals, String> {
     @Query("FROM T_Appeals ta WHERE ta.appelateid.appelateid = :appelateid AND " +
             "(ta.statusid.statusid = '5' OR ta.statusid.statusid = '3') AND ta.appeallevel = '1'")
     List<T_Appeals> getAppelateDisposed(@Param("appelateid") String appelateid);
+
+    List<T_Appeals> findAllByOfficeid(M_Designatedoffices officeid);
+
+    @Query("FROM T_Appeals ta WHERE ta.forwardusercode.usercode = :usercode AND " +
+            "ta.statusid.statusid = '1' AND forwardactioncode is null and forwarddate is null")
+    List<T_Appeals> getSoAppeals(@Param("usercode") String usercode);
+
+    @Query("FROM T_Appeals ta WHERE ta.forwardusercode.usercode = :usercode AND " +
+            "ta.forwardactioncode is not null")
+    List<T_Appeals> getForwardedProcessedSoAppeals(@Param("usercode") String usercode);
+
+    @Query("FROM T_Appeals ta WHERE ta.forwardusercode.usercode = :usercode AND " +
+            "ta.forwardactioncode.actioncode <> '2' and forwardactioncode.actioncode <> '3'")
+    List<T_Appeals> getSoPending(@Param("usercode") String usercode);
+
+    @Query(value = "SELECT * FROM T_Appeals WHERE forwardusercode = :forwardusercode " +
+            "AND forwardactioncode IS NULL " +
+            "AND forwarddate IS NULL " +
+            "AND appeallevel = '1'",
+            nativeQuery = true)
+    List<T_Appeals> getAllFAppeals(@Param("forwardusercode") String forwardusercode);
+
+    @Query(value = "SELECT * FROM T_Appeals WHERE forwardusercode = :forwardusercode " +
+            "AND forwardactioncode IS NOT NULL",
+            nativeQuery = true)
+    List<T_Appeals> getAllFprocessedAppeals(@Param("forwardusercode") String forwardusercode);
+
+    @Query(value = "SELECT * FROM T_Appeals WHERE forwardusercode = :forwardusercode " +
+            "AND forwardactioncode <> '2' " +
+            "AND forwardactioncode <> '3'",
+            nativeQuery = true)
+    List<T_Appeals> getfpending(@Param("forwardusercode") String forwardusercode);
+
+    @Query(value = "SELECT * FROM T_Appeals WHERE forwardusercode = :forwardusercode " +
+            "AND (statusid = '5' OR statusid = '3')",
+            nativeQuery = true)
+    List<T_Appeals> getfdisposed(@Param("forwardusercode") String forwardusercode);
+
+    List<T_Appeals> findAllByDosubordinate(T_userlogin user);
+
+
+    @Query(value = "SELECT " +
+            "COUNT(appealcode) AS appealcount, " +
+            "(SELECT COUNT(appealcode) FROM rpsa.t_appeals WHERE statusid = '5' AND appelateid = :appelateid AND appeallevel = '1') AS disposed, " +
+            "(SELECT COUNT(appealcode) FROM rpsa.t_appeals WHERE statusid = '3' AND appelateid = :appelateid AND appeallevel = '1') AS rejected, " +
+            "(SELECT COUNT(appealcode) FROM rpsa.t_appeals WHERE statusid <> '5' AND statusid <> '3' AND statusid <> '8' AND appelateid = :appelateid AND CAST(daysleft AS INTEGER) >= 0 AND appeallevel = '1') AS pendingwithin, " +
+            "(SELECT COUNT(appealcode) FROM rpsa.t_appeals WHERE statusid <> '5' AND statusid <> '3' AND statusid <> '8' AND appelateid = :appelateid AND CAST(daysleft AS INTEGER) < 0 AND appeallevel = '1') AS pendingbeyond, " +
+            "(SELECT COUNT(appealcode) FROM rpsa.t_appeals WHERE statusid = '8' AND appelateid = :appelateid AND appeallevel = '1') AS penalty " +
+            "FROM rpsa.t_appeals " +
+            "WHERE appelateid = :appelateid AND appeallevel = '1'",
+            nativeQuery = true)
+    Object[] findAppealStatisticsByAppelateId(@Param("appelateid") String appelateid);
+
+
+    @Query(value = "SELECT " +
+            "a.officename, " +
+            "a.appelateid, " +
+            "COUNT(ta.appelateid) AS applied, " +
+            "COUNT(CASE WHEN CAST(ta.statusid AS INTEGER) NOT IN (5,3,8) AND CAST(ta.daysleft AS INTEGER) >= 0 THEN ta.appelateid END) AS pendingwithin, " +
+            "COUNT(CASE WHEN CAST(ta.statusid AS INTEGER) NOT IN (5,3,8) AND CAST(ta.daysleft AS INTEGER) < 0 THEN ta.appelateid END) AS pendingbeyond, " +
+            "COUNT(CASE WHEN CAST(ta.statusid AS INTEGER) = 5 THEN ta.appelateid END) AS disposed, " +
+            "COUNT(CASE WHEN CAST(ta.statusid AS INTEGER) = 3 THEN ta.appelateid END) AS rejected " +
+            "FROM rpsa.m_appelate a " +
+            "LEFT OUTER JOIN rpsa.t_appeals ta ON ta.appelateid = a.appelateid " +
+            "WHERE a.appelateid = :appelateid AND appeallevel = '1' " +
+            "GROUP BY a.appelateid, a.officename, a.appelateid " +
+            "ORDER BY a.appelateid",
+            nativeQuery = true)
+    List<Object[]> findAppelateStatisticsByAppelateId(@Param("appelateid") String appelateid);
 }

@@ -137,8 +137,8 @@ $(document).ready(function () {
     $('#sendalertbtn').click(function () {
 //        alert($("#alertdo").val())
 
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
 
 
 
@@ -146,7 +146,7 @@ $(document).ready(function () {
 
         userdetails = {
             officeid: $('#officeid').val(),
-            appealcode: $('#appealcode').val(),
+            appealcode: $('#appealCodes').val(),
             email: $('#email').val(),
             content: $('#alertcontent').val()
             
@@ -154,23 +154,26 @@ $(document).ready(function () {
         };
 
         var userdetailsjson = JSON.stringify(userdetails);
-//                    alert(userdetailsjson);
+        alert(userdetailsjson);
         $.ajax({
             type: "POST",
-            url: "./sendalerttodo.htm",
-            data: "appjson=" + userdetailsjson ,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/sendAlertToDo",
+            data: userdetailsjson,
+            contentType: "application/json",
+//            beforeSend: function (xhr)
+//            {
+//                xhr.setRequestHeader(csrfHeader, csrfToken);
+//            },
             success: function (data) {
+                alert(data);
+                location.href = '/secure/aainbox';
 
-                if (data != '-1') {
-                    alert("Alert has sent saved successfully");
-                    location.href = 'inboxa.htm';
-                } else {
-                    alert("Unsuccessfull");
-                }
+//                if (data != '-1') {
+//                    alert("Alert has sent saved successfully");
+//                    location.href = 'inboxa.htm';
+//                } else {
+//                    alert("Unsuccessfull");
+//                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
@@ -264,12 +267,15 @@ $(document).ready(function () {
         };
 
         var userdetailsjson = JSON.stringify(userdetails);
+        var appealCode = $('#appealCodes').val()
 
         alert(userdetailsjson);
+        alert(appealCode);
+
         $.ajax({
             type: "POST",
-            url: "/secure/saveforwardedusers",
-            data: "appjson=" + userdetailsjson + "&appealcode=" + $('#appealcode').val(),
+            url: "/secure/saveforwardedusers/" + appealCode,
+            data: "appjson=" + userdetailsjson,
 
             success: function (data) {
 
@@ -338,59 +344,47 @@ $(document).ready(function () {
         $('#exampleModal').modal('hide')
     })
     $('#saveuser').click(function () {
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
 
-        var pass, get, slt;
-        var pwd = "";
-        pass = makeid(8);
-        if ((pass.toString()).length == 0) {
-            pwd = "";
-        } else {
-//                            slt = $('#randomKey').val();
-            get = sha256_digest(pass);
-            pwd = get;
-        }
-//                $("#randomKey").attr("disabled", "disabled");
 
-        var userdetails;
+            var userdetails;
+            var generatedPassword = generateRandomString(8);
 
-        userdetails = {
-            fullname: $('#fullname').val(),
-            contact: $('#contact').val(),
-            username: $('#username').val(),
-            password: pwd,
-            pw: pass,
-            role: $('#role').val(),
-            email: $('#email').val(),
-            designation: $('#designation').val()
-        };
+            userdetails = {
+                fullname: $('#fullname').val(),
+                contact: $('#contact').val(),
+                username: $('#email').val(),
+                password: generatedPassword,
+                pw: encryptPassword(generatedPassword),
+                role: "10",
+                email: $('#email').val(),
+                designation: $('#designation').val()
+            };
 
-        var userdetailsjson = JSON.stringify(userdetails);
-//                alert(userdetailsjson);
-        $.ajax({
-            type: "POST",
-            url: "./saveappelateuser.htm",
-            data: "appjson=" + userdetailsjson,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
-            success: function (data) {
+            var userdetailsjson = JSON.stringify(userdetails);
+            alert(userdetailsjson);
 
-                if (data != '-1') {
-                    alert("Data has been saved successfully");
+            $.ajax({
+                type: "POST",
+                url: "/secure/createaasubordinate",
+                data: userdetailsjson,
+                contentType: "application/json",
+                success: function (data) {
+                    alert(data);
                     location.reload();
-                } else {
-                    alert("Username Already Exists");
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
+    //                if (data != '-1') {
+    //                    alert("Data has been saved successfully");
+    //                    location.reload();
+    //                } else {
+    //                    alert("Username Already Exists");
+    //                }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
 
-                alert("error:" + textStatus + " - exception:" + errorThrown);
-            }
+                    alert("error:" + textStatus + " - exception:" + errorThrown);
+                }
+            });
+
         });
-    })
 
 });
 
@@ -442,3 +436,42 @@ function viewAndOpenPdf() {
     xhr.send(JSON.stringify(requestData));
 }
 
+
+    function generateRandomString(length) {
+       const specialChars = "@#$%";
+       const upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+       const lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+       const numbers = "0123456789";
+
+       // Helper function to get a random character from a string
+       const getRandomChar = (str) => str[Math.floor(Math.random() * str.length)];
+
+       // Ensure at least one of each required character
+       let randomString = [
+           getRandomChar(specialChars),         // At least one special character
+           getRandomChar(upperCaseLetters),     // At least one uppercase letter
+           getRandomChar(lowerCaseLetters),     // At least one lowercase letter
+           getRandomChar(numbers)               // At least one number
+       ];
+
+       // Fill the remaining characters with random choices from all categories
+       const allChars = specialChars + upperCaseLetters + lowerCaseLetters + numbers;
+       for (let i = randomString.length; i < length; i++) {
+           randomString.push(getRandomChar(allChars));
+       }
+
+       // Shuffle the array to ensure randomness of character placement
+       randomString = randomString.sort(() => Math.random() - 0.5);
+
+       // Convert array to string and return
+       return randomString.join('');
+   }
+
+   function encryptPassword(pass) {
+          if (pass.length === 0) {
+              return "";
+          } else {
+              var hashedPassword = CryptoJS.SHA256(pass).toString();
+              return hashedPassword;
+          }
+      }

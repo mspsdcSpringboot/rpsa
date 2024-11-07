@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+    <div class="container-fluid">
+        <div class="container">
+            <br />
+            <div class="col-md-12">
+                <div class="zoom">
+                    <div class="card">
+                        <!--<div class="card-header bg-success"><i class="bi bi-clipboard-data"></i></div>-->
+                        <div class="card-body shadow-lg rounded-3 text-center text-dark">
+                            <h7 class="card-title">DASHBOARD FOR TRANSPORT SERVICES</h7>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Applications Applied -->
+                <div class="col-md-3">
+                    <div class="zoom">
+                        <div class="card">
+                            <!--<div class="card-header bg-success"><i class="bi bi-clipboard-data"></i></div>-->
+                            <div class="card-body bg-primary shadow-lg rounded-3 text-center text-white">
+                                <h7 class="card-title">Applications Applied</h7>
+                                <p class="card-text" th:text="${jdata[1]}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Applications Approved -->
+                <div class="col-md-3">
+                    <div class="zoom">
+                        <div class="card">
+                            <div class="card-body bg-success shadow-lg rounded-3 text-center text-white">
+                                <h7 class="card-title">Applications Approved</h7>
+                                <p class="card-text" th:text="${jdata[0]}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Applications Rejected -->
+                <div class="col-md-3">
+                    <div class="zoom">
+                        <div class="card">
+                            <div class="card-body bg-dark shadow-lg rounded-3 text-center text-white">
+                                <h7 class="card-title">Applications Rejected</h7>
+                                <p class="card-text" th:text="${jdata[3]}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Applications Pending -->
+                <div class="col-md-3">
+                    <div class="zoom">
+                        <div class="card">
+                            <div class="card-body bg-warning shadow-lg rounded-3 text-center text-white">
+                                <h7 class="card-title text-dark">Applications Pending</h7>
+                                <p class="card-text" th:text="${jdata[2]}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Wise List -->
+            <div class="card" id="list">
+                <div class="card-header">
+                    <strong>Service Wise List</strong>
+                </div>
+                <div class="card-body">
+                    <table id="userhompagetable" class="table table-striped datatable" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Applied</th>
+                            <th>Delivered</th>
+                            <th>Rejected</th>
+                            <th>Total Pending</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="d : ${reportlist}">
+                            <td th:text="${d[0]}"></td>
+                            <td th:text="${d[2]}"></td>
+                            <td th:text="${d[1]}"></td>
+                            <td th:text="${d[4]}"></td>
+                            <td th:text="${d[3]}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</html>

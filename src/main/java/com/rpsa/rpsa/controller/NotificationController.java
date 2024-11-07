@@ -36,7 +36,7 @@ public class NotificationController {
 
 
     @GetMapping("/viewnotificationdoc/{notificationid}")
-    public ResponseEntity<byte[]> viewMeetingDoc(@PathVariable String notificationid) {
+    public ResponseEntity<byte[]> viewNotificationDoc(@PathVariable String notificationid) {
         Notification notificationData = loadNotifications.getNotificationById(notificationid);
         if (notificationData != null && notificationData.getDoc() != null) {
             HttpHeaders headers = new HttpHeaders();

@@ -14,6 +14,6 @@ public class M_SubservicesService {
     @Autowired
     private M_SubservicesRepository m_subservicesRepository;
     public List<M_Subservices> findByServicecode(String serviceCode) {
-        return m_subservicesRepository.findByServicecode_Servicecode(serviceCode);
+        return m_subservicesRepository.findByServicecodeServicecode(serviceCode);
     }
 }

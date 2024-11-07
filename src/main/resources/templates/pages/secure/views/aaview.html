@@ -6,593 +6,466 @@
 
 
 <div class="container mt-5">
+
+
     <!--<div class="row justify-content-center">-->
     <!--<div class="col-md-12 mb-5 mb-md-0 border-2">-->
-    <div class=" shadow-lg p-4 wow"  >
-        <h4 class="text-center"><b>Form III</b></h4>
-        <!--<h5 class="text-center mt-0">[See Rule 12]</h5>-->
-        <br/><!-- comment -->
-        <br/><!-- comment -->
-        <h4 class="text-center"><b>Form of appeal to the Appellate Authority. </b></h4>
-        <br/>
-        <p style="padding-left: 50px;">
-            Before the <b th:text="${appeallist.appelateid.officename}"></b>
-        </p>
-        <p style="padding-left: 50px;">
-            Date of Filing the Appeal: <b th:text="${#dates.format(appeallist.firstappealdate, 'yyyy-MM-dd')}"></b>
-        </p>
-        <br/>
-        <table border="1" class="table-bordered" width="100%" style="padding-left: 50px;">
-            <tr>
-                <td width="50%">
+    <div class="container-fluid shadow-lg p-4 wow">
+        <!-- Toggle Button with Icon -->
+        <div class="d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#formIII" aria-expanded="false" aria-controls="formIII">
+            <i class="fas fa-plus-circle me-2" id="toggleIcon"></i>
+            <h4 class="mb-0"><b>Form III</b></h4>
+        </div>
+        <hr class="my-2" />
 
-                    &nbsp;&nbsp;&nbsp;1. Details of the Appellant:<br/><br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(i) Name of the person filing the Appeal:
-                    <br/><br/>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii) Address of the person filling the Appeal:
-                    <br/> <br/>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(iii) Mobile Number:
-                    <br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(iv) Email:
+        <!-- Collapsible Card for Form III -->
+        <div class="toggle" id="formIII">
+            <div class="card shadow-lg mb-4">
+                <div class="card-body p-4">
+                    <!-- Heading -->
+                    <h4 class="text-center mb-4"><b>Form III</b></h4>
+                    <h5 class="text-center text-muted mb-4"><b>Form of Appeal to the Appellate Authority</b></h5>
 
+                    <!-- Date and Authority -->
+                    <p class="ps-4">
+                        Before the <strong th:text="${appeallist.appelateid.officename}"></strong>
+                    </p>
+                    <p class="ps-4">
+                        Date of Filing the Appeal: <strong th:text="${#dates.format(appeallist.firstappealdate, 'yyyy-MM-dd')}"></strong>
+                    </p>
 
-                </td>
-                <td>
+                    <!-- Responsive Table for Form Content -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td><strong>1. Details of the Appellant:</strong></td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        <li><strong>Name:</strong> <span th:text="${appeallist.usercode.fullname} + ' ' + ${appeallist.usercode.mname} + ' ' + ${appeallist.usercode.lname}"></span></li>
+                                        <li><strong>Address:</strong> <span th:text="${appeallist.usercode.address}"></span></li>
+                                        <li><strong>Mobile Number:</strong> <span th:text="${appeallist.usercode.contact}"></span></li>
+                                        <li><strong>Email:</strong> <span th:text="${appeallist.usercode.email}"></span></li>
+                                    </ul>
+                                </td>
+                            </tr>
 
-                    <br/><br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${appeallist.usercode.fullname}"></span>
-                    <span th:text="${appeallist.usercode.mname}"></span>
-                    <span th:text="${appeallist.usercode.lname}"></span>
-                    <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${appeallist.usercode.address}"></span>
-                    <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${appeallist.usercode.contact}"></span>
-                    <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${appeallist.usercode.email}"></span>
+                            <tr>
+                                <td><strong>2. Details of the Designated Officer:</strong></td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        <li><strong>Name and Designation:</strong> <span th:text="${appeallist.officeid.officername}"></span></li>
+                                        <li><strong>Office Address:</strong> <span th:text="${appeallist.officeid.officename}"></span></li>
+                                    </ul>
+                                </td>
+                            </tr>
 
+                            <tr>
+                                <td><strong>3. Details of Public Service Required:</strong></td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        <li><strong>Application Reference Number:</strong> <span th:text="${appeallist.applicationrefno}"></span></li>
+                                        <li><strong>Application Date:</strong> <span th:text="${#dates.format(appeallist.applicationdate, 'yyyy-MM-dd')}"></span></li>
+                                    </ul>
+                                </td>
+                            </tr>
 
+                            <tr>
+                                <td><strong>4. Stipulated Time Limit:</strong></td>
+                                <td><span th:text="${appeallist.subservicecode.stipulatedtime}"></span></td>
+                            </tr>
 
-                </td>
+                            <tr>
+                                <td><strong>5. Supporting Documents:</strong></td>
+                                <td>
+                                    <a class="btn btn-outline-primary btn-sm mb-2" target="_blank" th:href="@{/secure/viewsupportdoc/{appealcode}(appealcode=${appeallist.appealcode})}">View Document</a>
+                                    <span th:if="${appeallist.supportdoc2 != null}"><br>
+                                    <a class="btn btn-outline-primary btn-sm mb-2" target="_blank" th:href="@{/secure/viewsupportdoc2/{appealcode}(appealcode=${appeallist.appealcode})}">View Document</a>
+                        </span>
+                                </td>
+                            </tr>
 
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;&nbsp;&nbsp;2. Details of the Designated Officer against
-                    whom the Appeal is Filed
+                            <tr>
+                                <td><strong>6. Decision Date & Order Copy:</strong></td>
+                                <td>
+                        <span th:if="${appeallist.ordercopy != null}">
+                            <a class="btn btn-outline-primary btn-sm" target="_blank" th:href="@{/secure/viewordercopy/{appealcode}(appealcode=${appeallist.appealcode})}">View</a>
+                        </span>
+                                    <span th:unless="${appeallist.ordercopy != null}">Not Uploaded</span>
+                                </td>
+                            </tr>
 
-                    <br/><br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(i) Name of the Designated Officer
-                    and Designation:
-                    <br/> <br/>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii) Office Address of the Designated
-                    Officer:
-                </td>
-                <td>
+                            <tr>
+                                <td><strong>7. Grounds of Appeal:</strong></td>
+                                <td><span th:text="${appeallist.groundcode1.ground}"></span></td>
+                            </tr>
 
-                    <br/><br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${appeallist.officeid.officername}"></span>
-                    <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${appeallist.officeid.officename}"></span>
+                            <tr>
+                                <td><strong>8. Relief Sought:</strong></td>
+                                <td><span th:text="${appeallist.relief1}"></span></td>
+                            </tr>
 
+                            <tr>
+                                <td><strong>9. Other Information:</strong></td>
+                                <td><span th:text="${appeallist.otherinfo1}"></span></td>
+                            </tr>
+                        </table>
+                    </div>
 
+                    <!-- Additional Information -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td><strong>1. Hearing Type:</strong></td>
+                                <td><span th:text="${appeallist.hearingtype == '1' ? 'In Person' : 'Online'}"></span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Identification Proof:</strong></td>
+                                <td><a class="btn btn-outline-primary btn-sm" target="_blank" th:href="@{/secure/viewidproof/{appealcode}(appealcode=${appeallist.appealcode})}">View</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. FORM I:</strong></td>
+                                <td><a class="btn btn-outline-primary btn-sm" target="_blank" th:href="@{/secure/viewform1/{appealcode}(appealcode=${appeallist.appealcode})}">View</a></td>
+                            </tr>
+                        </table>
+                    </div>
 
+                    <!-- Declaration -->
+                    <h5 class="text-center text-primary mt-4"><b>Declaration</b></h5>
+                    <p class="ps-4">
+                        I, <strong th:text="${appeallist.usercode.fullname} + ' ' + ${appeallist.usercode.mname} + ' ' + ${appeallist.usercode.lname}"></strong> declare that the
+                        particulars given above are true and correct to the best of my knowledge, information, and belief.
+                        <br /><br />
+                        Date: <span th:text="${#dates.format(appeallist.firstappealdate, 'yyyy-MM-dd')}"></span>
+                    </p>
+                </div>
+            </div>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;&nbsp;&nbsp;3. Details of public service required:
-                    <br/><br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(i) Application Reference Number:
-
-                    <br/> <br/>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii) Application  Date:
-
-                </td>
-                <td>
-                    <br/><br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${appeallist.applicationrefno}"></span>
-                    <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${#dates.format(appeallist.applicationdate, 'yyyy-MM-dd')}"></span>
-<!--                    <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a-->
-<!--                        th:href="@{'viewapplicationdetails.htm?(referenceNo=' + ${appeallist.applicationrefno} + ',submissionDate=' + ${#dates.format(appeallist.applicationdate, 'dd/MM/yyyy')})}"-->
-<!--                        target="_blank">View Detailed Application</a>-->
-
-
-
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;&nbsp;&nbsp;4. Stipulated time limit for providing the service:
-
-
-                </td>
-                <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${appeallist.subservicecode.stipulatedtime}"></span>
-
-
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;&nbsp;&nbsp;5. List of supporting documents to avail the
-                    service, if any
-
-
-                </td>
-                <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a target="_blank" th:href="@{'viewsupportdocs.htm?appealcode=' + ${appeallist.appealcode}}">View Document</a>
-
-                    <span th:if="${appeallist.supportdoc2 != null and #strings.length(appeallist.supportdoc2) > 0}">
-                        <br/>
-                        <a target="_blank" th:href="@{'viewsupportdocs2.htm?appealcode=' + ${appeallist.appealcode}}">View Document</a>
-                    </span>
-
-                    <span th:if="${appeallist.supportdoc3 != null and #strings.length(appeallist.supportdoc3) > 0}">
-                        <br/>
-                        <a target="_blank" th:href="@{'viewsupportdocs3.htm?appealcode=' + ${appeallist.appealcode}}">View Document</a>
-                    </span>
-
-                    <span th:if="${appeallist.supportdoc4 != null and #strings.length(appeallist.supportdoc4) > 0}">
-                        <br/>
-                        <a target="_blank" th:href="@{'viewsupportdocs4.htm?appealcode=' + ${appeallist.appealcode}}">View Document</a>
-                    </span>
-
-                    <span th:if="${appeallist.supportdoc5 != null and #strings.length(appeallist.supportdoc5) > 0}">
-                        <br/>
-                        <a target="_blank" th:href="@{'viewsupportdocs5.htm?appealcode=' + ${appeallist.appealcode}}">View Document</a>
-                    </span>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;&nbsp;&nbsp;6. Date of Decision of the Designated Officer
-                    and Copy of the Order :
-
-
-                </td>
-                <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span th:if="${appeallist.ordercopy != null and #strings.length(appeallist.ordercopy) > 0}">
-                        <a target="_blank" th:href="@{'viewordercopys.htm?appealcode=' + ${appeallist.appealcode}}">View</a>
-                    </span>
-                    <span th:unless="${appeallist.ordercopy != null and #strings.length(appeallist.ordercopy) > 0}">
-                        Not Uploaded
-                    </span>
-
-
-
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;&nbsp;&nbsp;7. Grounds of Appeal :
-                </td>
-                <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span th:text="${appeallist.groundcode1.ground}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;&nbsp;&nbsp;8. Relief sought
-                </td>
-                <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span th:text="${appeallist.relief1}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;&nbsp;&nbsp;9. Any other information necessary for filling appeal
-                </td>
-                <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span th:text="${appeallist.otherinfo1}"></span>
-                </td>
-            </tr>
-
-        </table>
-        <br/>
-        <br/>
-
-        <h5 class="text-center" style="color: #029db1;"><b>Declaration</b></h5>
-        <br/>
-
-        <p style="padding-left: 50px;">
-            I, <b th:text="${appeallist.usercode.fullname} + ' ' + ${appeallist.usercode.mname} + ' ' + ${appeallist.usercode.lname}"></b> declare that the
-            particulars given above are true and correct to the best of my knowledge, information and
-            belief.
-            <br/>
-            <br/>
-            Date: <span th:text="${#dates.format(appeallist.firstappealdate, 'yyyy-MM-dd')}"></span>
-        </p>
-
-
-
-
+        </div>
     </div>
 
-    <!--</div>-->
-    <!--</div>-->
-</div>
-<br/>
-<div class="container-fluid ">
-    <div class="row">
-        <div class="col-md-6 mb-5 mb-md-0">
-            <!--<div class="block">-->
-            <div class=" shadow-lg p-4 wow">
 
-                <div class="form-group mb-3">
-                    <h5 class="text-center" style="color: #029db1;" ><strong>Other Details</strong></h5>
-                    <hr/>
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="hidden" th:value="${appealcode}" id="appealcode"/>
-                    <label for="idproof"><strong>Identification Proof: </strong></label>
-                    <a target="_blank" th:href="@{'viewidproofs.htm?appealcode=' + ${appeallist.appealcode}}">View</a>
-                </div>
-                <br/>
+    <br/>
 
-                <span th:if="${appeallist.ordercopy != null and #strings.length(appeallist.ordercopy) > 0}">
-                    <!--
+
+
+
+
+
+
+        <!-- Offcanvas for Designated Officer Details -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasOfficerDetails" aria-labelledby="offcanvasOfficerDetailsLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasOfficerDetailsLabel">Designated Officer Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="shadow-lg p-4 wow h-100">
+                    <div class="form-group mb-3">
+                        <h5 class="text-center" style="color: #029db1;"><strong>Designated Officer Details</strong></h5>
+                        <hr />
+                    </div>
+                    <br>
                     <div class="form-group">
-                        <label for="ordercopy"><strong>Copy of the Order: </strong></label>
-                        <a target="_blank" th:href="@{'viewordercopys.htm?appealcode=' + ${appeallist.appealcode}}">View</a>
+                        <label><strong>Office Name: </strong></label>
+                        <input id="officename" class="form-control" th:value="${dos.officename}" />
                     </div>
-                    <br>
-                    -->
-                </span>
-
-                <div class="form-group">
-                    <label for="fullname"><strong>Hearing Type : </strong></label>
-                    <span th:text="${appeallist.hearingtype == '1' ? 'In Person' : 'Online'}"></span>
-                </div>
-                <br>
-
-                <div class="form-group">
-                    <label for="ordercopy"><strong>FORM I: </strong></label>
-                    <a target="_blank" th:href="@{'viewform1doc.htm?appealcode=' + ${appeallist.appealcode}}">View</a>
-                </div>
-                <br>
-
-
-
-            </div>
-
-
-        </div>
-        <div class="col-md-6 mb-5 mb-md-0">
-            <div class=" shadow-lg p-4 wow h-100">
-
-                <div class="form-group mb-3">
-                    <h5 class="text-center" style="color: #029db1;"><strong>Designated Officer Details</strong></h5>
-                    <hr/>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label><strong>Office Name: </strong></label>
-                    <input id="officename" class="form-control" th:value="${dos.officename}"/>
-
-
-
-                </div>
-                <br/>
-                <div class="form-group">
-                    <label><strong>Officer Name: </strong></label>
-                    <input id="officername" class="form-control" th:value="${dos.officername}"/>
-                    <input id="officeid" hidden="true" class="form-control" th:value="${dos.officeid}"/>
-
-
-                </div>
-                <br/>
-
-
-                <label><strong>Email: </strong></label>
-                <input id="email" class="form-control" th:value="${dos.email}"/>
-
-
-                <br/>
-
-
-                <label><strong>Phone Number: </strong></label>
-                <input id="mobile" class="form-control" th:value="${dos.mobile}"/>
-
-
-                <br/>
-                <label><strong>Username: </strong></label>
-                <input id="username" readonly="true" class="form-control" th:value="${dos.username}"/>
-
-
-                <br/>
-
-                <div id="updatedodiv" >
-                    <a id="updatedo"  class="btn btn-primary" >Update</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<div class="container mt-5" id="takeaction">
-    <div class="row justify-content-center">
-        <div class="col-md-6 mb-5 mb-md-0">
-            <!--<div class="block">-->
-            <div class=" shadow-lg p-4 wow">
-                <label><strong>Take Action:</strong></label><br>
-                <br>
-                <select id="actions" class="form-select">
-                    <option value="">Select</option>
-                    <option value="1">Forward</option>
-                    <option value="2">Process</option>
-                    <option value="3">Alert Designated Officer</option>
-                </select>
-                <br>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container mt-5" id="forwardto">
-    <div class="row justify-content-center">
-        <div class="col-md-6 mb-5 mb-md-0">
-            <!--<div class="block">-->
-            <div class=" shadow-lg p-4 wow">
-                <label><strong>Forward To</strong></label>
-                <br/>
-                <br/>
-                <div th:each="d : ${userslist}">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="users" th:id="'usercode_' + ${d.usercode}"
-                               checked="true" th:value="${d.usercode}">
-                        <label class="form-check-label" th:for="'usercode_' + ${d.usercode}">
-                            <span th:text="${d.fullname}"></span>
-                        </label>
+                    <br />
+                    <div class="form-group">
+                        <label><strong>Officer Name: </strong></label>
+                        <input id="officername" class="form-control" th:value="${dos.officername}" />
+                        <input id="officeid" hidden="true" class="form-control" th:value="${dos.officeid}" />
                     </div>
-                    <br/>
-                </div>
-
-                <div class="form-group">
-                    <label>Instruction:</label><br>
-                    <textarea id="forwardremarkstxt" name="forwardremarkstxt" class="form-control"  placeholder="Please enter instructions for the Sub Ordinate"></textarea>
-
-                    <br>
-
-                </div>
-                <br>
-                <div class="container mt-2 text-center">
-                    <a  class="btn btn-primary" id="showmodal">
-                        Add User
-                    </a>
-                    <button id="forwardbtn" type="submit" class="btn btn-success">SUBMIT</button>
+                    <br />
+                    <label><strong>Email: </strong></label>
+                    <input id="doemail" class="form-control" th:value="${dos.email}" />
+                    <br />
+                    <label><strong>Phone Number: </strong></label>
+                    <input id="mobile" class="form-control" th:value="${dos.mobile}" />
+                    <br />
+                    <label><strong>Username: </strong></label>
+                    <input id="username" readonly="true" class="form-control" th:value="${dos.username}" />
+                    <br />
+                    <div id="updatedodiv">
+                        <a id="updatedo" class="btn btn-primary">Update</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container mt-5" id="sendalert">
-    <div class="row justify-content-center">
-        <div class="col-md-6 mb-5 mb-md-0">
-            <!--<div class="block">-->
-            <div class=" shadow-lg p-4 wow">
-                <label><strong></strong></label>
-                <br/>
-                <br/>
-                <div class="form-group">
-                    <label>Enter Alert:</label><br>
-                    <textarea id="alertcontent" name="alertcontent" class="form-control"  placeholder="Please enter Alert for the Designated Officer"></textarea>
 
-                    <br>
+    <!-- Trigger button for the Offcanvas -->
 
-                </div>
-                <br>
-                <div class="container mt-2 text-center">
-                    <a  class="btn btn-primary" id="sendalertbtn">
-                        Send Alert
-                    </a>
 
-                </div>
-            </div>
+    <!-- Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAction" aria-labelledby="offcanvasActionLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasActionLabel">Action Panel</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-    </div>
-</div>
+        <div class="offcanvas-body">
 
-    <form id="processappeal" autocomplete="off" enctype="multipart/form-data">
-        <div class="container mt-5" id="processappeals">
-            <div class="row justify-content-center">
-                <div class="col-md-6 mb-5 mb-md-0">
-                    <div class="shadow-lg p-4 wow">
-
-                        <div class="form-group mb-3">
-                            <h5 class="text-center" style="color: #029db1;"><strong>Process Appeal</strong></h5>
-                            <hr/>
+            <!-- Take Action Section -->
+            <div class="container" id="takeaction">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 mb-5 mb-md-0">
+                        <div class="shadow-lg p-4 wow">
+                            <label><strong>Take Action:</strong></label><br>
+                            <br>
+                            <select id="actions" class="form-select">
+                                <option value="">Select</option>
+                                <option value="1">Forward</option>
+                                <option value="2">Process</option>
+                                <option value="3">Alert Designated Officer</option>
+                            </select>
+                            <br>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="form-check">
-                            <!-- Iterate over the `maction` list -->
-                            <div th:each="d : ${maction}">
-                                <!-- Case when `d.actioncode` equals '3' -->
-                                <div th:if="${d.actioncode == '3'}">
-                                    <input type="radio" class="actions dispose" th:name="'appelateactioncode'" th:value="${d.actioncode}" id="dispose" />
-                                    <label class="form-check-label disposelabel" th:for="'dispose'">
-                                        <span th:text="${d.actions}">Action Description</span>
+            <!-- Forward To Section -->
+            <div class="container mt-3" id="forwardto">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 mb-5 mb-md-0">
+                        <div class="shadow-lg p-4 wow">
+                            <label><strong>Forward To</strong></label><br/><br/>
+                            <div th:each="d : ${userslist}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="users" th:id="'usercode_' + ${d.usercode} " checked="true" th:value="${d.usercode}">
+                                    <label class="form-check-label" th:for="'usercode_' + ${d.usercode}">
+                                        <span th:text="${d.fullname}"></span>
                                     </label>
+                                </div>
+                                <br/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Instruction:</label><br>
+                                <textarea id="forwardremarkstxt" name="forwardremarkstxt" class="form-control" placeholder="Please enter instructions for the Sub Ordinate"></textarea>
+                                <br>
+                            </div>
+                            <br>
+                            <div class="container mt-2 text-center">
+                                <a class="btn btn-primary" id="showmodal">Add User</a>
+                                <button id="forwardbtn" type="submit" class="btn btn-success">SUBMIT</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Send Alert Section -->
+            <div class="container mt-3" id="sendalert">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 mb-5 mb-md-0">
+                        <div class="shadow-lg p-4 wow">
+                            <div class="form-group">
+                                <label>Enter Alert:</label><br>
+                                <textarea id="alertcontent" name="alertcontent" class="form-control" placeholder="Please enter Alert for the Designated Officer"></textarea>
+                                <br>
+                            </div>
+                            <br>
+                            <div class="container mt-2 text-center">
+                                <a class="btn btn-primary" id="sendalertbtn">Send Alert</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Appeal Section -->
+            <form id="processappeal" autocomplete="off" enctype="multipart/form-data">
+                <div class="container mt-3" id="processappeals">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 mb-5 mb-md-0">
+                            <div class="shadow-lg p-4 wow">
+                                <div class="form-group mb-3">
+                                    <h5 class="text-center" style="color: #029db1;"><strong>Process Appeal</strong></h5>
+                                    <hr/>
+                                </div>
+
+                                <div class="form-check">
+                                    <!-- Iterate over the `maction` list -->
+                                    <div th:each="d : ${maction}">
+                                        <div th:if="${d.actioncode == '3'}">
+                                            <input type="radio" class="actions dispose" th:name="'appelateactioncode'" th:value="${d.actioncode}" id="dispose" />
+                                            <label class="form-check-label disposelabel" th:for="'dispose'">
+                                                <span th:text="${d.actions}">Action Description</span>
+                                            </label>
+                                            <br/>
+                                        </div>
+
+                                        <div th:unless="${d.actioncode == '3' || d.actioncode == '9'}">
+                                            <input type="radio" class="actions dontdispose" th:name="'appelateactioncode'" th:value="${d.actioncode}" />
+                                            <label class="form-check-label dontdisposelabel" th:for="'action'">
+                                                <span th:text="${d.actions}">Action Description</span>
+                                            </label>
+                                            <br/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div id="rejectaction">
+                                    <div class="form-group">
+                                        <label>Remarks:</label><br/>
+                                        <select id="selectremarks" name="remarks" class="form-select">
+                                            <option value="">Select</option>
+                                            <option th:each="d : ${remarkslist}" th:value="${d.remarksid}" th:text="${d.remarks}"></option>
+                                            <option value="0">Others</option>
+                                        </select>
+                                        <textarea class="form-control" name="remarkstxt" id="remarks" placeholder="Please enter remarks"></textarea>
+                                        <br/>
+                                    </div>
+                                    <br/>
+                                    <div class="form-group">
+                                        <label>Upload Signed & Sealed Order:</label><br/>
+                                        <input type="file" id="file1" name="file1"/>
+                                        <br/>
+                                    </div>
                                     <br/>
                                 </div>
 
-                                <!-- Case when `d.actioncode` equals '9' -->
-<!--                                <div th:if="${d.actioncode == '9'}">-->
-<!--                                    <input type="radio" class="actions dispose" th:name="'appelateactioncode'" th:value="${d.actioncode}" id="penalty" style="display:none;" />-->
-<!--                                    <label class="form-check-label disposelabel" th:for="'penalty'" style="display:none;">-->
-<!--                                        <span th:text="${d.actions}">Action Description</span>-->
-<!--                                    </label>-->
-<!--                                    <br/>-->
-<!--                                </div>-->
-
-                                <!-- Default case when none of the above conditions are met -->
-                                <div th:unless="${d.actioncode == '3' || d.actioncode == '9'}">
-                                    <input type="radio" class="actions dontdispose" th:name="'appelateactioncode'" th:value="${d.actioncode}" />
-                                    <label class="form-check-label dontdisposelabel" th:for="'action'">
-                                        <span th:text="${d.actions}">Action Description</span>
-                                    </label>
+                                <div class="form-group" id="rejected">
+                                    <br/>
                                     <br/>
                                 </div>
-                            </div>
-                        </div>
 
-                        <br/>
-
-                        <div id="rejectaction">
-                            <div class="form-group">
-                                <label>Remarks:</label><br/>
-<!--                                <select id="selectremarks" name="remarks" class="form-select">-->
-<!--                                    <option value="">Select</option>-->
-<!--                                    <div th:each="d : ${remarkslist}">-->
-<!--                                        <option th:value="${d.remarksid}" th:text="${d.remarks}"></option>-->
-<!--                                    </div>-->
-<!--                                    <option value="0">Others</option>-->
-<!--                                </select>-->
-                                <select id="selectremarks" name="remarks" class="form-select">
-                                    <option value="">Select</option>
-                                    <!-- Iterating over the remarkslist to create options -->
-                                    <option th:each="d : ${remarkslist}" th:value="${d.remarksid}" th:text="${d.remarks}"></option>
-                                    <option value="0">Others</option>
-                                </select>
-
-                                <textarea class="form-control" name="remarkstxt" id="remarks" placeholder="Please enter remarks"></textarea>
                                 <br/>
-                            </div>
-                            <br/>
-                            <div class="form-group">
-                                <label>Upload Signed & Sealed Order:</label><br/>
-                                <input type="file" id="file1" name="file1"/>
-                                <br/>
-                            </div>
-                            <br/>
-                        </div>
 
-                        <div class="form-group" id="rejected">
-<!--                            <label th:text="${processappeal.appelateactioncode.status} + ' on: ' + ${#dates.format(processappeal.appelatedate, 'dd-MM-yyyy')}"></label>-->
-                            <br/>
-                            <br/>
-                        </div>
-
-                        <br/>
-
-                        <div class="form-group callforhearingaction" id="callforhearingaction">
-                            <label for="hearingdate">Hearing Date:</label><br/>
-                            <input type="date" th:field="${processappeal.firsthearingdate}" class="form-control dates" id="hearingdate"/>
-                            <input type="hidden" th:field="${processappeal.hearingtype}" class="form-control dates" id="hearingtype"/>
-                        </div>
-                        <br/>
-
-                        <div class="form-group callforhearingaction">
-                            <div class="row">
-                                <div class="col-6">
-                                    Hearing Start Time:
-                                    <input type="time" th:field="${processappeal.hearingtime1}" class="form-control dates" id="hearingtime1"/>
+                                <div class="form-group callforhearingaction" id="callforhearingaction">
+                                    <label for="hearingdate">Hearing Date:</label><br/>
+                                    <input type="date" th:field="${processappeal.firsthearingdate}" class="form-control dates" id="hearingdate"/>
+                                    <input type="hidden" th:field="${processappeal.hearingtype}" class="form-control dates" id="hearingtype"/>
                                 </div>
-                                <div class="col-6">
-                                    Hearing End Time:
-                                    <input type="time" th:field="${processappeal.hearingendtime1}" class="form-control dates" id="hearingendtime1"/>
+                                <br/>
+
+                                <div class="form-group callforhearingaction">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            Hearing Start Time:
+                                            <input type="time" th:field="${processappeal.hearingtime1}" class="form-control dates" id="hearingtime1"/>
+                                        </div>
+                                        <div class="col-6">
+                                            Hearing End Time:
+                                            <input type="time" th:field="${processappeal.hearingendtime1}" class="form-control dates" id="hearingendtime1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="form-group callforhearingaction" id="offline">
+                                    <label for="venue1">Hearing Venue:</label><br/>
+                                    <input type="text" th:field="${processappeal.venue1}" class="form-control dates" id="venue1" maxlength="60"/>
+                                </div>
+                                <br/>
+
+                                <div class="container mt-2 text-center">
+                                    <input type="hidden" id="appealCodes" th:value="${appeallist.appealcode}" />
+                                    <input id="submitprocessbtn" type="submit" class="btn btn-default" value="Submit" />
                                 </div>
                             </div>
                         </div>
-                        <br/>
-
-                        <div class="form-group callforhearingaction" id="offline">
-                            <label for="venue1">Hearing Venue:</label><br/>
-                            <input type="text" th:field="${processappeal.venue1}" class="form-control dates" id="venue1" maxlength="60"/>
-                        </div>
-                        <br/>
-
-                        <div class="container mt-2 text-center">
-                            <input type="hidden" id="appealCodes" th:value="${appeallist.appealcode}" />
-                            <input id="submitprocessbtn" type="submit" class="btn btn-default " value="Submit"  />
-
-                        </div>
-
                     </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+
+    <div class="container mt-5" id="Current">
+        <div class="row justify-content-center">
+            <div class="col-md-12 mb-5 mb-md-0">
+                <div class="shadow-lg p-4 wow">
+                    <!-- Toggle Button for Collapsible Section -->
+                    <div class="d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#transactionTable" aria-expanded="false" aria-controls="transactionTable">
+                        <i class="fas fa-plus-circle me-2" id="toggleTransactionIcon"></i>
+                        <h4 class="mb-0"><b>Process History</b></h4>
+                    </div>
+                    <hr class="my-2" />
+
+                    <!-- Collapsible Table Section -->
+                    <div class="collapse" id="transactionTable">
+                        <div class="form-group">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Process Details</th>
+                                    <th>Action Taken Date</th>
+                                    <th>Action Taken By</th>
+                                    <th>Other Details</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="d : ${transactionlist}">
+                                    <td th:text="${d.transactiondetails}"></td>
+                                    <td>
+                                        <span th:text="${#dates.format(d.transactiondate, 'yyyy-MM-dd')}"></span>
+                                    </td>
+                                    <td th:text="${d.usercode.fullname}"></td>
+                                    <td>
+                                        <div th:if="${d.actioncode.actioncode == '1'}">
+                                            Hearing Date: <span th:text="${#dates.format(d.hearingdate, 'yyyy-MM-dd')}"></span><br />
+                                            Hearing Time: <span th:text="${d.hearingtime}"></span>
+                                            <div th:if="${processappeal.hearingtype == '2'}">
+                                                <br />
+                                                <label><strong>VC Link: </strong></label> <span th:text="${d.vclink}"></span>
+                                            </div>
+                                        </div>
+                                        <div th:if="${d.actioncode.actioncode == '2' or d.actioncode.actioncode == '3'}">
+                                            <span th:text="${d.remarks}"></span><br />
+                                            <div th:if="${#strings.length(d.orderdoc) > 0}">
+                                                <a th:href="@{'vieworderdoc.htm?tcode=' + ${d.transactionscode}}" target="_blank">View Order Document</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- End of collapsible section -->
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 
-
-<br>
+    <br/>
 <!--<div class="container mt-2 text-center">-->
 <!--    <input id="submitprocessbtn" type="submit" class="btn btn-default "   value="Submit"  />-->
 
 <!--</div>-->
-</div>
+
+    <!-- Trigger buttons for Offcanvases -->
+    <div class="container">
+        <div class="row justify-content-end text-center mt-3"> <!-- Added justify-content-center -->
+            <div class="col-md-4 mb-2"> <!-- Adjusted to col-md-3 -->
+                <button class="btn btn-success btn-lg w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAction" aria-controls="offcanvasAction">
+                    <i class="bi bi-check-circle"></i>
+                    Take Action
+                </button>
+            </div>
+            <div class="col-md-4 mb-2"> <!-- Adjusted to col-md-3 -->
+                <button class="btn btn-warning btn-lg w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasOfficerDetails" aria-controls="offcanvasOfficerDetails">
+                    <i class="bi bi-person-badge"></i>
+                    View Designated Officer Details
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    </div>
 </div>
 </div>
 </div>
 
 <br>
-<div class="container mt-5" id="Current">
-    <div class="row justify-content-center">
-        <div class="col-md-12 mb-5 mb-md-0">
-            <!--<div class="block">-->
-            <div class=" shadow-lg p-4 wow">
 
-
-
-                <div class="form-group">
-
-                    <table class="table table-striped " >
-                        <thead>
-                        <tr>
-                            <th colspan="4" id="th1">Appeal Transactions</th>
-                        </tr>
-                        <tr>
-                            <th>Transaction Details</th>
-                            <th>Transaction Date</th>
-                            <th>Action Taken By</th>
-                            <th>Other Details</th>
-
-
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr th:each="d : ${transactionlist}">
-                                <td th:text="${d.transactiondetails}"></td>
-                                <td>
-                                    <!-- Date formatting in Thymeleaf -->
-                                    <span th:text="${#dates.format(d.transactiondate, 'yyyy-MM-dd')}"></span>
-                                </td>
-                                <td th:text="${d.usercode.fullname}"></td>
-                                <td>
-                                    <!-- Conditional Rendering -->
-                                    <div th:if="${d.actioncode.actioncode == '1'}">
-                                        Hearing Date: <span th:text="${#dates.format(d.hearingdate, 'yyyy-MM-dd')}"></span><br/>
-                                        Hearing Time: <span th:text="${d.hearingtime}"></span>
-                                        <div th:if="${processappeal.hearingtype == '2'}">
-                                            <br/>
-                                            <label><strong>VC Link: </strong></label> <span th:text="${d.vclink}"></span>
-                                        </div>
-                                    </div>
-                                    <div th:if="${d.actioncode.actioncode == '2' or d.actioncode.actioncode == '3'}">
-                                        <span th:text="${d.remarks}"></span><br/>
-                                        <div th:if="${#strings.length(d.orderdoc) > 0}">
-                                            <a th:href="@{'vieworderdoc.htm?tcode=' + ${d.transactionscode}}" target="_blank">View Order Document</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-
-
-                </div>
-                <br>
-
-
-
-            </div>
-
-
-        </div>
-    </div>
-</div>
-<br/>
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -630,7 +503,7 @@
 
                             <div class="form-group">
                                 <label for="username">Email ID</label>
-                                <input type="email" class="form-control" id="email"  placeholder="Enter Email">
+                                <input type="email" class="form-control" id="email" placeholder="Enter Email">
 
                             </div>
                             <br>
@@ -643,11 +516,11 @@
 
                             </div>
                             <br>
-                            <div class="form-group">
-                                <label for="username">Enter Username: (To be used when logging in)</label>
-                                <input type="username" class="form-control" id="username"  placeholder="Enter username for Login">
+<!--                            <div class="form-group">-->
+<!--                                <label for="username">Enter Username: (To be used when logging in)</label>-->
+<!--                                <input type="username" class="form-control" id="username"  placeholder="Enter username for Login">-->
 
-                            </div>
+<!--                            </div>-->
                             <br>
 
                             <br>
@@ -668,9 +541,42 @@
     </div>
 </div>
 
+    <script>
+        // Toggle icon change on collapse
+        document.querySelector('[data-bs-toggle="collapse"]').addEventListener('click', function() {
+            const icon = document.getElementById('toggleIcon');
+            if (icon.classList.contains('fa-plus-circle')) {
+                icon.classList.remove('fa-plus-circle');
+                icon.classList.add('fa-minus-circle');
+            } else {
+                icon.classList.remove('fa-minus-circle');
+                icon.classList.add('fa-plus-circle');
+            }
+        });
+    </script>
+    <style>
+        .offcanvas-end {
+           width: 800px;
+        }
+        .btn {
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+    </style>
 
     <script th:src="@{/web/js/jsfiles/viewap.js}" type="text/javascript"></script>
     <link th:href="@{/web/css/cssfiles/viewap.css}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 
 </main>

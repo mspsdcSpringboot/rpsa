@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+    <form autocomplete="off" id="albums" enctype="multipart/form-data">
+<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <div class="shadow-lg p-4 wow">
+                        <div class="form-group mb-3">
+                            <h5 class="text-center"><strong>Manage Albums</strong></h5>
+                            <div class="text-success" th:text="${savesuccess}"></div>
+                            <div class="text-danger" th:text="${saveerror}"></div>
+                            <hr/>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label>Album Name:</label>
+                            <input type="hidden" name="albumid" class="form-control" id="albumid"/>
+                            <input type="text" name="albumname" class="form-control" id="albumname"/>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
+                            <label>Album Date:</label>
+                            <input type="date" name="albumdate" class="form-control" id="albumdate"/>
+                        </div>
+                        <br/>
+
+                        <div class="form-group" id="previewContainer" style="display:none;">
+                            <label>Image Preview:</label><br/>
+                            <img id="imgsrc" width="500px" alt="Image Preview"/>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
+                            <label>Upload Photo:</label><br/>
+                            <span class="text-danger">Only jpeg, jpg, png file within 2MB are allowed</span><br/>
+                            <input type="file" class="form-control" name="photodoc" id="photodoc"/>
+
+                        </div>
+                        <br/>
+
+                        <div class="container mt-2 text-center">
+                            <input type="submit" class="btn btn-primary submitAlbum" value="Submit"/>
+                            <input type="reset" onclick="location.reload()" class="btn btn-default" value="Reset"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br/>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <strong>Albums List</strong>
+            </div>
+            <div class="card-body">
+                <table id="dotable" class="table datatable">
+                    <thead>
+                    <tr>
+                        <th>Album Name</th>
+                        <th>Date</th>
+                        <th>Thumbnail</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="album : ${albumslist}">
+                        <td>
+<!--                            <input type="hidden" th:id="'albumid_' + ${album[0]}" th:value="${album[0]}">-->
+<!--                            <input type="hidden" th:id="'albumname_' + ${album[0]}" th:value="${album[1]}">-->
+                            <span th:text="${album.albumname}"></span>
+                        </td>
+                        <td>
+<!--                            <input type="hidden" th:id="'albumdate_' + ${album[0]}" th:value="${album[3]}">-->
+                            <span th:text="${album.albumdate}"></span>
+                        </td>
+                        <td>
+<!--                            <input type="hidden" th:id="'thumbnail_' + ${album[0]}" th:value="${album[2]}">-->
+                            <img th:src="@{/public/albums/thumbnail/{albumid}(albumid=${album.albumid})}" height="100px" width="200px" alt="Thumbnail"/>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning managephotos" th:id="${album.albumid}">Manage Photos</a>
+                            <a class="btn btn-info editalbum" th:id="${album.albumid}">Edit</a>
+                            <a class="btn btn-danger deletealbum" th:id="${album.albumid}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/web/js/jsfiles/managealbums.js}" type="text/javascript"></script>
+
+</main>
+</html>

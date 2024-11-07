@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+
+<main th:fragment="content">
+    <div class="container" id="main1">
+        <div class="row main-content justify-content-center">
+            <div class="col-md-12 mb-10 mb-md-0">
+                <div class="shadow-lg p-5 wow login-form1">
+                    <div class="text-center">
+                        <h5 class="text-uppercase fw-bolder">Services Under You</h5>
+                        <hr/>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center"> <!-- Use d-flex for flex layout -->
+                        <div class="p-2" th:each="service : ${subServiceList}">
+                            <div class="zoom">
+                                <div class="card text-dark cardcount shadow-lg border-dark mb-3" style="width: 200px; height: 150px;"> <!-- Set fixed width and height -->
+                                    <div class="card-body d-flex align-items-center justify-content-center" style="height: 100%;"> <!-- Center content -->
+                                        <p class="card-title text-dark" th:text="${service}">Service Name</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</main>
+</html>

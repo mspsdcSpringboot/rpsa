@@ -17,20 +17,32 @@
 <!--                                &lt;!&ndash;<li class="nav-item"><a  href="" >${x[1]}</a></li>&ndash;&gt;-->
 <!--                            </c:forEach>-->
 
+<!--                            <li th:each="x : ${processes}">-->
+<!--                                <a class="nav-link scrollto active" th:href="${x[2]}" th:text="${x[1]}"></a>-->
+<!--                            </li>-->
+
+                            <li th:if="${userData.userrole.roleid=='10'}" class="dropdown">
+                                <a class="nav-link scrollto active" href="/secure/dosubhome" >Appeals</a>
+                            </li>
+                            <li th:each="x : ${processes}">
+                                <a class="nav-link scrollto active" th:href="${x.pageurl}" th:text="${x.processname}"></a>
+                            </li>
 
 
-<!--                            <li th:if="${userData.userrole.roleid=='0'}" class="nav-item"><a href="#"><span>Services Dashboard</span> <i class="bi bi-chevron-down"></i></a>-->
-                                <li th:if="${userData.userrole.roleid=='0'}" class="nav-item">
-
-                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/home"  >Home</a></li>
-                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/uinbox"  >Inbox</a></li>
-                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/fileappeals"  >File Appeal</a></li>
-                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/changepassword"  >Change Password</a></li>
-                                    <li class="nav-item"><a class="nav-link scrollto active" href="transportdashboard.htm"  >Payment History</a></li>
 
 
+<!--                                                        <li th:if="${userData.userrole.roleid=='0'}" class="nav-item"><a href="#"><span>Services Dashboard</span> <i class="bi bi-chevron-down"></i></a>-->
+<!--                                <li th:if="${userData.userrole.roleid=='0'}" class="nav-item">-->
 
-                                </li>
+<!--                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/home"  >Home</a></li>-->
+<!--                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/uinbox"  >Inbox</a></li>-->
+<!--                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/fileappeals"  >File Appeal</a></li>-->
+<!--                                    <li class="nav-item"><a class="nav-link scrollto active" href="/secure/changepassword"  >Change Password</a></li>-->
+<!--                                    <li class="nav-item"><a class="nav-link scrollto active" href="transportdashboard.htm"  >Payment History</a></li>-->
+
+
+
+<!--                                </li>-->
 <!--                            </li>-->
 
 
@@ -47,7 +59,8 @@
                                         <!--<li><a href="departmentservices.htm"  >Services Breakup</a></li>-->
                                         <li><a href="aaservicesdashboard.htm"  >ServicePlus Applications</a></li>
                                         <li><a href="userhomepagenonsp.htm"  >Non-ServicePlus Applications</a></li>
-                                        <li><a href="transportdashboard.htm"  >Transport Services</a></li>
+                                        <li><a href="/secure/transportdashboard"  >Transport Services</a></li>
+                                        <li><a href="/secure/aaservicesdashboard"  >Service Under You</a></li>
 
 
                                     </ul>
@@ -64,7 +77,8 @@
                                         <!--<li><a href="departmentservices.htm"  >Services Breakup</a></li>-->
                                         <li><a href="doservicedashboard.htm"  >ServicePlus Applications</a></li>
                                         <li><a href="userhomepagenonsp.htm"  >Non-ServicePlus Applications</a></li>
-                                        <li><a href="transportdashboard.htm"  >Transport Services</a></li>
+                                        <li><a href="/secure/transportdashboard" >Transport Services</a></li>
+                                        <li><a href="/secure/vahandashboard"  >Vahan Services</a></li>
 
 
                                     </ul>
@@ -81,7 +95,8 @@
                                         <li><a href="departmentservices.htm"  >Services Breakup</a></li>
                                         <li><a href="userhomepage.htm"  >ServicePlus Applications</a></li>
                                         <li><a href="userhomepagenonsp.htm"  >Non-ServicePlus Applications</a></li>
-                                        <li><a href="transportdashboard.htm"  >Transport Services</a></li>
+                                        <li><a href="/secure/transportdashboard"  >Transport Services</a></li>
+                                        <li><a href="/secure/vahandashboard"  >Vahan Services</a></li>
 
 
                                     </ul>
@@ -94,37 +109,42 @@
 
                                 <li th:if="${userData.userrole.roleid=='1'}" class="dropdown"><a href="#"><span>Manage</span> <i class="bi bi-chevron-down"></i></a>
                                     <ul>
-                                        <li><a href="addappelate.htm">Appelate Authority</a></li>
-                                        <li><a href="adddos.htm">Designated Offices</a></li>
-                                        <li><a href="addservices.htm">Services</a></li>
-                                        <li><a href="mapappelate.htm">Map Serives</a></li>
+                                        <li><a href="/secure/addappelate">Appelate Authority</a></li>
+                                        <li><a href="/secure/adddos">Designated Offices</a></li>
+                                        <li><a href="/secure/addservices">Services</a></li>
+                                        <li><a href="/secure/mapservices">Map Serives</a></li>
+                                        <li><a href="/secure/manageuseractiveduration">Manage User's Password Expiry Duration</a></li>
+                                        <li><a href="/secure/vahandashboard"  >Vahan Services</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
 
-                                        <li><a href="addcontacts.htm">Contacts</a></li>
-                                        <li><a href="addwhatsnew.htm">Whats New</a></li>
-                                        <li><a href="uploadnotification.htm">Notifications</a></li>
-                                        <li><a href="addpresentation.htm">Presentations</a></li>
-                                        <li><a href="addmeeting.htm">Review Meetings</a></li>
+                                        <li><a href="/secure/managecontacts">Contacts</a></li>
+                                        <li><a href="/secure/managewhatsnew">Whats New</a></li>
+                                        <li><a href="/secure/managenotifications">Notifications</a></li>
+                                        <li><a href="/secure/managepresentations">Presentations</a></li>
+                                        <li><a href="/secure/managemeetings">Review Meetings</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
 
-                                        <li><a href="mapprocess.htm">Map Processes</a></li>
+                                        <li><a href="/secure/mapprocess">Map Processes</a></li>
                                         <li><a href="manageips.htm">IP Addresses</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a href="notifiedservicescount.htm">Noyified Services Count</a></li>
-                                        <li><a href="manageonlineservices.htm">Online Services</a></li>
-                                        <li><a href="addnewservice.htm"  >Add New Service</a></li>
+                                        <li><a href="/secure/notifiedservicescount">Noyified Services Count</a></li>
+                                        <li><a href="/secure/manageonlineservices">Online Services</a></li>
+<!--                                        <li><a href="addnewservice.htm"  >Add New Service</a></li>-->
 
                                         <li><hr class="dropdown-divider"></li>
 
-                                        <li><a href="managehomepagephotos.htm">Home Page Photos</a></li>
-                                        <li><a href="managealbums.htm">Albums</a></li>
+                                        <li><a href="/secure/managehomepagephotos">Home Page Photos</a></li>
+                                        <li><a href="/secure/managealbums">Albums</a></li>
 
 
 
                                     </ul>
                                 </li>
+
+
+
 
 
 
@@ -137,7 +157,7 @@
                                         <li><a href="departmentservices.htm"  >Services Breakup</a></li>
                                         <li><a href="userhomepage.htm"  >ServicePlus Applications</a></li>
                                         <li><a href="userhomepagenonsp.htm"  >Non-ServicePlus Applications</a></li>
-                                        <li><a href="transportdashboard.htm"  >Transport Services</a></li>
+                                        <li><a href="/secure/transportdashboard"  >Transport Services</a></li>
                                         <li><a href="addnewservice.htm"  >Add New Service</a></li>
 
 
@@ -177,12 +197,13 @@
 
 
 
-                            <ul th:if="${userData.userrole.roleid=='8'}">
+                            <li th:if="${userData.userrole.roleid=='8'}">
+                                <ul>
+                                    <li><a class="nav-link scrollto active" href="/secure/khadcdashboard">Main Dashboard</a></li>
+                                    <li><a class="nav-link scrollto active" href="/secure/khadcestablishmentdashboard">Payments Dashboard</a></li>
+                                </ul>
 
-                                <li><a class="nav-link scrollto active" href="khadcdashboard.htm">Main Dashboard</a></li>
-                                <!--<li><a class="nav-link scrollto" href="khadcpaymentdashboard.htm">Payments Dashboard</a></li>-->
-                                <li><a class="nav-link scrollto" href="khadcestablishmentdashboard.htm">Payments Dashboard</a></li>
-                            </ul>
+                            </li>
 
 
 

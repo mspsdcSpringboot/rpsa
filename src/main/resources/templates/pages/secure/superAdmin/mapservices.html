@@ -1,0 +1,350 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">-->
+<!--<main th:fragment = "content">-->
+<!--    <div class="container">-->
+<!--        <div class="card">-->
+<!--            <div class="card-header">-->
+<!--                <strong>Map Processes</strong>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <h5>Select Service</h5>-->
+<!--                        <select id="subservice" class="form-select">-->
+<!--                            <option value="">Select</option>-->
+<!--                            &lt;!&ndash; Thymeleaf iteration &ndash;&gt;-->
+<!--                            <option th:each="d : ${subservicelist}"-->
+<!--                                    th:value="${d.subservicecode}"-->
+<!--                                    th:text="${d.subservicename}">-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                        &lt;!&ndash; Hidden input to store selected value &ndash;&gt;-->
+<!--                        <input type="hidden" th:value="${subservicecodeedit}" id="subservicecodeedit"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="row my-3">-->
+<!--                    <div class="col-12">-->
+<!--                        <h5>Select Appellate Authority</h5>-->
+<!--                        <select id="office" class="form-select">-->
+<!--                            <option value="">Select</option>-->
+<!--                            &lt;!&ndash; Thymeleaf iteration &ndash;&gt;-->
+<!--                            <option th:each="d : ${appelatelist}"-->
+<!--                                    th:value="${d.appelateid}"-->
+<!--                                    th:text="${d.officename}">-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                        &lt;!&ndash; Hidden input to store selected value &ndash;&gt;-->
+<!--                        <input type="hidden" th:value="${appellatecodeedit}" id="appellatecodeedit"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-12">-->
+<!--                    <h5>Designated Offices</h5>-->
+<!--                    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search Designated Offices" onkeyup="filterCards()" />-->
+<!--                    <div class="row">-->
+<!--                        &lt;!&ndash; Thymeleaf iteration for Designated Office list &ndash;&gt;-->
+<!--                        <div class="col-md-4 my-3" th:each="d : ${dolist}" th:id="'office-card-' + ${d.officeid}">-->
+<!--                            <div class="card mb-3 h-100 shadow-sm clickable-card" id="'office-card-' + ${d.officeid}" onclick="toggleCardSelection(this)">-->
+<!--                                <div class="card-body">-->
+<!--                                    <h6 class="card-title" th:text="${d.officename}"></h6>-->
+<!--                                    <div class="form-check" style="display: none;"> &lt;!&ndash; Hide checkbox &ndash;&gt;-->
+<!--                                        <input type="checkbox" class="form-check-input office"-->
+<!--                                               name="office"-->
+<!--                                               th:id="'office' + ${d.officeid}"-->
+<!--                                               th:value="${d.officeid}" />-->
+<!--                                        <label class="form-check-label" th:for="'office' + ${d.officeid}">Select</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+
+<!--                &lt;!&ndash;                <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="col-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <table id="inspectionstable" class="table datatable">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <th>Appelate</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <th>Action</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <tbody id="processlist">&ndash;&gt;-->
+<!--&lt;!&ndash;                            &lt;!&ndash; Thymeleaf iteration for Appelate list &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                            <tr th:each="d : ${appelatelist}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td th:text="${d.officename}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <input type="radio" class="appelate"&ndash;&gt;-->
+<!--&lt;!&ndash;                                           name="appelateradio"&ndash;&gt;-->
+<!--&lt;!&ndash;                                           th:id="'appelate' + ${d.appelateid}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                           th:value="${d.appelateid}" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </table>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="col-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <table id="inspectionstable" class="table datatable">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <th>Designated Offices</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <th>Action</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <tbody id="processlist">&ndash;&gt;-->
+<!--&lt;!&ndash;                            &lt;!&ndash; Thymeleaf iteration for Designated Office list &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                            <tr th:each="d : ${dolist}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td th:text="${d.officename}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <input type="checkbox" class="office"&ndash;&gt;-->
+<!--&lt;!&ndash;                                           name="office"&ndash;&gt;-->
+<!--&lt;!&ndash;                                           th:id="'office' + ${d.officeid}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                           th:value="${d.officeid}" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </table>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="btn btn-success" id="savemapping">Save</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <style>-->
+<!--        .clickable-card {-->
+<!--            cursor: pointer;-->
+<!--        }-->
+
+<!--        .selected {-->
+<!--            background-color: #0D6EFD !important;-->
+<!--            color: white !important;-->
+<!--        }-->
+
+<!--        /* Optionally, add transition for smoother effect */-->
+<!--        .clickable-card {-->
+<!--            transition: background-color 0.3s, color 0.3s;-->
+<!--        }-->
+<!--    </style>-->
+
+<!--    <script>-->
+<!--        function filterCards() {-->
+<!--            const input = document.getElementById("searchInput").value.toLowerCase();-->
+<!--            const cards = document.querySelectorAll(".col-md-4");-->
+
+<!--            cards.forEach(card => {-->
+<!--                const cardTitle = card.querySelector(".card-title").textContent.toLowerCase();-->
+<!--                if (cardTitle.includes(input)) {-->
+<!--                    card.style.display = ""; // Show card-->
+<!--                } else {-->
+<!--                    card.style.display = "none"; // Hide card-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+
+<!--        function toggleCardSelection(card) {-->
+<!--            // Toggle selected class-->
+<!--            card.classList.toggle('selected');-->
+
+<!--            // Change background and text color based on selection-->
+<!--            if (card.classList.contains('selected')) {-->
+<!--                card.style.backgroundColor = '#0D6EFD'; // Change background to blue-->
+<!--                card.style.color = 'white'; // Change text color to white-->
+<!--            } else {-->
+<!--                card.style.backgroundColor = ''; // Reset background color-->
+<!--                card.style.color = ''; // Reset text color-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+
+<!--    <script th:src="@{/web/js/jsfiles/mapappelate.js}" type="text/javascript"></script>-->
+
+
+<!--</main>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <strong>Map Processes</strong>
+            </div>
+            <div class="card-body">
+                <!-- Service Selection Dropdown -->
+                <div id="dislogue">
+                    <h4>Manage The Appellate Authorities And The Designated Officers According To The Sub-Services</h4>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Select Service</h5>
+                        <select id="subservice" class="form-select">
+                            <option value="">Select</option>
+                            <!-- Thymeleaf iteration -->
+                            <option th:each="d : ${subservicelist}"
+                                    th:value="${d.subservicecode}"
+                                    th:text="${d.subservicename}">
+                            </option>
+                        </select>
+                        <!-- Hidden input to store selected value -->
+                        <input type="hidden" th:value="${subservicecodeedit}" id="subservicecodeedit"/>
+                    </div>
+                </div>
+
+                <!-- Appellate Authority Selection Dropdown -->
+                <div class="row my-4">
+                    <div class="col-12">
+                        <h5>Select Appellate Authority</h5>
+                        <select id="appellate" class="form-select">
+                            <option value="">Select</option>
+                            <!-- Thymeleaf iteration -->
+                            <option th:each="d : ${appelatelist}"
+                                    th:value="${d.appelateid}"
+                                    th:text="${d.officename}">
+                            </option>
+                        </select>
+                        <!-- Hidden input to store selected value -->
+                        <input type="hidden" th:value="${appellatecodeedit}" id="appellatecodeedit"/>
+                    </div>
+                </div>
+
+
+                <!-- Designated Offices Section -->
+                <div class="col-12" id="boxes">
+
+<!--                    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search Designated Offices" onkeyup="filterCards()" />-->
+                    <hr/>
+                    <div class="d-flex justify-content-between space-x-4"> <!-- Align the search bar to the right -->
+                        <h5>Designated Offices</h5>
+<!--                        <p class="mx-4">Search Designated Offices : </p>-->
+                        <input type="text" id="searchInput" class="form-control shadow-sm mb-3 search-input" placeholder="Search Designated Offices" onkeyup="filterCards()" />
+                    </div>
+                    <hr/>
+
+                    <div class="row">
+                        <!-- Thymeleaf iteration for Designated Office list -->
+                        <div class="col-md-4 my-3" th:each="d : ${dolist}" th:id="'office-card-' + ${d.officeid}">
+                            <div class="card mb-3 h-100 shadow-sm clickable-card" id="'office-card-' + ${d.officeid}">
+                                <div class="card-body">
+                                    <h6 class="card-title" th:text="${d.officename}"></h6>
+                                    <div class="form-check"> <!-- Checkbox is now visible -->
+                                        <input type="checkbox" class="form-check-input office"
+                                               name="office"
+                                               th:id="'office' + ${d.officeid}"
+                                               th:value="${d.officeid}"
+                                               onclick="toggleCardSelection(this)">
+<!--                                        <label class="form-check-label" th:for="'office' + ${d.officeid}">Select</label>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a class="btn btn-success my-8" id="savemapping" style="height: 50px; width: 200px; display: inline-block; text-align: center;">
+                            Save
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .clickable-card {
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* When the card is selected */
+        .selected {
+            background-color: #0D6EFD !important; /* Blue background */
+            color: white !important; /* White text */
+        }
+
+        /* Optional hover state for better interactivity */
+        .clickable-card:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Smooth transition between states */
+        .clickable-card {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Reset background color and text color when deselected */
+        .clickable-card:not(.selected) {
+            background-color: white;
+            color: black;
+        }
+
+        .form-check-input {
+            margin-right: 8px;
+        }
+        #dislogue {
+            height: 50px;            /* Adjust height as needed */
+            margin: 10px 0;          /* Top and bottom margin */
+            display: flex;           /* Enable flexbox */
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            text-align: center;      /* Center the text */
+        }
+        .search-input {
+            width: 50%;           /* Make the search bar smaller */
+            color: #fff;
+            border-color: #E7E9EC;
+            border-radius: 3px; /*
+            padding: 8px;          /* Adjust padding */
+        }
+
+        .search-input::placeholder {
+            color: #bbb;           /* Placeholder text color */
+        }
+
+        /* Optional: To change the border color when the input is focused */
+        .search-input:focus {
+            border-color: #555;
+            outline: none;
+        }
+    </style>
+
+    <script>
+        // Function to filter cards based on search input
+        function filterCards() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll(".col-md-4");
+
+            cards.forEach(card => {
+                const cardTitle = card.querySelector(".card-title").textContent.toLowerCase();
+                if (cardTitle.includes(input)) {
+                    card.style.display = ""; // Show card if it matches search query
+                } else {
+                    card.style.display = "none"; // Hide card if it doesn't match
+                }
+            });
+        }
+
+        // Function to toggle card selection based on checkbox state
+        function toggleCardSelection(checkbox) {
+            // Get the parent card of the checkbox
+            const card = checkbox.closest('.clickable-card');
+
+            // Toggle the card selection based on the checkbox state
+            if (checkbox.checked) {
+                card.classList.add('selected'); // Add selected class if checked
+            } else {
+                card.classList.remove('selected'); // Remove selected class if unchecked
+            }
+        }
+    </script>
+
+    <script th:src="@{/web/js/jsfiles/mapappelate.js}" type="text/javascript"></script>
+
+</main>
+</html>

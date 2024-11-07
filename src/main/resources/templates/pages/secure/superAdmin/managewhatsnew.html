@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+    <form autocomplete="off" id="whatsnew" enctype="multipart/form-data">
+<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <div class="shadow-lg p-4 wow">
+                        <div class="form-group mb-3">
+                            <h5 class="text-center"><strong>Manage Whats New</strong></h5>
+                            <hr/>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label>What's New Heading:</label>
+                            <input type="hidden" class="form-control" />
+                            <input class="form-control" id="heading" placeholder="" required="true"/>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label>What's New Body:</label>
+                            <textarea class="form-control" id="newbody" placeholder="" required="true"></textarea>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label>What's New Date:</label>
+                            <input type="date" class="form-control" id="whatsnewdate" required="true"/>
+                        </div>
+                        <br/>
+                        <div class="container mt-2 text-center">
+                            <input type="submit" class="btn btn-default submitWhatsNew" value="Submit"/>
+                            <input type="hidden" class="form-control" id="whatsnewid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br/>
+    <br/>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <strong>What's New List</strong>
+            </div>
+            <div class="card-body">
+                <table id="whatsnewlisttable" class="table datatable">
+                    <thead>
+                    <tr>
+                        <th>Heading</th>
+                        <th>Body</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d : ${whatsnewlist}">
+                        <td th:text="${d.heading}"></td>
+                        <td th:text="${d.newbody}"></td>
+                        <td th:text="${d.whatsnewdate}"></td>
+                        <td>
+                            <div class="d-flex" style="gap: 10px;">
+                                <a class="btn btn-info whatsnewedit" th:id="${d.whatsnewid}">Edit</a>
+                                <a class="btn btn-danger delete" th:id="${d.whatsnewid}">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script th:src="@{/web/js/jsfiles/whatsnew.js}" type="text/javascript"></script>
+
+
+
+</main>
+</html>

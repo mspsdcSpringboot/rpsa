@@ -1,11 +1,59 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 $(document).ready(function () {
+
+
+    document.getElementById('submitprocessbtn').addEventListener('click', function(event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            const submitButton = document.getElementById('submitprocessbtn');
+            submitButton.disabled = true;
+            submitButton.innerHTML = "Processing...";
+
+            // Get the form element
+            const form = document.getElementById('fprocessappeal');
+            var appealCode = document.getElementById('appealCodes').value;
+
+
+            // Create a FormData object from the form
+            const formData = new FormData(form);
+
+            // Convert the FormData into a plain object
+            const dataObject = {};
+            formData.forEach((value, key) => {
+                dataObject[key] = value;
+            });
+
+            // Log the form data object to the console in a formatted manner
+            console.log("Appeal Form Data -", dataObject);
+            console.log("Appeal Code -", appealCode);
+
+
+            alert(dataObject);
+            alert(appealCode);
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/secure/fProcessAppeal/' + appealCode,
+                data: formData,
+                processData: false, // Important for FormData
+                contentType: false, // Important for FormData
+                success: function(data) {
+                    window.location.href = '/secure/appealProcessSuccess';
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
+                    alert('There is a problem problem in process the appeal !');
+                }
+            });
+
+        });
+
+
+
+
+
     $("#hearingendtime1").blur(function () {
         var starttimestr = $("#hearingtime1").val()
         starttimestr = starttimestr.replace(":", "")
@@ -28,18 +76,21 @@ $(document).ready(function () {
     $('#link1').hide();
 
     $('.callforhearingaction').hide();
+
     $('#rejectaction').hide();
+
+    $('#offline').hide();
 
 
 
     $('.callforhearingaction').hide();
     $('#rejectaction').hide();
     var hdate = new Date($("#hearingdate").val());
-//                alert($('input[name="forwardactioncode.actioncode"]:checked').val())
-    if ($('input[name="forwardactioncode.actioncode"]:checked').val()) {
+//                alert($('input[name="forwardactioncode"]:checked').val())
+    if ($('input[name="forwardactioncode"]:checked').val()) {
 //                    alert("value")
 
-        if ($('input[name="forwardactioncode.actioncode"]:checked').val() == '1') {
+        if ($('input[name="forwardactioncode"]:checked').val() == '1') {
             if ($("#hearingdate").val() == '' || hdate > new Date()) {
                 $('.dontdispose').show();
                 $('.dispose').hide();
@@ -63,7 +114,7 @@ $(document).ready(function () {
             }
 
 
-        } else if ($('input[name="forwardactioncode.actioncode"]:checked').val() == '2' || $('input[name="forwardactioncode.actioncode"]:checked').val() == '3') {
+        } else if ($('input[name="forwardactioncode"]:checked').val() == '2' || $('input[name="forwardactioncode"]:checked').val() == '3') {
             $('.dontdispose').hide();
             $('.dispose').hide();
             $('.dontdisposelabel').hide();
@@ -91,7 +142,7 @@ $(document).ready(function () {
 
     $('.actions').change(function () {
 
-        var a = $('input[name="forwardactioncode.actioncode"]:checked').val();
+        var a = $('input[name="forwardactioncode"]:checked').val();
 //                    alert(a)
         if (a == '1') {
             $('.callforhearingaction').show();
@@ -115,6 +166,7 @@ $(document).ready(function () {
             $('.callforhearingaction').hide();
             $('#selectremarks').show();
             $('#remarks').hide();
+            $('#offline').hide();
         }
 
     });

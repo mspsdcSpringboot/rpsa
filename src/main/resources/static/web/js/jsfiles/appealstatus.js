@@ -49,79 +49,61 @@ $(document).ready(function () {
 
 
     $('#recall').click(function () {
-        if (confirm("Are you sure you want to Recall this Appeal?") == true) {
-            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-            var csrfToken = $("meta[name='_csrf']").attr("content");
+        if (confirm("Are you sure you want to Recall this Appeal?")) {
+            // Get the appeal code from the hidden input
             var appealcode = $("#appealcode").val();
+            alert(appealcode);
 
-//        alert(transactioncode)
+            // Prepare the CSRF token if needed
+//            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+//            var csrfToken = $("meta[name='_csrf']").attr("content");
+
+            // Perform the AJAX call
             $.ajax({
                 type: "POST",
-                url: "./recallappeal.htm",
-                data: "appealcode=" + appealcode,
-                beforeSend: function (xhr)
-                {
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
+                url: "/secure/recallAppeal",
+                data: { appealcode : appealcode },
                 success: function (data) {
-                    alert("Recalled Successfully")
-                    location.href = 'viewap.htm?appealcode=' + appealcode;
+                    alert(data);
+                    location.href = '/secure/appealstatus/' + appealcode;
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-
-                    alert("error:" + textStatus + " - exception:" + errorThrown);
+                    alert("An error occurred: " + textStatus + " - Exception: " + errorThrown);
                 }
             });
         } else {
-
+            // User canceled the recall action
+            console.log("Recall action was canceled.");
         }
+    });
 
-
-
-
-
-    })
 
     $('#submitbtn').click(function () {
-        if (confirm("Are you sure you want forward this Appeal?") == true) {
-            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-            var csrfToken = $("meta[name='_csrf']").attr("content");
-            var appealcode = $("#appealcode").val();
-            var dosub = $("#dosub").val();
-            
-            var appjson = {
-            appealcode: $('#appealcode').val(),
-            usercode: $('#dosub').val()
-           
-        };
+        if (confirm("Are you sure you want to forward this Appeal?")) {
+            var appealcode = $('#appealcode').val();
+            var dosub = $('#dosub').val();
 
-        var userdetailsjson = JSON.stringify(appjson);
+//            alert(appealcode);
 
-//        alert(transactioncode)
             $.ajax({
                 type: "POST",
-                url: "./forwarddoappeal.htm",
-                data: "appjson=" + userdetailsjson,
-                beforeSend: function (xhr)
-                {
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                url: "/secure/forwarddoappeal",  // Adjust the URL based on your mapping
+                data: {
+                    appealcode: appealcode,
+                    usercode: dosub
                 },
                 success: function (data) {
-                    alert("Forwarded Successfully")
-                    location.href = 'appealstatus.htm?appealcode=' + appealcode;
+                    alert(data);
+                    location.href = '/secure/appealstatus/' + appealcode;
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-
                     alert("error:" + textStatus + " - exception:" + errorThrown);
+                    console.error("Error details:", jqXHR.responseText);  // Log additional details for troubleshooting
                 }
             });
-        } else {
-
         }
+    });
 
-
-
-    })
 
 
 

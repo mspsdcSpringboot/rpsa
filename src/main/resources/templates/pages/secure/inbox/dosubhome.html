@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+
+<main th:fragment="content">
+    <div class="container">
+        <div class="row main-content justify-content-center">
+            <div class="col-md-12 mb-10 mb-md-0">
+                <div class="shadow-lg p-5 wow login-form1">
+                    <div class="text-center">
+                        <h5 class="text-uppercase fw-bolder">Dashboard</h5>
+                        <hr/>
+                    </div>
+                    <div class="row cf">
+                        <div class="col-md-3 no-gutters m-0 p-1"></div>
+
+                        <div class="col-md-6 no-gutters m-0 p-1">
+                            <div class="zoom">
+                                <div class="card text-dark shadow-lg cardcount border-dark mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4 bg-dark colcount">
+                                                <p class="card-text text-white" th:text="${appealsdocount}"></p>
+                                            </div>
+                                            <div class="col-8 text-center">
+                                                <p class="card-title text-dark">Appeals Filed Against you</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 no-gutters m-0 p-1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs justify-content-center shadow-lg mt-1 pt-2" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Appeals</button>
+            </li>
+            <!-- Additional tabs can be added similarly, using Thymeleaf attributes if needed -->
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Appeals</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="uappealtable" class="table table-striped datatable">
+                            <thead>
+                            <tr>
+                                <th>Reference No.</th>
+                                <th>Service Name</th>
+                                <th>Appellate Authority</th>
+                                <th>Appeal Filed On</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="d : ${appealslist}">
+                                <td th:text="${d.refno}"></td>
+                                <td th:text="${d.subservicecode.subservicename}"></td>
+                                <td th:text="${d.appelateid.officename}"></td>
+                                <td><span th:text="${#dates.format(d.firstappealdate, 'dd-MM-yyyy')}"></span></td>
+                                <td th:text="${d.statusid.statusname}"></td>
+                                <td><a class="btn btn-success form-control" th:href="@{'/secure/appealstatus/' + ${d.appealcode}}">View</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br/>
+            </div>
+
+            <!-- Additional tab panels -->
+            <div class="tab-pane fade" id="process" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Directions From Commission</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="directionslist" class="table table-striped datatable" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Appeal Details</th>
+                                <th>Application Details</th>
+                                <th>Directions</th>
+                                <th>Days Left to Complete</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="d : ${directionslist}">
+                                <td>
+                                    Reference Number: <span th:text="${d.refno}"></span>
+                                    <input type="hidden" th:id="'appealcode_' + ${d.appealcode}" th:value="${d.appealcode}"/>
+                                    <br/>Service Name: <span th:text="${d.subservicecode.subservicename}"></span>
+                                    <br/>Designated Office: <span th:text="${d.officeid.officename}"></span>
+                                    <br/>Date: <span th:text="${#dates.format(d.firstappealdate, 'dd-MM-yyyy')}"></span>
+                                    <br/>Appeal Filed By: <span th:text="${d.usercode.fullname}"></span>
+                                    <br/>View Appeal Details: <a th:href="@{/appealstatus(appealcode=${d.appealcode})}">View</a>
+                                </td>
+                                <td>
+                                    Application Reference No: <span th:text="${d.applicationrefno}"></span>
+                                    <br/>Application Date: <span th:text="${#dates.format(d.applicationdate, 'dd-MM-yyyy')}"></span>
+                                    <br/>View Application Details :
+                                    <a th:href="@{/viewapplicationdetails(referenceNo=${d.applicationrefno}, submissionDate=${#dates.format(d.applicationdate, 'dd-MM-yyyy')})}" target="_blank">View</a>
+                                </td>
+                                <td th:text="${d.directions}"></td>
+                                <td th:text="${d.extrasla}"></td>
+                                <td>
+                                    <textarea th:id="'remarks_' + ${d.appealcode}" class="form-control autoresizing" placeholder="Enter Remarks"></textarea>
+                                    <a class="btn btn-success form-control savedoaction" th:id="${d.appealcode}">Done</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="alertaa" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Alerts from Appellate Authority</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="alertstable" class="table table-striped datatable" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Reference No.</th>
+                                <th>Alerts</th>
+                                <th>Alert Date</th>
+                                <th>Appeals</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="d : ${alertslist}">
+                                <td th:text="${d.alertid}"></td>
+                                <td th:text="${d.alertcontent}"></td>
+                                <td><span th:text="${#dates.format(d.alertdate, 'dd-MM-yyyy')}"></span></td>
+                                <td><a class="btn btn-success form-control" th:href="@{/appealstatus(appealcode=${d.appealcode.appealcode})}">View Appeal</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</html>

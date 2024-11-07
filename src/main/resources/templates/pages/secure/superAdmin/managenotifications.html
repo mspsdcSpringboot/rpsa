@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+    <form id="notificationform" enctype="multipart/form-data" autocomplete="off">
+<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <div class="shadow-lg p-4 wow">
+                        <h5 class="text-center"><strong>Upload Notifications</strong></h5>
+                        <div class="text-success" th:text="${savesuccess}"></div>
+                        <div class="text-danger" th:text="${saveerror}"></div>
+                        <hr/>
+                        <br>
+
+                        <div class="form-group">
+                            <label>Notification Name:</label>
+                            <input type="hidden" id="notificationid" name="notificationid" class="form-control" />
+                            <input type="text" name="notificationname" id="notificationname" class="form-control" placeholder="" required="true"/>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label>Department/ Office</label>
+                            <textarea id="notificationtitle" name="title" class="form-control" placeholder="" required="true"></textarea>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label>Notification Date:</label>
+                            <input type="date" id="notificationdate" name="notificationdate" class="form-control" required="true"/>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label>Upload Notification:</label><br/>
+                            <span class="text-danger">Only jpeg, jpg, png, pdf file within 2MB are allowed</span><br/>
+                            <input type="file" class="form-control" id="notificationdoc" name="doc"/><br/>
+                            <span id="viewdoc"></span>
+                        </div>
+
+                        <br/>
+
+                        <div class="container mt-2 text-center">
+                            <input type="submit" class="btn btn-primary submitNotifications" value="Submit"/>
+<!--                            <input type="hidden" th:value="${res}" class="form-control" />-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br/><br/>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <strong> Notifications List </strong>
+            </div>
+            <div class="card-body">
+                <table id="notificationslisttable" class="table datatable">
+                    <thead>
+                    <tr>
+                        <th>Notification Number</th>
+                        <th>Notification Title/Department</th>
+                        <th>Date</th>
+                        <th>Document</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="notification : ${notificationslist}">
+                        <td th:text="${notification.notificationname}"></td>
+                        <td th:text="${notification.title}"></td>
+                        <td th:text="${notification.notificationdate}"></td>
+                        <td>
+                            <a class="btn btn-primary notification" th:href="@{/public/viewnotificationdoc/{notificationid}(notificationid=${notification.notificationid})}" target="_blank">View</a>
+                        </td>
+                        <td>
+                            <div class="d-flex" style="gap: 10px;">
+                                <a class="btn btn-info notification" th:id="${notification.notificationid}">Edit</a>
+                                <a class="btn btn-danger delete" th:id="${notification.notificationid}">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/web/js/jsfiles/notification.js}" type="text/javascript"></script>
+
+</main>
+</html>

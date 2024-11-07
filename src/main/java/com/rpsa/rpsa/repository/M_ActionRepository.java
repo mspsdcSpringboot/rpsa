@@ -14,4 +14,8 @@ public interface M_ActionRepository extends JpaRepository<M_Action, String> {
 
     @Query("from M_Action where flag = '0' and actioncode <> '2'")
     List<M_Action> findAllByFlagAndActioncode();
+
+//    @Query(value = "SELECT * FROM M_Action WHERE flag = '0' AND actioncode <> '2'", nativeQuery = true)
+//    List<M_Action> findAllByFlagAndActioncode();
+
 }

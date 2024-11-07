@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:insert="~{layout/headerFooterDynamicLayout.html}">
+<main th:fragment = "content">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+            <div class="container-fluid" id="main1">
+                <div class="row main-content justify-content-center">
+                    <div class="col-md-12 mb-10 mb-md-0">
+                        <!--<div class="block">-->
+                        <div class="shadow-lg p-5 wow login-form1">
+
+                            <div class="container">
+                                <div class="row cf">
+                                    <div class="slide-in col-12">
+                                        <div class="text-center">
+                                            <h5 class="text-uppercase fw-bolder">Transaction Details for Establishment</h5>
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="slide-in col">
+                                        <div class="zoom">
+                                            <div class="card text-dark border-primary mb-3">
+                                                <div class="card-header bg-primary text-light" style="text-align: center; font-weight: 900">Last Payment</div>
+                                                <div class="card-body">
+                                                    <h2 class="card-text text-dark" style="text-align: center;" th:text="${lastPayment}"><!-- ${lastPayment} --></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slide-in col">
+                                        <div class="zoom">
+                                            <div class="card text-dark border-success mb-3">
+                                                <div class="card-header bg-success text-light" style="text-align: center; font-weight: 900">Total Tax Paid</div>
+                                                <div class="card-body">
+                                                    <h2 class="card-text text-dark" style="text-align: center;" th:text="${totalAmount}"><!-- ${totalAmount} --></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong> </strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="emptytable" class="table table-striped datatable">
+                                            <thead>
+                                            <tr>
+                                                <th>Financial Year</th>
+                                                <th>Payment Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <!-- Thymeleaf iteration for payments list -->
+                                            <tr th:each="d : ${paymentslist}">
+                                                <td th:text="${d.fyear}"><!-- ${d.fyear} --></td>
+                                                <td th:text="${#dates.format(d.paymentdate, 'dd/MM/yyyy')}"><!-- Formatted Date --></td>
+                                                <td th:text="${d.amount}"><!-- ${d.amount} --></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</html>

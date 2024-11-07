@@ -35,8 +35,8 @@ $(document).ready(function () {
 
     $("#btnsearch").click(function () {
 
-        alert($("#datefrom").val())
-        alert($("#dateto").val())
+//        alert($("#datefrom").val())
+//        alert($("#dateto").val())
 
         if ($("#datefrom").val() == "") {
             alert("Please select date from which you want to filter")
@@ -44,7 +44,7 @@ $(document).ready(function () {
             if ($("#dateto").val() == "") {
                 alert("Please select date to which you want to filter")
             } else {
-               window.location.href = "khadcpaymentbydate.htm?datefrom="+$("#datefrom").val()+"&dateto="+$("#dateto").val();
+               window.location.href = "/secure/khadcdatewisepaymentdashboard?datefrom="+$("#datefrom").val()+"&dateto="+$("#dateto").val();
             }
         }
 

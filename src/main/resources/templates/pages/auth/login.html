@@ -64,10 +64,14 @@
                                 <input path="username" id="username" name="username" placeholder="Enter Your Username" autocomplete="off" class="form-control input zoom1" required="true"/>
                             </div>
 
-                            <div class="form-group mb-3">
-                                <input path="userpassword" type="password"  class="form-control input zoom1"  placeholder="Enter Your Password" id="userpassword" name="userpassword" autocomplete="off" required="true"/>
-                                <input type="checkbox" id="showpass">Show Password
+                            <div class="form-group mb-3 position-relative">
+                                <!-- Password input field -->
+                                <input path="userpassword" type="password" class="form-control input zoom1" placeholder="Enter Your Password" id="userpassword" name="userpassword" autocomplete="off" required="true"/>
+
+                                <!-- Eye icon to toggle password visibility -->
+                                <i class="bi bi-eye-slash" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
                             </div>
+
 
                             <!--                                                            <div class="form-group mb-3 center text-center justify-content-center">
                                                                                             <img src="./simpleImg" name="refresh" style="width:250px ;height:120px; margin-right: 20px !important; " class="zoom3 img-responsive img img-thumbnail"/>
