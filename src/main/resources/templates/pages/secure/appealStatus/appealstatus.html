@@ -280,7 +280,7 @@
 
                                     <br>
                                     <a class="btn btn-success form-control" id="recall">Recall</a>
-                                    <a class="btn btn-success form-control" th:href="@{'/fileappeals2.htm'(appealcode=${appeals.appealcode})}" id="fileappeal2">File Appeal To Commission</a>
+                                    <a class="btn btn-success form-control" th:href="@{'/secure/fileSecondAppeal/' + ${appeals.appealcode}}" id="fileappeal2">File Appeal To Commission</a>
                                     <div th:if="${userData.userrole.roleid == '5' && appeals.dosubordinate == null}">
                                         <a class="btn btn-success form-control" id="forwarddo">Forward</a>
                                     </div>
@@ -291,6 +291,9 @@
                             </div>
                         </div>
                     </div>
+
+<!--                    th:href="@{'/secure/appealstatus/' + ${d.appealcode}}"-->
+
                     <!--                    <div class="container mt-5" id="secondappeal">-->
 <!--                        <div class="row justify-content-center">-->
 <!--                            <div class="col-md-12 mb-5 mb-md-0">-->
@@ -456,7 +459,8 @@
                         <div class="row justify-content-center">
                             <div class="col-md-12">
                                 <div class="p-4">
-                                    <input type="hidden" id="appealcode" th:value="${appeals.appealcode}"/>                                    <label class="form-label" style="font-weight: 600; font-size: 1.1em;">Select Sub-Ordinate to Forward:</label>
+                                    <input type="hidden" id="appealcode" th:value="${appeals.appealcode}"/>
+                                    <label class="form-label" style="font-weight: 600; font-size: 1.1em;">Select Sub-Ordinate to Forward:</label>
                                     <select id="dosub" class="form-select border-0 shadow-sm" style="font-size: 1em;">
                                         <option value="">Select</option>
                                         <!-- Thymeleaf loop to iterate over dosublist -->

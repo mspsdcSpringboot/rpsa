@@ -106,6 +106,8 @@ public class HomeController {
                 return "redirect:/secure/khadcdashboard";
             }if(Objects.equals(user.getUserrole().getRoleid(), "6")){
                 return "redirect:/secure/aasoinbox";
+            }if(Objects.equals(user.getUserrole().getRoleid(), "10")){
+                return "redirect:/secure/dosubhome";
             }
 
             return "redirect:/secure/home";

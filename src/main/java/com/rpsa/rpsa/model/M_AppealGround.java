@@ -18,4 +18,5 @@ public class M_AppealGround {
     @Column(nullable = false)
     private String groundcode;
     private String ground;
+    private String appealno;
 }

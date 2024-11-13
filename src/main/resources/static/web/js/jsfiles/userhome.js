@@ -20,32 +20,37 @@ $(document).ready(function () {
     })
 
     $('#getappealstatus').click(function () {
+        // Get the reference number from input
+        var refno = $("#appealcode").val();
 
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
+        // Basic validation to check if reference number is entered
+        if (!refno) {
+            alert("Please enter a reference number.");
+            return;
+        }
+//        alert(refno);
+
+        // AJAX call to retrieve appeal status
         $.ajax({
             type: "GET",
-            url: "./getappealstatus.htm",
-            data: "appealcode=" + $("#appealcode").val(),
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
+            url: "/secure/findAppealcode",
+            data: { "refno": refno },
+            contentType: "application/json",
             success: function (data) {
-
-                if (data != '-1') {
-//                            alert("Appeal exist");
-                    window.location.href = "appealstatus.htm?appealcode=" + data;
+//             alert(data);
+                if (data !== 'Appeal not found!') {
+                    // Redirect to the appeal status page if appeal exists
+                    window.location.href = "/secure/appealstatus/" + data;
                 } else {
-                    alert("Appeal does not Exists");
+                    alert("Appeal does not exist.");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-
-                alert("error:" + textStatus + " - exception:" + errorThrown);
+                alert("Error: " + textStatus + " - Exception: " + errorThrown);
             }
         });
-    })
+    });
+
 
 });
 

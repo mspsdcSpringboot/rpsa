@@ -112,6 +112,9 @@ $(document).ready(function() {
                     else if(data.userrole.roleid == "6"){
                         requestUrl = "/secure/aasoinbox";
                     }
+                    else if(data.userrole.roleid == "10"){
+                        requestUrl = "/secure/dosubhome";
+                    }
 
                     window.location.href = requestUrl;
                 },

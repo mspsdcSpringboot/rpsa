@@ -5,10 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.rpsa.rpsa.dto.AppealDTO;
-import com.rpsa.rpsa.dto.AppealProcessDTO;
-import com.rpsa.rpsa.dto.AppealProcessResponseDTO;
-import com.rpsa.rpsa.dto.DoAlertDTO;
+import com.rpsa.rpsa.dto.*;
 import com.rpsa.rpsa.model.*;
 import com.rpsa.rpsa.repository.*;
 import com.rpsa.rpsa.service.*;
@@ -115,7 +112,7 @@ public class AppealController {
                 .sorted(Comparator.comparing(M_Services::getServicename))
                 .collect(Collectors.toList());
 
-        List<M_AppealGround> appealGrounds = appealGroundRepository.findAll();
+        List<M_AppealGround> appealGrounds = appealGroundRepository.findAllByAppealno("1");
 
         List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
 
@@ -970,6 +967,123 @@ public class AppealController {
         model.addAttribute("comappeallist", ser2);
 
         return "/pages/secure/vcList/vclist";
+    }
+
+    @GetMapping("/findAppealcode")
+    @ResponseBody
+    public String findAppealcode(@RequestParam String refno) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        T_userlogin user = userService.findByUsername(username);
+        System.out.println("refno - " + refno);
+        T_Appeals appeal = appealsRepository.findByRefnoAndUsercode(refno, user);
+        if(appeal == null){
+            return "Appeal not found!";
+        }else{
+            return appeal.getAppealcode();
+        }
+    }
+
+
+    @GetMapping("/fileSecondAppeal/{appealcode}")
+    public String fileSecondAppeal(@PathVariable String appealcode, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        T_userlogin user = userService.findByUsername(username);
+
+        List<?> process = processService.findProcessessListByRoleId(user.getUserrole().getRoleid());
+
+        List<M_AppealGround> appealGrounds = appealGroundRepository.findAllByAppealno("2");
+
+        model.addAttribute("processes", process);
+        model.addAttribute("userData", user);
+        model.addAttribute("appealgrounds", appealGrounds);
+        model.addAttribute("appealcode", appealcode);
+
+        return "/pages/secure/filesecondappeal";
+    }
+
+    @PostMapping("/secondAppealSubmission")
+    @ResponseBody
+    public String submitSecondAppeal(@ModelAttribute SecondAppealDTO report, @RequestParam("adddoc") MultipartFile file1) throws IOException {
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        T_userlogin user = userService.findByUsername(username);
+
+
+        T_Appeals appeal = appealsRepository.findById(report.getAppealcode()).orElseThrow(() -> new EntityNotFoundException("Not found"));
+
+
+        if (!file1.isEmpty()) {
+            appeal.setAdditionaldoc(file1.getBytes());
+        }
+        appeal.setOtherinfo2(report.getOtherinfo1());
+
+        appeal.setRelief2(report.getRelief());
+
+        M_AppealGround mg = new M_AppealGround();
+        mg.setGroundcode(report.getGroundcode());
+        appeal.setGroundcode2(mg);
+
+        appeal.setSecondappealdate(new Date());
+
+        appeal.setAppeallevel("2");
+        M_Status act = new M_Status();
+        act.setStatusid("4");
+        appeal.setStatusid(act);
+        appeal.setLastactiondate(new Date());
+        appealsRepository.save(appeal);
+
+        M_Action action = actionRepo.findById("6").orElse(null);
+
+        T_Transactionss t = new T_Transactionss();
+        t.setAppealcode(appeal);
+        t.setAppeallevel("2");
+        t.setActioncode(action);
+        t.setTransactiondate(new Date());
+        t.setUsercode(user);
+        t.setTransactiondetails(action.getStatus());
+        transactionRepo.save(t);
+
+//        model = new ModelAndView("appealsuccess");
+//
+//        model.addObject("appealcode", ta.getRefno());
+//        model.addObject("officename", "Office of the Meghalaya State Public Service Delivery Commission");
+
+        //TODO: Need to implement the sms and email notification
+
+//        if (!res.equals("-1")) {
+//            Audit_Trail at = new Audit_Trail();
+//            at.setIpaddress(request.getRemoteAddr());
+//            at.setUrl(request.getRequestURL().toString());
+//            at.setActions("Filed Second Appeal");
+//            at.setDatatime(new Date());
+//            at.setUsercode(moffice);
+//            logindao.saveaudittrail(at);
+//
+//            T_userlogin app = asdao.getcommission();
+//            Sms sms = new Sms();
+//            String templateid = "1407170021661695869";
+//            String message = "Dear Official, an appeal " + ta.getRefno() + " under MRPS Act 2020 is received in your inbox. Kindly login and process";
+//            String mnumber = app.getContact();
+//            sms.sendSMSs(message, mnumber, templateid);
+//
+//            EmailServices em = new EmailServices();
+//            em.sendEmailAPI(app.getEmail(), "Appeal Received in Inbox", message);
+//
+//            message = "Dear citizen, your appeal " + ta.getRefno() + " has been received by the concerned office";
+//            templateid = "1407170021666328274";
+//            mnumber = moffice.getContact();
+//            sms.sendSMSs(message, mnumber, templateid);
+//            if (moffice.getEmail() != null && !moffice.getEmail().equals("")) {
+//                em.sendEmailAPI(moffice.getEmail(), "Appeal Received", message);
+//
+//            }
+//
+//        }
+        return "model";
     }
 
 

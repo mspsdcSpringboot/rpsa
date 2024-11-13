@@ -123,4 +123,6 @@ public interface TAppealsRepository extends JpaRepository<T_Appeals, String> {
             "ORDER BY a.appelateid",
             nativeQuery = true)
     List<Object[]> findAppelateStatisticsByAppelateId(@Param("appelateid") String appelateid);
+
+    T_Appeals findByRefnoAndUsercode(String refno, T_userlogin usercode);
 }
